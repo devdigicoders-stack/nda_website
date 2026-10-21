@@ -130,7 +130,7 @@ export default function SingleBlogPage({ params }) {
           {blog.coverImage && (
             <div style={{ height: '360px', borderRadius: '12px', overflow: 'hidden', marginBottom: '30px', boxShadow: 'var(--shadow-sm)' }}>
               <img
-                src={blog.coverImage}
+                src={blog.coverImage.startsWith('http://nda-backend') ? blog.coverImage.replace('http://', 'https://') : blog.coverImage}
                 alt={blog.title}
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />

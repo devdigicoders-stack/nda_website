@@ -176,7 +176,7 @@ export default function BlogsPage() {
                   <div style={{ height: '210px', overflow: 'hidden', position: 'relative' }}>
                     <Link href={`/blogs/${blog.slug || blog._id}`}>
                       <img
-                        src={blog.coverImage || 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80'}
+                        src={(blog.coverImage && blog.coverImage.startsWith('http://nda-backend') ? blog.coverImage.replace('http://', 'https://') : blog.coverImage) || 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80'}
                         alt={blog.title}
                         style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.3s ease' }}
                         onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.04)'}
