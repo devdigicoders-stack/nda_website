@@ -46,12 +46,12 @@ export default function HomePage() {
               <span>PREMIER DEFENCE ACADEMY &bull; ADMISSIONS 2026</span>
             </div>
 
-            <h1 className="hero-title" style={{ fontSize: '50px', lineHeight: '1.15', fontWeight: '900', color: '#ffffff' }}>
+            <h1 className="hero-title">
               Turn Your Dream <br />
               <span>Into a Uniform</span>
             </h1>
 
-            <p className="hero-subtitle" style={{ fontSize: '17px', color: '#e2e8f0', margin: '14px 0 28px 0', lineHeight: '1.6' }}>
+            <p className="hero-subtitle">
               Expert Guidance for NDA Written Exam &amp; SSB 14 Days Training Program by Ex-SSB Assessors, Senior GTOs, and Chief Psychologists.
             </p>
 
