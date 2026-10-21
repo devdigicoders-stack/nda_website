@@ -48,7 +48,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="site-navbar">
+    <header className={`site-navbar ${mobileMenuOpen ? 'menu-open' : ''}`}>
       <div className="container navbar-container">
         {/* Brand */}
         <Link href="/" className="navbar-brand">

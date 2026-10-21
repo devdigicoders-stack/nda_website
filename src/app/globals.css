@@ -392,7 +392,7 @@ img {
 .site-navbar {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
   background: #ffffff;
   border-bottom: 1px solid #e2e8f0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -404,6 +404,9 @@ img {
   justify-content: space-between;
   min-height: 80px;
   padding: 10px 24px;
+  position: relative;
+  z-index: 1002;
+  background: #ffffff;
 }
 
 .navbar-brand {
@@ -523,8 +526,7 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(4px);
+  background: rgba(15, 23, 42, 0.45);
   z-index: 998;
   animation: fadeIn 0.2s ease-out;
 }
@@ -537,11 +539,19 @@ img {
   right: 0;
   background: #ffffff;
   border-bottom: 3px solid var(--primary);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
-  z-index: 999;
-  max-height: calc(100vh - 80px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+  z-index: 1001;
+  height: calc(100vh - 100%);
+  height: calc(100dvh - 100%);
+  min-height: calc(100vh - 70px);
+  min-height: calc(100dvh - 70px);
+  max-height: calc(100dvh - 100%);
   overflow-y: auto;
-  padding: 16px 20px 24px 20px;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 18px 24px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   animation: slideDownMenu 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -553,7 +563,8 @@ img {
   border: 1px solid #e2e8f0;
   border-radius: 10px;
   padding: 10px 14px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+  flex-shrink: 0;
 }
 
 .mobile-helpline-icon {
@@ -570,17 +581,17 @@ img {
 .mobile-drawer-links {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  margin-bottom: 18px;
+  gap: 2px;
+  margin-bottom: 14px;
 }
 
 .mobile-drawer-link {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 14px;
+  padding: 9px 12px;
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 700;
   color: #334155;
   text-decoration: none;
@@ -588,10 +599,10 @@ img {
 }
 
 .mobile-drawer-link:hover, .mobile-drawer-link.active {
-  background: #f1f9fe;
+  background: #f0f9ff;
   color: #109CD9;
   border-left: 3px solid #109CD9;
-  padding-left: 16px;
+  padding-left: 14px;
 }
 
 .mobile-link-arrow {
@@ -606,14 +617,16 @@ img {
 }
 
 .mobile-drawer-footer {
-  padding-top: 10px;
+  padding-top: 12px;
   border-top: 1px solid #f1f5f9;
+  margin-top: auto;
+  flex-shrink: 0;
 }
 
 @keyframes slideDownMenu {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
@@ -652,6 +665,16 @@ img {
   .navbar-actions {
     gap: 10px;
     flex-shrink: 0;
+  }
+
+  .site-navbar.menu-open .navbar-enquire-btn {
+    display: none !important;
+  }
+
+  .site-navbar.menu-open .mobile-toggle {
+    background: #e6f6fd;
+    border-color: #bae6fd;
+    color: #109CD9;
   }
 
   .ticker-container {
@@ -1460,6 +1483,83 @@ img {
   font-size: 15px;
 }
 
+/* ==========================================================================
+   SSB TRAINING PAGE RESPONSIVE COMPONENTS
+   ========================================================================== */
+.ssb-overview-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 36px;
+  align-items: center;
+}
+
+.ssb-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.ssb-schedule-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 36px;
+  align-items: start;
+}
+
+.ssb-schedule-item {
+  padding: 16px 20px;
+  border-radius: 10px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.ssb-schedule-days {
+  font-size: 14px;
+  font-weight: 800;
+  color: #109CD9;
+}
+
+/* ==========================================================================
+   NOTICES & CONTACT RESPONSIVE COMPONENTS
+   ========================================================================== */
+.notices-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.notices-filter-scroll {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.notices-search-wrapper {
+  min-width: 240px;
+}
+
+.contact-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.contact-form-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+}
+
 /* Tablet Media Queries (max-width: 992px) */
 @media (max-width: 992px) {
   .page-header-banner {
@@ -1483,6 +1583,26 @@ img {
   .about-team-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 22px;
+  }
+
+  .ssb-overview-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .ssb-modules-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .ssb-schedule-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .contact-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
 }
 
@@ -1541,5 +1661,122 @@ img {
     justify-content: center;
     padding: 12px 18px;
     font-size: 14px;
+  }
+
+  /* SSB Training Mobile */
+  .ssb-overview-title {
+    font-size: 22px !important;
+    line-height: 1.35 !important;
+    margin: 10px 0 14px 0 !important;
+  }
+
+  .ssb-overview-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .ssb-overview-actions .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .ssb-overview-img-wrapper {
+    height: 200px !important;
+  }
+
+  .ssb-modules-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .ssb-module-card {
+    padding: 18px 16px;
+  }
+
+  .ssb-schedule-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 16px;
+    gap: 8px;
+  }
+
+  .ssb-schedule-days {
+    font-size: 12px;
+    background: #e6f6fd;
+    color: #109CD9;
+    padding: 3px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    display: inline-block;
+  }
+
+  .ssb-schedule-side-img {
+    height: 180px !important;
+  }
+
+  .ssb-price-card {
+    padding: 20px 16px !important;
+  }
+
+  .ssb-price-amount {
+    font-size: 28px !important;
+  }
+
+  /* Notices Mobile */
+  .notices-controls {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .notices-search-wrapper {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .notices-filter-scroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .notices-filter-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .notices-filter-btn {
+    flex-shrink: 0;
+  }
+
+  /* Contact Mobile */
+  .contact-layout-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .contact-info-title {
+    font-size: 22px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .contact-info-list {
+    gap: 16px !important;
+  }
+
+  .contact-info-item {
+    gap: 12px !important;
+  }
+
+  .contact-form-card {
+    padding: 20px 16px !important;
+    border-radius: 12px !important;
   }
 }

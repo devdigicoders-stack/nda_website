@@ -61,21 +61,21 @@ export default function ContactPage() {
       {/* Main Grid */}
       <section className="section-padding" style={{ backgroundColor: '#ffffff' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: '48px', alignItems: 'flex-start' }}>
+          <div className="contact-layout-grid">
             
             {/* Left: Get in Touch */}
-            <div>
-              <h2 style={{ fontSize: '26px', fontWeight: '800', color: '#1e293b', marginBottom: '8px' }}>
+            <div className="contact-info-col">
+              <h2 className="contact-info-title" style={{ fontSize: '26px', fontWeight: '800', color: '#1e293b', marginBottom: '8px' }}>
                 Get in Touch
               </h2>
               <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '28px' }}>
                 Have any questions? Feel free to contact us. We are here to guide you toward wearing the uniform.
               </p>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div className="contact-info-list" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 {/* Our Address */}
-                <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-                  <div style={{
+                <div className="contact-info-item" style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+                  <div className="contact-info-icon" style={{
                     width: '42px',
                     height: '42px',
                     borderRadius: '50%',
@@ -97,8 +97,8 @@ export default function ContactPage() {
                 </div>
 
                 {/* Call Us */}
-                <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-                  <div style={{
+                <div className="contact-info-item" style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+                  <div className="contact-info-icon" style={{
                     width: '42px',
                     height: '42px',
                     borderRadius: '50%',
@@ -120,8 +120,8 @@ export default function ContactPage() {
                 </div>
 
                 {/* Email Us */}
-                <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-                  <div style={{
+                <div className="contact-info-item" style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+                  <div className="contact-info-icon" style={{
                     width: '42px',
                     height: '42px',
                     borderRadius: '50%',
@@ -143,8 +143,8 @@ export default function ContactPage() {
                 </div>
 
                 {/* WhatsApp */}
-                <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-                  <div style={{
+                <div className="contact-info-item" style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+                  <div className="contact-info-icon" style={{
                     width: '42px',
                     height: '42px',
                     borderRadius: '50%',
@@ -168,7 +168,7 @@ export default function ContactPage() {
             </div>
 
             {/* Right: Send us a Message Card */}
-            <div style={{
+            <div className="contact-form-card" style={{
               backgroundColor: '#ffffff',
               border: '1px solid #e2e8f0',
               borderRadius: '14px',

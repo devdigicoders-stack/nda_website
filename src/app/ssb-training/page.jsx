@@ -53,10 +53,10 @@ export default function SsbTrainingPage() {
       {/* Course Overview */}
       <section className="section-padding" style={{ backgroundColor: '#ffffff' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '36px', alignItems: 'center' }}>
+          <div className="ssb-overview-grid">
             <div>
               <span className="badge-military">COURSE OVERVIEW</span>
-              <h2 style={{ fontSize: '28px', fontWeight: '800', color: '#1e293b', margin: '12px 0 16px 0' }}>
+              <h2 className="ssb-overview-title" style={{ fontSize: '28px', fontWeight: '800', color: '#1e293b', margin: '12px 0 16px 0' }}>
                 Master the Tri-Technique: Psychology, GTO &amp; Interview
               </h2>
               <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.7', marginBottom: '16px' }}>
@@ -66,7 +66,7 @@ export default function SsbTrainingPage() {
                 Conducted with strict adherence to military timing and discipline, every candidate practices on actual physical obstacles, takes 1-on-1 mock interviews with retired Board Presidents, and receives personalized dossier feedback.
               </p>
 
-              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+              <div className="ssb-overview-actions" style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
                 <Link
                   href="/enquiry?course=SSB%2014%20Days%20Training"
                   className="btn btn-primary"
@@ -81,7 +81,7 @@ export default function SsbTrainingPage() {
               </div>
             </div>
 
-            <div style={{ borderRadius: '12px', overflow: 'hidden', height: '280px', boxShadow: 'var(--shadow-md)' }}>
+            <div className="ssb-overview-img-wrapper" style={{ borderRadius: '12px', overflow: 'hidden', height: '280px', boxShadow: 'var(--shadow-md)' }}>
               <img
                 src="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80"
                 alt="SSB Cadets discussion"
@@ -101,9 +101,9 @@ export default function SsbTrainingPage() {
             <p>Every test of the 5-day SSB interview battery is meticulously replicated during the 14 days.</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '22px' }}>
+          <div className="ssb-modules-grid">
             {modules.map((m, i) => (
-              <div key={i} className="defense-card">
+              <div key={i} className="defense-card ssb-module-card">
                 <div style={{
                   width: '42px',
                   height: '42px',
@@ -137,23 +137,14 @@ export default function SsbTrainingPage() {
             <p>Day-by-day progression from Stage-1 screening to final Board Conference simulation.</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '36px', alignItems: 'center' }}>
+          <div className="ssb-schedule-grid">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {schedule.map((item, idx) => (
                 <div
                   key={idx}
-                  style={{
-                    padding: '16px 20px',
-                    borderRadius: '10px',
-                    backgroundColor: '#f8fafc',
-                    border: '1px solid #e2e8f0',
-                    display: 'grid',
-                    gridTemplateColumns: '140px 1fr',
-                    gap: '16px',
-                    alignItems: 'center'
-                  }}
+                  className="ssb-schedule-item"
                 >
-                  <div style={{ fontSize: '14px', fontWeight: '800', color: '#109CD9' }}>
+                  <div className="ssb-schedule-days">
                     {item.days}
                   </div>
                   <div>
@@ -165,14 +156,14 @@ export default function SsbTrainingPage() {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{ height: '220px', borderRadius: '12px', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
+              <div className="ssb-schedule-side-img" style={{ height: '220px', borderRadius: '12px', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
                 <img
                   src="https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=800&q=80"
                   alt="Outdoor GTO obstacles"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
               </div>
-              <div style={{
+              <div className="ssb-price-card" style={{
                 padding: '24px',
                 backgroundColor: '#f1f5f9',
                 borderRadius: '12px',
@@ -180,7 +171,7 @@ export default function SsbTrainingPage() {
                 textAlign: 'center'
               }}>
                 <div style={{ fontSize: '13px', color: '#64748b' }}>All-Inclusive Batch Investment</div>
-                <div style={{ fontSize: '32px', fontWeight: '900', color: '#109CD9', margin: '4px 0' }}>
+                <div className="ssb-price-amount" style={{ fontSize: '32px', fontWeight: '900', color: '#109CD9', margin: '4px 0' }}>
                   ₹24,500
                 </div>
                 <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '16px' }}>
