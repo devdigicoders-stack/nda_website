@@ -68,75 +68,36 @@ export default function NoticeTicker() {
       className="ticker-bar"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
-      style={{
-        background: '#0b0f17',
-        borderBottom: '1px solid #1e293b',
-        padding: '7px 0',
-        color: '#ffffff',
-        fontSize: '13px'
-      }}
     >
-      <div className="container ticker-content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '14px' }}>
+      <div className="container ticker-container">
         
         {/* Left Side: Badge + Dynamic Rotating Notice */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1, minWidth: 0, overflow: 'hidden' }}>
+        <div className="ticker-left">
           
           {/* Badge */}
-          <div 
-            style={{
-              backgroundColor: isUrgent ? '#dc2626' : '#109CD9',
-              color: '#ffffff',
-              padding: '3px 8px',
-              borderRadius: '4px',
-              fontSize: '11px',
-              fontWeight: '800',
-              letterSpacing: '0.04em',
-              whiteSpace: 'nowrap',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '4px',
-              boxShadow: isUrgent ? '0 0 10px rgba(220, 38, 38, 0.4)' : 'none'
-            }}
-          >
+          <div className={`ticker-badge ${isUrgent ? 'urgent' : 'normal'}`}>
             <Bell size={11} />
-            <span>{isUrgent ? 'FLASH UPDATE' : 'OFFICIAL NOTICE'}</span>
+            <span className="ticker-badge-text-full">{isUrgent ? 'FLASH UPDATE' : 'OFFICIAL NOTICE'}</span>
+            <span className="ticker-badge-text-mobile">{isUrgent ? 'ALERT' : 'NOTICE'}</span>
           </div>
 
           {/* Notice Content (Clickable) */}
-          <div style={{ flex: 1, minWidth: 0, overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+          <div className="ticker-text-wrapper">
             <a
               href={targetUrl}
               target={isExternalOrPdf ? '_blank' : '_self'}
               rel="noreferrer"
-              style={{
-                textDecoration: 'none',
-                color: '#e2e8f0',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                maxWidth: '100%',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis'
-              }}
+              className="ticker-link"
               title={currentNotice.title}
             >
-              <span style={{ color: '#eab308', fontWeight: '700', flexShrink: 0 }}>
-                [{currentNotice.category || 'Announcement'} {currentNotice.date ? `• ${currentNotice.date}` : ''}]:
+              <span className="ticker-category-tag">
+                [{currentNotice.category || 'Announcement'}]:
               </span>
-              <span 
-                style={{ 
-                  color: '#f8fafc', 
-                  overflow: 'hidden', 
-                  textOverflow: 'ellipsis',
-                  transition: 'color 0.15s ease'
-                }}
-                onMouseOver={(e) => e.currentTarget.style.color = '#38bdf8'}
-                onMouseOut={(e) => e.currentTarget.style.color = '#f8fafc'}
-              >
+              <span className="ticker-title">
                 {currentNotice.title}
               </span>
               {isExternalOrPdf && (
-                <ExternalLink size={12} color="#94a3b8" style={{ flexShrink: 0 }} />
+                <ExternalLink size={12} className="ticker-ext-icon" />
               )}
             </a>
           </div>
@@ -144,63 +105,41 @@ export default function NoticeTicker() {
         </div>
 
         {/* Right Side: Index Counter + Controls + All Notices Link */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+        <div className="ticker-right">
           
           {/* Prev/Next arrows if multiple notices */}
           {notices.length > 1 && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', background: 'rgba(255,255,255,0.06)', borderRadius: '4px', padding: '1px 4px' }}>
+            <div className="ticker-controls">
               <button
                 type="button"
                 onClick={handlePrev}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: '#94a3b8',
-                  cursor: 'pointer',
-                  padding: '2px',
-                  display: 'flex',
-                  alignItems: 'center'
-                }}
+                className="ticker-nav-btn"
                 title="Previous Notice"
+                aria-label="Previous Notice"
               >
-                <ChevronLeft size={14} />
+                <ChevronLeft size={13} />
               </button>
-              <span style={{ fontSize: '11px', color: '#cbd5e1', padding: '0 4px', fontWeight: '600' }}>
+              <span className="ticker-counter">
                 {currentIndex + 1}/{notices.length}
               </span>
               <button
                 type="button"
                 onClick={handleNext}
-                style={{
-                  background: 'transparent',
-                  border: 'none',
-                  color: '#94a3b8',
-                  cursor: 'pointer',
-                  padding: '2px',
-                  display: 'flex',
-                  alignItems: 'center'
-                }}
+                className="ticker-nav-btn"
                 title="Next Notice"
+                aria-label="Next Notice"
               >
-                <ChevronRight size={14} />
+                <ChevronRight size={13} />
               </button>
             </div>
           )}
 
           <Link
             href="/notices"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '4px',
-              fontSize: '12px',
-              color: '#facc15',
-              fontWeight: '700',
-              textDecoration: 'none',
-              whiteSpace: 'nowrap'
-            }}
+            className="ticker-all-link"
+            title="View all official notices"
           >
-            <span>All Notices</span>
+            <span className="ticker-all-text">All Notices</span>
             <ArrowRight size={13} />
           </Link>
         </div>

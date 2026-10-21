@@ -244,6 +244,150 @@ img {
   transform: translateY(-3px);
 }
 
+/* Notice Ticker Styles */
+.ticker-bar {
+  background: #0b0f17;
+  border-bottom: 1px solid #1e293b;
+  padding: 6px 0;
+  color: #ffffff;
+  font-size: 13px;
+  position: relative;
+  z-index: 101;
+}
+
+.ticker-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 20px;
+}
+
+.ticker-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ticker-badge {
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.ticker-badge.urgent {
+  background-color: #dc2626;
+  box-shadow: 0 0 10px rgba(220, 38, 38, 0.4);
+}
+
+.ticker-badge.normal {
+  background-color: #109CD9;
+}
+
+.ticker-badge-text-mobile {
+  display: none;
+}
+
+.ticker-text-wrapper {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ticker-link {
+  text-decoration: none;
+  color: #e2e8f0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ticker-category-tag {
+  color: #eab308;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.ticker-title {
+  color: #f8fafc;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ticker-ext-icon {
+  flex-shrink: 0;
+  color: #94a3b8;
+}
+
+.ticker-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ticker-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+.ticker-nav-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+}
+
+.ticker-nav-btn:hover {
+  color: #ffffff;
+}
+
+.ticker-counter {
+  font-size: 11px;
+  color: #cbd5e1;
+  padding: 0 4px;
+  font-weight: 600;
+}
+
+.ticker-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #facc15;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ticker-all-link:hover {
+  color: #fef08a;
+}
+
 /* Navbar (Clean White Header) */
 .site-navbar {
   position: sticky;
@@ -509,6 +653,27 @@ img {
     gap: 10px;
     flex-shrink: 0;
   }
+
+  .ticker-container {
+    padding: 0 16px;
+    gap: 8px;
+  }
+
+  .ticker-badge-text-full {
+    display: none;
+  }
+
+  .ticker-badge-text-mobile {
+    display: inline;
+  }
+
+  .ticker-category-tag {
+    display: none;
+  }
+
+  .ticker-all-text {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -535,6 +700,30 @@ img {
     width: 38px;
     height: 38px;
     padding: 6px;
+  }
+
+  .ticker-bar {
+    padding: 5px 0;
+    font-size: 12px;
+  }
+
+  .ticker-container {
+    padding: 0 12px;
+    gap: 6px;
+  }
+
+  .ticker-badge {
+    padding: 2px 6px;
+    font-size: 10px;
+  }
+
+  .ticker-controls {
+    padding: 1px 2px;
+  }
+
+  .ticker-counter {
+    font-size: 10px;
+    padding: 0 2px;
   }
 }
 
