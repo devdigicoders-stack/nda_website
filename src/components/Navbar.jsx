@@ -57,10 +57,6 @@ export default function Navbar() {
             alt="Shaurya NDA & SSB Academy"
             className="navbar-brand-logo"
           />
-          <div className="brand-text">
-            <h1 className="navbar-brand-title">NDA SSB</h1>
-            <span className="navbar-brand-sub">Defence Academy</span>
-          </div>
         </Link>
 
         {/* Desktop Navigation (Hidden on Tablet/Mobile) */}
