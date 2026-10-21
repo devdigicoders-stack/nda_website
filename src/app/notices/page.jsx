@@ -59,8 +59,8 @@ export default function NoticesPage() {
                     fontWeight: '700',
                     cursor: 'pointer',
                     border: '1px solid',
-                    backgroundColor: selectedCategory === cat ? '#164e24' : '#f8fafc',
-                    borderColor: selectedCategory === cat ? '#164e24' : '#cbd5e1',
+                    backgroundColor: selectedCategory === cat ? '#109CD9' : '#f8fafc',
+                    borderColor: selectedCategory === cat ? '#109CD9' : '#cbd5e1',
                     color: selectedCategory === cat ? '#ffffff' : '#475569'
                   }}
                 >

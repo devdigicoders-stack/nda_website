@@ -79,8 +79,8 @@ export default function ContactPage() {
                     width: '42px',
                     height: '42px',
                     borderRadius: '50%',
-                    backgroundColor: '#e8f5e9',
-                    color: '#164e24',
+                    backgroundColor: '#e6f6fd',
+                    color: '#109CD9',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -102,8 +102,8 @@ export default function ContactPage() {
                     width: '42px',
                     height: '42px',
                     borderRadius: '50%',
-                    backgroundColor: '#e8f5e9',
-                    color: '#164e24',
+                    backgroundColor: '#e6f6fd',
+                    color: '#109CD9',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -113,7 +113,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>Call Us</h4>
-                    <p style={{ fontSize: '13px', color: '#164e24', fontWeight: '700', marginTop: '2px' }}>
+                    <p style={{ fontSize: '13px', color: '#109CD9', fontWeight: '700', marginTop: '2px' }}>
                       +91 98765 43210 / +91 91234 56789
                     </p>
                   </div>
@@ -125,8 +125,8 @@ export default function ContactPage() {
                     width: '42px',
                     height: '42px',
                     borderRadius: '50%',
-                    backgroundColor: '#e8f5e9',
-                    color: '#164e24',
+                    backgroundColor: '#e6f6fd',
+                    color: '#109CD9',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -148,8 +148,8 @@ export default function ContactPage() {
                     width: '42px',
                     height: '42px',
                     borderRadius: '50%',
-                    backgroundColor: '#e8f5e9',
-                    color: '#164e24',
+                    backgroundColor: '#e6f6fd',
+                    color: '#109CD9',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -159,7 +159,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>WhatsApp Helpdesk</h4>
-                    <p style={{ fontSize: '13px', color: '#164e24', fontWeight: '700', marginTop: '2px' }}>
+                    <p style={{ fontSize: '13px', color: '#109CD9', fontWeight: '700', marginTop: '2px' }}>
                       +91 98765 43210 (24x7 Chat Support)
                     </p>
                   </div>
@@ -188,8 +188,8 @@ export default function ContactPage() {
                     width: '64px',
                     height: '64px',
                     borderRadius: '50%',
-                    backgroundColor: '#e8f5e9',
-                    color: '#164e24',
+                    backgroundColor: '#e6f6fd',
+                    color: '#109CD9',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',

@@ -68,8 +68,8 @@ export default function GalleryPage() {
                   cursor: 'pointer',
                   border: '1px solid',
                   transition: 'all 0.15s ease',
-                  backgroundColor: selectedCategory === cat ? '#164e24' : '#f8fafc',
-                  borderColor: selectedCategory === cat ? '#164e24' : '#e2e8f0',
+                  backgroundColor: selectedCategory === cat ? '#109CD9' : '#f8fafc',
+                  borderColor: selectedCategory === cat ? '#109CD9' : '#e2e8f0',
                   color: selectedCategory === cat ? '#ffffff' : '#475569'
                 }}
               >

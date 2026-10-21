@@ -7,13 +7,13 @@
   --bg-body: #F8FAFC;
   --bg-card: #FFFFFF;
   --bg-card-alt: #F1F5F9;
-  --bg-dark-hero: #09130D;
-  --bg-footer: #08110B;
+  --bg-dark-hero: #071524;
+  --bg-footer: #071524;
   
-  --primary: #164E24;
-  --primary-hover: #1b632e;
-  --primary-light: #e8f5e9;
-  --primary-border: #c8e6c9;
+  --primary: #109CD9;
+  --primary-hover: #0b86bc;
+  --primary-light: #e6f6fd;
+  --primary-border: #bae6fd;
   
   --gold: #D97706;
   --gold-light: #FEF3C7;
@@ -27,7 +27,7 @@
   
   --border-light: #E2E8F0;
   --border-card: #E5E7EB;
-  --border-focus: #164E24;
+  --border-focus: #109CD9;
 
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
@@ -173,14 +173,14 @@ img {
 .btn-primary {
   background-color: var(--primary);
   color: #ffffff;
-  border-color: #144620;
-  box-shadow: 0 2px 8px rgba(22, 78, 36, 0.25);
+  border-color: #0b86bc;
+  box-shadow: 0 2px 8px rgba(16, 156, 217, 0.25);
 }
 
 .btn-primary:hover {
   background-color: var(--primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(22, 78, 36, 0.35);
+  box-shadow: 0 4px 14px rgba(16, 156, 217, 0.35);
   color: #ffffff;
 }
 
@@ -258,20 +258,21 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 74px;
+  min-height: 86px;
+  padding: 4px 0;
 }
 
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   text-decoration: none;
 }
 
 .brand-shield {
   width: 42px;
   height: 42px;
-  background: linear-gradient(135deg, #164e24, #0f391a);
+  background: linear-gradient(135deg, #109cd9, #087cb0);
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -279,7 +280,7 @@ img {
   font-size: 20px;
   font-weight: 900;
   color: #ffffff;
-  box-shadow: 0 2px 10px rgba(22, 78, 36, 0.25);
+  box-shadow: 0 2px 10px rgba(16, 156, 217, 0.25);
 }
 
 .brand-text h1 {
@@ -320,7 +321,7 @@ img {
 .hero-section {
   position: relative;
   padding: 85px 0 75px 0;
-  background: linear-gradient(to right, rgba(9, 19, 13, 0.94) 0%, rgba(9, 19, 13, 0.82) 55%, rgba(9, 19, 13, 0.7) 100%), 
+  background: linear-gradient(to right, rgba(7, 21, 36, 0.94) 0%, rgba(7, 21, 36, 0.82) 55%, rgba(7, 21, 36, 0.7) 100%), 
               url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
   color: #ffffff;
 }
@@ -375,7 +376,7 @@ img {
 /* Page Header Banner (About Us, Courses, Gallery, Notices, etc.) */
 .page-header-banner {
   padding: 70px 0 50px 0;
-  background: linear-gradient(rgba(9, 19, 13, 0.9), rgba(9, 19, 13, 0.92)), 
+  background: linear-gradient(rgba(7, 21, 36, 0.9), rgba(7, 21, 36, 0.92)), 
               url('https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
   color: #ffffff;
   text-align: center;
@@ -748,7 +749,7 @@ img {
 .form-group textarea:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(22, 78, 36, 0.12);
+  box-shadow: 0 0 0 3px rgba(16, 156, 217, 0.15);
 }
 
 .form-row {

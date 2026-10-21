@@ -9,18 +9,21 @@ export default function Footer() {
         <div className="footer-grid">
           {/* Brand Info */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
               <div style={{
-                width: '38px',
-                height: '38px',
-                background: 'linear-gradient(135deg, #eab308, #ca8a04)',
-                borderRadius: '8px',
-                display: 'flex',
+                background: '#ffffff',
+                padding: '6px 12px',
+                borderRadius: '10px',
+                display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#060b18'
+                boxShadow: '0 4px 14px rgba(0,0,0,0.25)'
               }}>
-                <ShieldCheck size={22} />
+                <img
+                  src="/assets/logos/image-removebg-preview (1).png"
+                  alt="Shaurya NDA & SSB Academy"
+                  style={{ height: '52px', width: 'auto', objectFit: 'contain', display: 'block' }}
+                />
               </div>
               <div>
                 <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#fff' }}>SHAURYA DEFENCE</h3>
@@ -32,7 +35,7 @@ export default function Footer() {
             <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: '1.6', marginBottom: '20px' }}>
               India's premier defence preparatory institution mentored by retired Brigadiers, Colonels, and GTO Assessors. Producing top-ranking officers for NDA, IMA, OTA, INA, and AFA.
             </p>
-            <div style={{ fontSize: '13px', color: '#4ade80', fontWeight: '600' }}>
+            <div style={{ fontSize: '13px', color: '#109CD9', fontWeight: '600' }}>
               🇮🇳 "Veer Bhogya Vasundhara" &bull; Service Before Self
             </div>
           </div>

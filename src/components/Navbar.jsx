@@ -25,13 +25,15 @@ export default function Navbar() {
     <header className="site-navbar">
       <div className="container navbar-container">
         {/* Brand */}
-        <Link href="/" className="navbar-brand">
-          <div className="brand-shield">
-            <ShieldCheck size={26} color="#ffffff" />
-          </div>
+        <Link href="/" className="navbar-brand" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <img
+            src="/assets/logos/image-removebg-preview (1).png"
+            alt="Shaurya NDA & SSB Academy"
+            style={{ height: '62px', width: 'auto', objectFit: 'contain' }}
+          />
           <div className="brand-text">
-            <h1>NDA SSB</h1>
-            <span>Defence Academy</span>
+            <h1 style={{ fontSize: '20px', fontWeight: '900', color: '#0f172a', lineHeight: 1.1, letterSpacing: '-0.01em' }}>NDA SSB</h1>
+            <span style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#109CD9', fontWeight: '800' }}>Defence Academy</span>
           </div>
         </Link>
 
@@ -98,7 +100,7 @@ export default function Navbar() {
               style={{
                 fontSize: '15px',
                 fontWeight: '600',
-                color: pathname === link.href ? '#164e24' : '#334155'
+                color: pathname === link.href ? '#109CD9' : '#334155'
               }}
             >
               {link.name}

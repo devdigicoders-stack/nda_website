@@ -134,9 +134,9 @@ export default function CoursesPage() {
                   cursor: 'pointer',
                   border: '1px solid',
                   transition: 'all 0.2s',
-                  backgroundColor: selectedCategory === cat ? '#164e24' : '#ffffff',
+                  backgroundColor: selectedCategory === cat ? '#109CD9' : '#ffffff',
                   color: selectedCategory === cat ? '#ffffff' : '#475569',
-                  borderColor: selectedCategory === cat ? '#164e24' : '#cbd5e1',
+                  borderColor: selectedCategory === cat ? '#109CD9' : '#cbd5e1',
                   boxShadow: selectedCategory === cat ? '0 2px 8px rgba(22, 78, 36, 0.25)' : 'none'
                 }}
               >
@@ -200,7 +200,7 @@ export default function CoursesPage() {
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-5px)';
                     e.currentTarget.style.boxShadow = '0 16px 32px -8px rgba(22, 78, 36, 0.14)';
-                    e.currentTarget.style.borderColor = '#164e24';
+                    e.currentTarget.style.borderColor = '#109CD9';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
@@ -337,7 +337,7 @@ export default function CoursesPage() {
                     }}>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
                         <span style={{ color: '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <Clock size={14} color="#164e24" />
+                          <Clock size={14} color="#109CD9" />
                           <span>Duration:</span>
                         </span>
                         <span style={{ fontWeight: '700', color: '#1e293b', textAlign: 'right' }}>
@@ -369,7 +369,7 @@ export default function CoursesPage() {
                         <div style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                           Total Course Fee
                         </div>
-                        <div style={{ fontSize: '22px', fontWeight: '900', color: '#164e24', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
+                        <div style={{ fontSize: '22px', fontWeight: '900', color: '#109CD9', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
                           {course.fees ? `₹${Number(course.fees).toLocaleString('en-IN')}` : 'Enquire'}
                         </div>
                       </div>
@@ -388,15 +388,15 @@ export default function CoursesPage() {
                           borderRadius: '8px',
                           fontSize: '13px',
                           fontWeight: '700',
-                          backgroundColor: '#164e24',
+                          backgroundColor: '#109CD9',
                           color: '#ffffff',
                           border: 'none',
                           cursor: 'pointer',
                           boxShadow: '0 2px 6px rgba(22, 78, 36, 0.25)',
                           transition: 'all 0.2s'
                         }}
-                        onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#1b632e'; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#164e24'; }}
+                        onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0b86bc'; }}
+                        onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#109CD9'; }}
                       >
                         <span>View Details</span>
                         <ArrowRight size={14} />
@@ -498,7 +498,7 @@ export default function CoursesPage() {
               </h2>
 
               {selectedCourse.subtitle && (
-                <div style={{ fontSize: '14px', fontWeight: '600', color: '#164e24', marginBottom: '16px' }}>
+                <div style={{ fontSize: '14px', fontWeight: '600', color: '#109CD9', marginBottom: '16px' }}>
                   {selectedCourse.subtitle}
                 </div>
               )}
@@ -580,7 +580,7 @@ export default function CoursesPage() {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {(Array.isArray(selectedCourse.highlights) ? selectedCourse.highlights : [selectedCourse.highlights]).map((h, i) => (
                       <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13px', color: '#334155' }}>
-                        <CheckCircle size={16} color="#164e24" style={{ flexShrink: 0, marginTop: '2px' }} />
+                        <CheckCircle size={16} color="#109CD9" style={{ flexShrink: 0, marginTop: '2px' }} />
                         <span>{h}</span>
                       </div>
                     ))}
@@ -602,7 +602,7 @@ export default function CoursesPage() {
                         borderRadius: '8px',
                         border: '1px solid #e2e8f0'
                       }}>
-                        <div style={{ fontSize: '13px', fontWeight: '700', color: '#164e24', marginBottom: '4px' }}>
+                        <div style={{ fontSize: '13px', fontWeight: '700', color: '#109CD9', marginBottom: '4px' }}>
                           {s.moduleName}
                         </div>
                         <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>
@@ -628,7 +628,7 @@ export default function CoursesPage() {
             }}>
               <div>
                 <div style={{ fontSize: '11px', color: '#64748b', textTransform: 'uppercase' }}>All-Inclusive Course Fee</div>
-                <div style={{ fontSize: '24px', fontWeight: '900', color: '#164e24' }}>
+                <div style={{ fontSize: '24px', fontWeight: '900', color: '#109CD9' }}>
                   {selectedCourse.fees ? `₹${Number(selectedCourse.fees).toLocaleString('en-IN')}` : 'Contact for Fees'}
                 </div>
               </div>
@@ -672,8 +672,8 @@ export default function CoursesPage() {
                   width: '50px',
                   height: '50px',
                   borderRadius: '50%',
-                  background: '#e8f5e9',
-                  color: '#164e24',
+                  background: '#e6f6fd',
+                  color: '#109CD9',
                   display: 'inline-flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -704,7 +704,7 @@ export default function CoursesPage() {
                 <div style={{
                   fontSize: '28px',
                   fontWeight: '900',
-                  color: '#164e24',
+                  color: '#109CD9',
                   marginBottom: '14px',
                   height: '48px',
                   display: 'flex',

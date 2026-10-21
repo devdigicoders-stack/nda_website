@@ -74,7 +74,7 @@ export default function SingleBlogPage({ params }) {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
-              color: '#164e24',
+              color: '#109CD9',
               fontSize: '14px',
               fontWeight: '700',
               marginBottom: '20px'
@@ -107,8 +107,8 @@ export default function SingleBlogPage({ params }) {
               width: '40px',
               height: '40px',
               borderRadius: '50%',
-              background: '#e8f5e9',
-              color: '#164e24',
+              background: '#e6f6fd',
+              color: '#109CD9',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -141,7 +141,7 @@ export default function SingleBlogPage({ params }) {
           <div style={{
             padding: '18px 22px',
             background: '#f8fafc',
-            borderLeft: '4px solid #164e24',
+            borderLeft: '4px solid #109CD9',
             borderRadius: '0 8px 8px 0',
             fontSize: '15px',
             color: '#334155',
@@ -186,8 +186,8 @@ export default function SingleBlogPage({ params }) {
                     key={idx}
                     style={{
                       fontSize: '12px',
-                      color: '#164e24',
-                      backgroundColor: '#e8f5e9',
+                      color: '#109CD9',
+                      backgroundColor: '#e6f6fd',
                       padding: '5px 12px',
                       borderRadius: '20px',
                       fontWeight: '700'

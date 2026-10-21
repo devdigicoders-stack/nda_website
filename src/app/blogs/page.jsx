@@ -114,8 +114,8 @@ export default function BlogsPage() {
                     cursor: 'pointer',
                     border: '1px solid',
                     transition: 'all 0.2s ease',
-                    backgroundColor: selectedCategory === cat ? '#164e24' : '#f8fafc',
-                    borderColor: selectedCategory === cat ? '#164e24' : '#e2e8f0',
+                    backgroundColor: selectedCategory === cat ? '#109CD9' : '#f8fafc',
+                    borderColor: selectedCategory === cat ? '#109CD9' : '#e2e8f0',
                     color: selectedCategory === cat ? '#ffffff' : '#475569'
                   }}
                 >
@@ -190,7 +190,7 @@ export default function BlogsPage() {
                         top: '12px', 
                         left: '12px', 
                         fontSize: '11px',
-                        backgroundColor: '#164e24',
+                        backgroundColor: '#109CD9',
                         color: '#ffffff',
                         boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
                       }}
@@ -222,8 +222,8 @@ export default function BlogsPage() {
                             key={idx}
                             style={{
                               fontSize: '11px',
-                              color: '#164e24',
-                              backgroundColor: '#e8f5e9',
+                              color: '#109CD9',
+                              backgroundColor: '#e6f6fd',
                               padding: '2px 8px',
                               borderRadius: '4px',
                               fontWeight: '700'
@@ -252,7 +252,7 @@ export default function BlogsPage() {
                       marginTop: 'auto'
                     }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <ShieldCheck size={14} color="#164e24" />
+                        <ShieldCheck size={14} color="#109CD9" />
                         <span style={{ fontWeight: '600', color: '#334155' }}>{blog.author?.name || 'Academy Mentor'}</span>
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#94a3b8' }}>
@@ -278,7 +278,7 @@ export default function BlogsPage() {
                     <Link
                       href={`/blogs/${blog.slug || blog._id}`}
                       style={{
-                        color: '#164e24',
+                        color: '#109CD9',
                         fontWeight: '800',
                         fontSize: '13px',
                         display: 'flex',

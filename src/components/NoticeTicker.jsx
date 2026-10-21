@@ -84,7 +84,7 @@ export default function NoticeTicker() {
           {/* Badge */}
           <div 
             style={{
-              backgroundColor: isUrgent ? '#dc2626' : '#164e24',
+              backgroundColor: isUrgent ? '#dc2626' : '#109CD9',
               color: '#ffffff',
               padding: '3px 8px',
               borderRadius: '4px',

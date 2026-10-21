@@ -70,15 +70,15 @@ export default function FAQPage() {
               return (
                 <div key={idx} className="faq-item">
                   <div className="faq-header" onClick={() => toggle(idx)}>
-                    <span style={{ color: isOpen ? '#164e24' : '#1e293b' }}>
+                    <span style={{ color: isOpen ? '#109CD9' : '#1e293b' }}>
                       {faq.q}
                     </span>
                     <div style={{
                       width: '28px',
                       height: '28px',
                       borderRadius: '50%',
-                      background: isOpen ? '#e8f5e9' : '#f1f5f9',
-                      color: isOpen ? '#164e24' : '#64748b',
+                      background: isOpen ? '#e6f6fd' : '#f1f5f9',
+                      color: isOpen ? '#109CD9' : '#64748b',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',

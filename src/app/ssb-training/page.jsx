@@ -108,8 +108,8 @@ export default function SsbTrainingPage() {
                   width: '42px',
                   height: '42px',
                   borderRadius: '10px',
-                  backgroundColor: '#e8f5e9',
-                  color: '#164e24',
+                  backgroundColor: '#e6f6fd',
+                  color: '#109CD9',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -118,7 +118,7 @@ export default function SsbTrainingPage() {
                   <ShieldCheck size={22} />
                 </div>
                 <h3 style={{ fontSize: '17px', fontWeight: '700', color: '#1e293b' }}>{m.title}</h3>
-                <div style={{ fontSize: '12px', color: '#164e24', fontWeight: '700', marginBottom: '6px' }}>{m.subtitle}</div>
+                <div style={{ fontSize: '12px', color: '#109CD9', fontWeight: '700', marginBottom: '6px' }}>{m.subtitle}</div>
                 <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.5' }}>
                   {m.desc}
                 </p>
@@ -153,7 +153,7 @@ export default function SsbTrainingPage() {
                     alignItems: 'center'
                   }}
                 >
-                  <div style={{ fontSize: '14px', fontWeight: '800', color: '#164e24' }}>
+                  <div style={{ fontSize: '14px', fontWeight: '800', color: '#109CD9' }}>
                     {item.days}
                   </div>
                   <div>
@@ -180,7 +180,7 @@ export default function SsbTrainingPage() {
                 textAlign: 'center'
               }}>
                 <div style={{ fontSize: '13px', color: '#64748b' }}>All-Inclusive Batch Investment</div>
-                <div style={{ fontSize: '32px', fontWeight: '900', color: '#164e24', margin: '4px 0' }}>
+                <div style={{ fontSize: '32px', fontWeight: '900', color: '#109CD9', margin: '4px 0' }}>
                   ₹24,500
                 </div>
                 <div style={{ fontSize: '12px', color: '#64748b', marginBottom: '16px' }}>

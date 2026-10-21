@@ -159,7 +159,7 @@ export default function HomePage() {
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-5px)';
                   e.currentTarget.style.boxShadow = '0 16px 32px -8px rgba(22, 78, 36, 0.14)';
-                  e.currentTarget.style.borderColor = '#164e24';
+                  e.currentTarget.style.borderColor = '#109CD9';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
@@ -295,7 +295,7 @@ export default function HomePage() {
                   }}>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
                       <span style={{ color: '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Clock size={14} color="#164e24" />
+                        <Clock size={14} color="#109CD9" />
                         <span>Duration:</span>
                       </span>
                       <span style={{ fontWeight: '700', color: '#1e293b', textAlign: 'right' }}>
@@ -327,7 +327,7 @@ export default function HomePage() {
                       <div style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                         Total Course Fee
                       </div>
-                      <div style={{ fontSize: '22px', fontWeight: '900', color: '#164e24', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
+                      <div style={{ fontSize: '22px', fontWeight: '900', color: '#109CD9', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
                         {course.fees ? `₹${Number(course.fees).toLocaleString('en-IN')}` : 'Enquire'}
                       </div>
                     </div>
@@ -346,15 +346,15 @@ export default function HomePage() {
                         borderRadius: '8px',
                         fontSize: '13px',
                         fontWeight: '700',
-                        backgroundColor: '#164e24',
+                        backgroundColor: '#109CD9',
                         color: '#ffffff',
                         border: 'none',
                         cursor: 'pointer',
                         boxShadow: '0 2px 6px rgba(22, 78, 36, 0.25)',
                         transition: 'all 0.2s'
                       }}
-                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#1b632e'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#164e24'; }}
+                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0b86bc'; }}
+                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#109CD9'; }}
                     >
                       <span>View Details</span>
                       <ArrowRight size={14} />
@@ -443,7 +443,7 @@ export default function HomePage() {
                 <div style={{ height: '200px', borderRadius: '8px', overflow: 'hidden', marginBottom: '10px' }}>
                   <img src={item.imageUrl} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
-                <div style={{ fontSize: '11px', color: '#164e24', fontWeight: '700', textTransform: 'uppercase' }}>
+                <div style={{ fontSize: '11px', color: '#109CD9', fontWeight: '700', textTransform: 'uppercase' }}>
                   {item.category}
                 </div>
                 <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginTop: '2px' }}>
@@ -497,9 +497,9 @@ export default function HomePage() {
                     justifyContent: 'center',
                     minWidth: '60px',
                     height: '56px',
-                    backgroundColor: '#e8f5e9',
+                    backgroundColor: '#e6f6fd',
                     borderRadius: '8px',
-                    color: '#164e24'
+                    color: '#109CD9'
                   }}>
                     <span className="day" style={{ fontSize: '18px', fontWeight: '800', lineHeight: '1.1' }}>
                       {n.date ? n.date.split(' ')[0] : '20'}
@@ -595,7 +595,7 @@ export default function HomePage() {
                     <Link
                       href="/notices"
                       style={{
-                        color: '#164e24',
+                        color: '#109CD9',
                         fontWeight: '700',
                         fontSize: '13px',
                         whiteSpace: 'nowrap',
@@ -623,7 +623,7 @@ export default function HomePage() {
       </section>
 
       {/* Call to Action Banner */}
-      <section style={{ backgroundColor: '#164e24', color: '#ffffff', padding: '56px 0', textAlign: 'center' }}>
+      <section style={{ backgroundColor: '#109CD9', color: '#ffffff', padding: '56px 0', textAlign: 'center' }}>
         <div className="container">
           <h2 style={{ fontSize: '34px', fontWeight: '800', color: '#ffffff', marginBottom: '12px' }}>
             Ready to Earn Your Stars in 2026?
@@ -737,7 +737,7 @@ export default function HomePage() {
               </h2>
 
               {selectedCourse.subtitle && (
-                <div style={{ fontSize: '14px', fontWeight: '600', color: '#164e24', marginBottom: '16px' }}>
+                <div style={{ fontSize: '14px', fontWeight: '600', color: '#109CD9', marginBottom: '16px' }}>
                   {selectedCourse.subtitle}
                 </div>
               )}
@@ -817,7 +817,7 @@ export default function HomePage() {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     {(Array.isArray(selectedCourse.highlights) ? selectedCourse.highlights : [selectedCourse.highlights]).map((h, i) => (
                       <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13px', color: '#334155' }}>
-                        <CheckCircle size={16} color="#164e24" style={{ flexShrink: 0, marginTop: '2px' }} />
+                        <CheckCircle size={16} color="#109CD9" style={{ flexShrink: 0, marginTop: '2px' }} />
                         <span>{h}</span>
                       </div>
                     ))}
@@ -839,7 +839,7 @@ export default function HomePage() {
             }}>
               <div>
                 <div style={{ fontSize: '11px', color: '#64748b', textTransform: 'uppercase' }}>All-Inclusive Course Fee</div>
-                <div style={{ fontSize: '24px', fontWeight: '900', color: '#164e24' }}>
+                <div style={{ fontSize: '24px', fontWeight: '900', color: '#109CD9' }}>
                   {selectedCourse.fees ? `₹${Number(selectedCourse.fees).toLocaleString('en-IN')}` : 'Contact for Fees'}
                 </div>
               </div>
