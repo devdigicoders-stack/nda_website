@@ -1418,3 +1418,128 @@ img {
   font-style: italic;
   color: #475569;
 }
+
+/* ==========================================================================
+   ABOUT PAGE RESPONSIVE COMPONENTS
+   ========================================================================== */
+.about-mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.about-mission-card {
+  padding: 32px;
+}
+
+.about-card-img-wrapper {
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.about-values-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.about-value-card {
+  text-align: center;
+  padding: 24px 18px;
+}
+
+.about-team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.about-cta-btn {
+  padding: 12px 28px;
+  font-size: 15px;
+}
+
+/* Tablet Media Queries (max-width: 992px) */
+@media (max-width: 992px) {
+  .page-header-banner {
+    padding: 55px 0 40px 0;
+  }
+
+  .page-header-banner h1 {
+    font-size: 32px;
+  }
+
+  .about-mission-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .about-values-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .about-team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+  }
+}
+
+/* Mobile Media Queries (max-width: 640px) */
+@media (max-width: 640px) {
+  .page-header-banner {
+    padding: 38px 0 28px 0;
+  }
+
+  .page-header-banner h1 {
+    font-size: 26px;
+  }
+
+  .page-header-banner p {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  .about-mission-card {
+    padding: 20px 18px;
+  }
+
+  .about-card-img-wrapper {
+    height: 180px;
+  }
+
+  .about-values-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .about-value-card {
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 16px;
+  }
+
+  .about-value-icon {
+    margin-bottom: 0 !important;
+    flex-shrink: 0;
+  }
+
+  .about-team-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .team-card-img {
+    height: 240px;
+  }
+
+  .about-cta-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+}

@@ -26,14 +26,14 @@ export default function AboutPage() {
   const team = [
     {
       name: 'Col. R. Sharma (Retd.)',
-      rank: 'Ex-Army Officer &bull; 28 Years Service',
+      rank: 'Ex-Army Officer • 28 Years Service',
       role: 'Course Director & Ex-President 11 SSB',
       image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=600&q=80',
       bio: 'Personally mentored over 800+ recommended officers. Master assessor on Stage-1 screening and interview psychology.'
     },
     {
       name: 'Maj. P. Singh (Retd.)',
-      rank: 'Ex-Senior GTO &bull; Paratrooper',
+      rank: 'Ex-Senior GTO • Paratrooper',
       role: 'Chief SSB & GTO Ground Trainer',
       image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80',
       bio: 'Designed the academy replica obstacle ground. Trains cadets on progressive group tasks and cantilever tactics.'
@@ -65,9 +65,9 @@ export default function AboutPage() {
       {/* Mission & Vision Section */}
       <section className="section-padding" style={{ backgroundColor: '#ffffff' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
+          <div className="about-mission-grid">
             {/* Our Mission */}
-            <div className="defense-card" style={{ padding: '32px' }}>
+            <div className="defense-card about-mission-card">
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
                 <span className="badge-military">OUR PURPOSE</span>
               </div>
@@ -77,7 +77,7 @@ export default function AboutPage() {
               <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.7', marginBottom: '20px' }}>
                 To empower young minds with the right guidance, discipline, and training to help them achieve their dream of joining the Indian Armed Forces through NDA, CDS, AFCAT, and SSB.
               </p>
-              <div style={{ height: '180px', borderRadius: '10px', overflow: 'hidden' }}>
+              <div className="about-card-img-wrapper">
                 <img
                   src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80"
                   alt="Cadets marching"
@@ -87,7 +87,7 @@ export default function AboutPage() {
             </div>
 
             {/* Our Vision */}
-            <div className="defense-card" style={{ padding: '32px' }}>
+            <div className="defense-card about-mission-card">
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
                 <span className="badge-gold">OUR HORIZON</span>
               </div>
@@ -97,7 +97,7 @@ export default function AboutPage() {
               <p style={{ fontSize: '15px', color: '#475569', lineHeight: '1.7', marginBottom: '20px' }}>
                 To become India's most trusted, ethical, and high-selection defense training institute by cultivating true Officer Like Qualities (OLQs) rather than superficial cramming.
               </p>
-              <div style={{ height: '180px', borderRadius: '10px', overflow: 'hidden' }}>
+              <div className="about-card-img-wrapper">
                 <img
                   src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80"
                   alt="Cadets celebration"
@@ -118,12 +118,12 @@ export default function AboutPage() {
             <p>The timeless principles that govern our academy life, training modules, and cadet conduct.</p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
+          <div className="about-values-grid">
             {values.map((v, i) => {
               const Icon = v.icon;
               return (
-                <div key={i} className="defense-card" style={{ textAlign: 'center', padding: '24px 18px' }}>
-                  <div style={{
+                <div key={i} className="defense-card about-value-card">
+                  <div className="about-value-icon" style={{
                     width: '50px',
                     height: '50px',
                     borderRadius: '50%',
@@ -136,8 +136,10 @@ export default function AboutPage() {
                   }}>
                     <Icon size={24} />
                   </div>
-                  <h4 style={{ fontSize: '17px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{v.name}</h4>
-                  <p style={{ fontSize: '13px', color: '#64748b' }}>{v.desc}</p>
+                  <div>
+                    <h4 style={{ fontSize: '17px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>{v.name}</h4>
+                    <p style={{ fontSize: '13px', color: '#64748b' }}>{v.desc}</p>
+                  </div>
                 </div>
               );
             })}
@@ -156,7 +158,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }}>
+          <div className="about-team-grid">
             {team.map((member, i) => (
               <div key={i} className="team-card">
                 <div className="team-card-img">
@@ -175,7 +177,7 @@ export default function AboutPage() {
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '40px' }}>
-            <Link href="/enquiry" className="btn btn-primary" style={{ padding: '12px 28px' }}>
+            <Link href="/enquiry" className="btn btn-primary about-cta-btn">
               <span>Join Next Batch Under Our Mentors</span>
               <ArrowRight size={16} />
             </Link>
