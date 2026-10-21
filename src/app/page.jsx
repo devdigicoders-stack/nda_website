@@ -479,132 +479,63 @@ export default function HomePage() {
               const hasLink = Boolean(n.linkUrl && n.linkUrl.trim() !== '');
 
               return (
-                <div key={n._id} className="notice-row" style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  backgroundColor: '#ffffff',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '10px',
-                  padding: '16px 20px',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
-                  transition: 'all 0.2s ease'
-                }}>
-                  <div className="notice-date-box" style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minWidth: '60px',
-                    height: '56px',
-                    backgroundColor: '#e6f6fd',
-                    borderRadius: '8px',
-                    color: '#109CD9'
-                  }}>
-                    <span className="day" style={{ fontSize: '18px', fontWeight: '800', lineHeight: '1.1' }}>
-                      {n.date ? n.date.split(' ')[0] : '20'}
-                    </span>
-                    <span className="month" style={{ fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                      {n.date && n.date.split(' ')[1] ? n.date.split(' ')[1] : 'OCT'}
-                    </span>
-                  </div>
-
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                      <span className="badge-military" style={{ fontSize: '10px', padding: '2px 8px' }}>
-                        {n.category}
+                <div key={n._id} className="notice-card-item">
+                  <div className="notice-card-main">
+                    <div className="notice-date-box">
+                      <span className="day">
+                        {n.date ? n.date.split(' ')[0] : '20'}
                       </span>
-                      {n.isUrgent && (
-                        <span style={{
-                          background: '#fee2e2',
-                          color: '#dc2626',
-                          fontSize: '10px',
-                          fontWeight: '800',
-                          padding: '2px 6px',
-                          borderRadius: '4px',
-                          letterSpacing: '0.04em'
-                        }}>
-                          URGENT ALERT
+                      <span className="month">
+                        {n.date && n.date.split(' ')[1] ? n.date.split(' ')[1] : 'OCT'}
+                      </span>
+                    </div>
+
+                    <div className="notice-card-content">
+                      <div className="notice-meta-tags">
+                        <span className="badge-military" style={{ fontSize: '10px', padding: '2px 8px' }}>
+                          {n.category}
                         </span>
+                        {n.isUrgent && (
+                          <span className="badge-urgent">
+                            URGENT ALERT
+                          </span>
+                        )}
+                      </div>
+                      <h4 className="notice-card-title">
+                        {n.title}
+                      </h4>
+                      {n.description && (
+                        <p className="notice-card-desc">
+                          {n.description}
+                        </p>
                       )}
                     </div>
-                    <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b', lineHeight: '1.4' }}>
-                      {n.title}
-                    </h4>
-                    {n.description && (
-                      <p style={{
-                        fontSize: '13px',
-                        color: '#64748b',
-                        marginTop: '2px',
-                        lineHeight: '1.5',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden'
-                      }}>
-                        {n.description}
-                      </p>
-                    )}
                   </div>
 
-                  {hasLink ? (
-                    <a
-                      href={n.linkUrl}
-                      target={n.linkUrl.startsWith('http') ? '_blank' : '_self'}
-                      rel="noreferrer"
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        fontSize: '12px',
-                        fontWeight: '700',
-                        whiteSpace: 'nowrap',
-                        padding: '7px 14px',
-                        borderRadius: '6px',
-                        textDecoration: 'none',
-                        flexShrink: 0,
-                        backgroundColor: isPdf
-                          ? '#fef2f2'
-                          : isImage
-                          ? '#f0fdf4'
-                          : '#eff6ff',
-                        color: isPdf
-                          ? '#b91c1c'
-                          : isImage
-                          ? '#15803d'
-                          : '#1d4ed8',
-                        border: `1px solid ${
-                          isPdf
-                            ? '#fecaca'
+                  <div className="notice-card-action">
+                    {hasLink ? (
+                      <a
+                        href={n.linkUrl}
+                        target={n.linkUrl.startsWith('http') ? '_blank' : '_self'}
+                        rel="noreferrer"
+                        className={`notice-action-btn ${
+                          isPdf ? 'pdf' : isImage ? 'image' : 'link'
+                        }`}
+                      >
+                        <span>
+                          {isPdf
+                            ? '📄 Download PDF'
                             : isImage
-                            ? '#bbf7d0'
-                            : '#bfdbfe'
-                        }`,
-                        transition: 'all 0.2s'
-                      }}
-                    >
-                      <span>
-                        {isPdf
-                          ? '📄 Download PDF'
-                          : isImage
-                          ? '🖼️ View Circular'
-                          : 'Official Link →'}
-                      </span>
-                    </a>
-                  ) : (
-                    <Link
-                      href="/notices"
-                      style={{
-                        color: '#109CD9',
-                        fontWeight: '700',
-                        fontSize: '13px',
-                        whiteSpace: 'nowrap',
-                        flexShrink: 0
-                      }}
-                    >
-                      View &rarr;
-                    </Link>
-                  )}
+                            ? '🖼️ View Circular'
+                            : 'Official Link →'}
+                        </span>
+                      </a>
+                    ) : (
+                      <Link href="/notices" className="notice-action-btn view">
+                        <span>View Details →</span>
+                      </Link>
+                    )}
+                  </div>
                 </div>
               );
             })}
@@ -614,7 +545,7 @@ export default function HomePage() {
             <Link
               href="/notices"
               className="btn btn-outline"
-              style={{ padding: '10px 22px', fontSize: '14px' }}
+              style={{ padding: '10px 22px', fontSize: '14px', maxWidth: '100%' }}
             >
               <span>All Official Circulars &amp; Alerts ({notices.length}) &rarr;</span>
             </Link>
