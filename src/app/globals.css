@@ -317,6 +317,222 @@ img {
   color: var(--primary);
 }
 
+/* Navbar Brand Logo & Titles */
+.navbar-brand-logo {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  transition: height 0.2s ease;
+}
+
+.navbar-brand-title {
+  font-size: 20px;
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.navbar-brand-sub {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #109CD9;
+  font-weight: 800;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar-enquire-btn {
+  border-radius: 6px;
+  padding: 8px 18px;
+  font-size: 14px;
+}
+
+/* Mobile Toggle Hamburger */
+.mobile-toggle {
+  display: none;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #0f172a;
+  padding: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.mobile-toggle:hover {
+  background: #e2e8f0;
+  color: #109CD9;
+}
+
+/* Mobile Backdrop Overlay */
+.mobile-menu-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 998;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Mobile Navigation Drawer */
+.mobile-drawer {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-bottom: 3px solid var(--primary);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
+  z-index: 999;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  padding: 16px 20px 24px 20px;
+  animation: slideDownMenu 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-drawer-helpline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+
+.mobile-helpline-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e6f6fd;
+  color: #109CD9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.mobile-drawer-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #334155;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.mobile-drawer-link:hover, .mobile-drawer-link.active {
+  background: #f1f9fe;
+  color: #109CD9;
+  border-left: 3px solid #109CD9;
+  padding-left: 16px;
+}
+
+.mobile-link-arrow {
+  color: #94a3b8;
+  transition: transform 0.15s ease;
+}
+
+.mobile-drawer-link:hover .mobile-link-arrow,
+.mobile-drawer-link.active .mobile-link-arrow {
+  color: #109CD9;
+  transform: translateX(4px);
+}
+
+.mobile-drawer-footer {
+  padding-top: 10px;
+  border-top: 1px solid #f1f5f9;
+}
+
+@keyframes slideDownMenu {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Tablet & Mobile Media Queries */
+@media (max-width: 992px) {
+  .navbar-container {
+    min-height: 68px;
+  }
+  
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-toggle {
+    display: inline-flex !important;
+  }
+
+  .navbar-brand-logo {
+    height: 48px;
+  }
+
+  .navbar-brand-title {
+    font-size: 17px;
+  }
+
+  .navbar-brand-sub {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-container {
+    min-height: 62px;
+  }
+
+  .navbar-brand-logo {
+    height: 42px;
+  }
+
+  .navbar-brand-title {
+    font-size: 15px;
+  }
+
+  .navbar-brand-sub {
+    font-size: 9px;
+    letter-spacing: 0.08em;
+  }
+
+  .navbar-enquire-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+}
+
 /* Hero Section (Military Banner with Dark Cadet Imagery) */
 .hero-section {
   position: relative;

@@ -1,13 +1,39 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ShieldCheck, Menu, X, PhoneCall } from 'lucide-react';
+import { ShieldCheck, Menu, X, PhoneCall, ArrowRight, Compass } from 'lucide-react';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Close mobile menu whenever user navigates to a new page
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
+  // Prevent background scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
+  // Close on ESC key
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -25,20 +51,20 @@ export default function Navbar() {
     <header className="site-navbar">
       <div className="container navbar-container">
         {/* Brand */}
-        <Link href="/" className="navbar-brand" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <Link href="/" className="navbar-brand">
           <img
             src="/assets/logos/image-removebg-preview (1).png"
             alt="Shaurya NDA & SSB Academy"
-            style={{ height: '62px', width: 'auto', objectFit: 'contain' }}
+            className="navbar-brand-logo"
           />
           <div className="brand-text">
-            <h1 style={{ fontSize: '20px', fontWeight: '900', color: '#0f172a', lineHeight: 1.1, letterSpacing: '-0.01em' }}>NDA SSB</h1>
-            <span style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#109CD9', fontWeight: '800' }}>Defence Academy</span>
+            <h1 className="navbar-brand-title">NDA SSB</h1>
+            <span className="navbar-brand-sub">Defence Academy</span>
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <ul className="nav-links">
+        {/* Desktop Navigation (Hidden on Tablet/Mobile) */}
+        <ul className="nav-links desktop-nav">
           {navLinks.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -54,68 +80,93 @@ export default function Navbar() {
           })}
         </ul>
 
-        {/* Action Button */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        {/* Action Controls */}
+        <div className="navbar-actions">
+          {/* Quick Enquire button */}
           <Link
             href="/enquiry"
-            className="btn btn-primary btn-sm"
-            style={{ borderRadius: '6px', padding: '8px 18px' }}
+            className="btn btn-primary navbar-enquire-btn"
           >
             <span>Enquire Now</span>
           </Link>
 
-          {/* Mobile toggle button */}
+          {/* Mobile Hamburger Toggle Button */}
           <button
+            type="button"
             className="mobile-toggle"
+            aria-label="Toggle navigation menu"
+            aria-expanded={mobileMenuOpen}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            style={{
-              display: 'none',
-              background: 'transparent',
-              border: 'none',
-              color: '#0f172a',
-              cursor: 'pointer'
-            }}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Backdrop Overlay */}
       {mobileMenuOpen && (
-        <div style={{
-          backgroundColor: '#ffffff',
-          borderBottom: '1px solid var(--border-card)',
-          padding: '20px 24px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '14px',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
-        }}>
-          {navLinks.map((link) => (
+        <div
+          className="mobile-menu-backdrop"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      {/* Mobile Drawer Navigation */}
+      {mobileMenuOpen && (
+        <nav className="mobile-drawer" aria-label="Mobile Navigation">
+          {/* Call helpline bar */}
+          <div className="mobile-drawer-helpline">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div className="mobile-helpline-icon">
+                <PhoneCall size={16} />
+              </div>
+              <div>
+                <div style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase' }}>
+                  Admissions Helpline
+                </div>
+                <a href="tel:+919876543210" style={{ fontSize: '14px', fontWeight: '800', color: '#0f172a', textDecoration: 'none' }}>
+                  +91 98765 43210
+                </a>
+              </div>
+            </div>
+            <span style={{ fontSize: '10px', backgroundColor: '#dcfce7', color: '#15803d', fontWeight: '700', padding: '3px 8px', borderRadius: '12px' }}>
+              Available
+            </span>
+          </div>
+
+          {/* Nav Links list */}
+          <div className="mobile-drawer-links">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`mobile-drawer-link ${isActive ? 'active' : ''}`}
+                >
+                  <span>{link.name}</span>
+                  <ArrowRight size={16} className="mobile-link-arrow" />
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Mobile Drawer Actions */}
+          <div className="mobile-drawer-footer">
             <Link
-              key={link.href}
-              href={link.href}
+              href="/enquiry"
               onClick={() => setMobileMenuOpen(false)}
-              style={{
-                fontSize: '15px',
-                fontWeight: '600',
-                color: pathname === link.href ? '#109CD9' : '#334155'
-              }}
+              className="btn btn-primary"
+              style={{ width: '100%', justifyContent: 'center', padding: '12px 20px', borderRadius: '8px' }}
             >
-              {link.name}
+              <span>Book Free Counseling / Seat</span>
+              <ArrowRight size={16} />
             </Link>
-          ))}
-          <Link
-            href="/enquiry"
-            onClick={() => setMobileMenuOpen(false)}
-            className="btn btn-primary"
-            style={{ width: '100%', marginTop: '6px', textAlign: 'center' }}
-          >
-            Enquire Now
-          </Link>
-        </div>
+          </div>
+        </nav>
       )}
     </header>
   );
 }
+
