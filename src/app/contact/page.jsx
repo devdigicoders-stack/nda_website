@@ -114,7 +114,7 @@ export default function ContactPage() {
                   <div>
                     <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>Call Us</h4>
                     <p style={{ fontSize: '13px', color: '#109CD9', fontWeight: '700', marginTop: '2px' }}>
-                      +91 98765 43210 / +91 91234 56789
+                      +91 9464256374
                     </p>
                   </div>
                 </div>
@@ -137,7 +137,7 @@ export default function ContactPage() {
                   <div>
                     <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>Email Us</h4>
                     <p style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>
-                      admissions@ndassb.academy
+                      astraforssb@gmail.com
                     </p>
                   </div>
                 </div>
@@ -160,7 +160,7 @@ export default function ContactPage() {
                   <div>
                     <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>WhatsApp Helpdesk</h4>
                     <p style={{ fontSize: '13px', color: '#109CD9', fontWeight: '700', marginTop: '2px' }}>
-                      +91 98765 43210 (24x7 Chat Support)
+                      +91 9464256374 (24x7 Chat Support)
                     </p>
                   </div>
                 </div>

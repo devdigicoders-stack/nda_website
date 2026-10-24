@@ -2,15 +2,15 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { 
-  ShieldCheck, 
-  Award, 
-  Target, 
-  Calendar, 
-  Users, 
-  CheckCircle, 
-  ArrowRight, 
-  Clock, 
+import {
+  ShieldCheck,
+  Award,
+  Target,
+  Calendar,
+  Users,
+  CheckCircle,
+  ArrowRight,
+  Clock,
   Sparkles,
   GraduationCap,
   TrendingUp,
@@ -29,19 +29,69 @@ export default function HomePage() {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
-    fetchCourses().then(setCourses).catch(() => {});
-    fetchGallery().then(setGallery).catch(() => {});
-    fetchBlogs().then(setBlogs).catch(() => {});
-    fetchNotices().then(setNotices).catch(() => {});
+    fetchCourses().then(setCourses).catch(() => { });
+    fetchGallery().then(setGallery).catch(() => { });
+    fetchBlogs().then(setBlogs).catch(() => { });
+    fetchNotices().then(setNotices).catch(() => { });
   }, []);
+
+
+
+  useEffect(() => {
+    const slides = document.querySelectorAll(
+      '.hero-section .hero-bg-slide'
+    )
+
+    let current = 0
+
+    const interval = setInterval(() => {
+      slides[current].classList.remove('active')
+      current = (current + 1) % slides.length
+      slides[current].classList.add('active')
+    }, 4000)
+
+    return () => clearInterval(interval)
+  }, [])
+
 
   return (
     <>
       {/* Hero Section: "Turn Your Dream Into a Uniform" */}
+
+
       <section className="hero-section">
-        <div className="container">
+        <div className="hero-bg-slide active">
+          <img
+            src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1879&h=818&q=80"
+            alt="Academy background"
+          />
+        </div>
+
+        <div className="hero-bg-slide">
+          <img
+            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1879&h=818&q=80"
+            alt="Team collaboration"
+          />
+        </div>
+
+        <div className="hero-bg-slide">
+          <img
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1879&h=818&q=80"
+            alt="Team working together"
+          />
+        </div>
+
+        <div className="container hero-content">
           <div style={{ maxWidth: '640px' }}>
-            <div className="badge-gold" style={{ marginBottom: '14px', background: 'rgba(217, 119, 6, 0.25)', color: '#fde047', borderColor: '#eab308' }}>
+            <div
+              className="badge-gold"
+              style={{
+                marginBottom: '14px',
+                background: 'rgba(217, 119, 6, 0.25)',
+                color: '#fde047',
+                borderColor: '#eab308'
+              }}
+            >
               <Sparkles size={13} />
               <span>PREMIER DEFENCE ACADEMY &bull; ADMISSIONS 2026</span>
             </div>
@@ -52,7 +102,9 @@ export default function HomePage() {
             </h1>
 
             <p className="hero-subtitle">
-              Expert Guidance for NDA Written Exam &amp; SSB 14 Days Training Program by Ex-SSB Assessors, Senior GTOs, and Chief Psychologists.
+              Expert Guidance for NDA Written Exam &amp; SSB 14 Days
+              Training Program by Ex-SSB Assessors, Senior GTOs,
+              and Chief Psychologists.
             </p>
 
             <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
@@ -76,6 +128,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
 
       {/* Floating Statistics Strip (5000+ Students, 100+ Selections, etc.) */}
       <div className="container">
@@ -182,7 +235,7 @@ export default function HomePage() {
                       e.target.src = 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80';
                     }}
                   />
-                  
+
                   {/* Gradient overlay */}
                   <div style={{
                     position: 'absolute',
@@ -518,16 +571,15 @@ export default function HomePage() {
                         href={n.linkUrl}
                         target={n.linkUrl.startsWith('http') ? '_blank' : '_self'}
                         rel="noreferrer"
-                        className={`notice-action-btn ${
-                          isPdf ? 'pdf' : isImage ? 'image' : 'link'
-                        }`}
+                        className={`notice-action-btn ${isPdf ? 'pdf' : isImage ? 'image' : 'link'
+                          }`}
                       >
                         <span>
                           {isPdf
                             ? '📄 Download PDF'
                             : isImage
-                            ? '🖼️ View Circular'
-                            : 'Official Link →'}
+                              ? '🖼️ View Circular'
+                              : 'Official Link →'}
                         </span>
                       </a>
                     ) : (

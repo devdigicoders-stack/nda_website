@@ -158,7 +158,7 @@ export default function SsbTrainingPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div className="ssb-schedule-side-img" style={{ height: '220px', borderRadius: '12px', overflow: 'hidden', boxShadow: 'var(--shadow-sm)' }}>
                 <img
-                  src="https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=800&q=80"
+                  src="https://images.pexels.com/photos/5212346/pexels-photo-5212346.jpeg?auto=compress&cs=tinysrgb&w=900"
                   alt="Outdoor GTO obstacles"
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />

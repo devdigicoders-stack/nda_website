@@ -5,14 +5,8 @@ import Link from 'next/link';
 import { 
   ShieldCheck, 
   Award, 
-  Target, 
-  Users, 
   CheckCircle, 
-  ArrowRight, 
-  Compass, 
-  HeartHandshake,
   Flag,
-  Sparkles
 } from 'lucide-react';
 
 export default function AboutPage() {
@@ -146,44 +140,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      {/* Our Team (Col. R. Sharma, Maj. P. Singh, Dr. A. Verma) */}
-      <section className="section-padding" style={{ backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="badge-gold">EX-ARMED FORCES PANEL</span>
-            <h2>Our Directorate &amp; Faculty</h2>
-            <p>
-              Trained by veterans who have evaluated thousands of aspirants at SSB Selection Boards across India.
-            </p>
-          </div>
-
-          <div className="about-team-grid">
-            {team.map((member, i) => (
-              <div key={i} className="team-card">
-                <div className="team-card-img">
-                  <img src={member.image} alt={member.name} />
-                </div>
-                <div className="team-card-body">
-                  <h3 className="team-card-name">{member.name}</h3>
-                  <div className="team-card-role">{member.role}</div>
-                  <div className="team-card-rank">{member.rank}</div>
-                  <p style={{ fontSize: '13px', color: '#64748b', marginTop: '10px', lineHeight: '1.5' }}>
-                    {member.bio}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ textAlign: 'center', marginTop: '40px' }}>
-            <Link href="/enquiry" className="btn btn-primary about-cta-btn">
-              <span>Join Next Batch Under Our Mentors</span>
-              <ArrowRight size={16} />
-            </Link>
-          </div>
-        </div>
-      </section>
+     
     </>
   );
 }

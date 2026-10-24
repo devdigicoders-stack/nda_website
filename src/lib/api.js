@@ -124,7 +124,7 @@ export async function fetchGallery(category = 'All') {
         _id: 'g_2',
         title: 'Individual Obstacles (Tiger Leap & Tarzan Swing)',
         category: 'GTO Obstacle Ground',
-        imageUrl: 'https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=900&q=80',
+        imageUrl: 'https://images.pexels.com/photos/5212346/pexels-photo-5212346.jpeg?auto=compress&cs=tinysrgb&w=900',
         caption: 'Developing physical courage, stamina, and agility on standard SSB obstacle course.'
       }
     ];

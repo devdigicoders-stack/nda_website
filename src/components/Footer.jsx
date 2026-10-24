@@ -81,11 +81,11 @@ export default function Footer() {
               </div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                 <Phone size={16} color="#eab308" style={{ flexShrink: 0 }} />
-                <span>+91 98765 43210 / +91 91234 56789</span>
+                <span>+91 9464256374</span>
               </div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                 <Mail size={16} color="#eab308" style={{ flexShrink: 0 }} />
-                <span>admissions@ndassb.academy</span>
+                <span>astraforssb@gmail.com</span>
               </div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                 <Clock size={16} color="#eab308" style={{ flexShrink: 0 }} />
