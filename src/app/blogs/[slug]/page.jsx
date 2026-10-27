@@ -2,11 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, User, Calendar, Clock, Share2, BookOpen, ShieldCheck, ArrowRight } from 'lucide-react';
+import { ArrowLeft, User, Calendar, Clock, Share2, BookOpen, ShieldCheck, ArrowRight, Eye, Check } from 'lucide-react';
 
 export default function SingleBlogPage({ params }) {
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState(false);
+  const [sharesCount, setSharesCount] = useState(0);
 
   useEffect(() => {
     const rawSlug = params?.slug;
@@ -22,6 +24,7 @@ export default function SingleBlogPage({ params }) {
       .then(data => {
         if (data.success && data.data) {
           setBlog(data.data);
+          setSharesCount(data.data.shares || 0);
         } else {
           setBlog(null);
         }
@@ -33,6 +36,33 @@ export default function SingleBlogPage({ params }) {
         setLoading(false);
       });
   }, [params]);
+
+  const handleShare = async () => {
+    const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+    const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
+
+    if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(currentUrl);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2200);
+      } catch (e) {}
+    }
+
+    // Call backend to increment shares
+    if (blog?._id) {
+      fetch(`${API_BASE}/blogs/${blog._id}/share`, { method: 'POST' })
+        .then(res => res.json())
+        .then(resData => {
+          if (resData.success) {
+            setSharesCount(resData.shares);
+          } else {
+            setSharesCount(prev => prev + 1);
+          }
+        })
+        .catch(() => setSharesCount(prev => prev + 1));
+    }
+  };
 
   if (loading) {
     return (
@@ -66,7 +96,7 @@ export default function SingleBlogPage({ params }) {
       </section>
 
       <article className="section-padding" style={{ backgroundColor: '#ffffff' }}>
-        <div className="container" style={{ maxWidth: '820px' }}>
+        <div className="container" style={{ maxWidth: '840px' }}>
           {/* Back link */}
           <Link
             href="/blogs"
@@ -84,13 +114,55 @@ export default function SingleBlogPage({ params }) {
             <span>Back to All Articles</span>
           </Link>
 
-          <div style={{ marginBottom: '14px' }}>
+          <div style={{ marginBottom: '14px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px' }}>
             <span className="badge-military">
               {blog.category}
             </span>
+
+            {/* Views and Shares Counter Badges */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+                fontSize: '13px',
+                color: '#64748b',
+                backgroundColor: '#f1f5f9',
+                padding: '4px 12px',
+                borderRadius: '16px',
+                fontWeight: '600'
+              }}>
+                <Eye size={15} color="#109CD9" />
+                <span><strong>{blog.views || 0}</strong> Views</span>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleShare}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '13px',
+                  color: copied ? '#16a34a' : '#109CD9',
+                  backgroundColor: copied ? '#dcfce7' : '#e6f6fd',
+                  border: '1px solid',
+                  borderColor: copied ? '#86efac' : '#bae6fd',
+                  padding: '4px 12px',
+                  borderRadius: '16px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+                title="Click to copy link and share"
+              >
+                {copied ? <Check size={14} /> : <Share2 size={14} />}
+                <span>{copied ? 'Link Copied!' : `${sharesCount} Shares`}</span>
+              </button>
+            </div>
           </div>
 
-          <h1 style={{ fontSize: '34px', fontWeight: '800', color: '#1e293b', lineHeight: '1.25', marginBottom: '16px' }}>
+          <h1 style={{ fontSize: '32px', fontWeight: '800', color: '#1e293b', lineHeight: '1.25', marginBottom: '16px' }}>
             {blog.title}
           </h1>
 
@@ -126,13 +198,29 @@ export default function SingleBlogPage({ params }) {
             </div>
           </div>
 
-          {/* Cover image */}
+          {/* Cover image - FULL IMAGE DISPLAY (NO CROPPING) */}
           {blog.coverImage && (
-            <div style={{ height: '360px', borderRadius: '12px', overflow: 'hidden', marginBottom: '30px', boxShadow: 'var(--shadow-sm)' }}>
+            <div style={{
+              width: '100%',
+              borderRadius: '14px',
+              overflow: 'hidden',
+              marginBottom: '32px',
+              backgroundColor: '#f8fafc',
+              border: '1px solid #e2e8f0',
+              boxShadow: '0 4px 14px rgba(0,0,0,0.05)'
+            }}>
               <img
                 src={blog.coverImage.startsWith('http://nda-backend') ? blog.coverImage.replace('http://', 'https://') : blog.coverImage}
                 alt={blog.title}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  maxHeight: '520px',
+                  objectFit: 'contain',
+                  display: 'block',
+                  margin: '0 auto',
+                  backgroundColor: '#0f172a'
+                }}
               />
             </div>
           )}

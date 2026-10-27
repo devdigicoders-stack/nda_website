@@ -3,726 +3,326 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { 
-  GraduationCap, 
   CheckCircle, 
+  ArrowRight, 
   Calendar, 
   Clock, 
-  Users, 
-  ArrowRight, 
-  BookOpen, 
-  X,
+  MapPin,
   Sparkles,
-  Award,
-  Layers,
-  ShieldCheck,
-  Eye,
-  FileText
+  ShieldCheck
 } from 'lucide-react';
 import { fetchCourses } from '../../lib/api';
+import VideoSection from '../../components/VideoSection';
 
 export default function CoursesPage() {
-  const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedCourse, setSelectedCourse] = useState(null); // For Modal
+  const [backendCourses, setBackendCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const categories = [
-    'All',
-    'NDA Written',
-    'SSB 14 Days Training',
-    'CDS / AFCAT',
-    'Foundation'
+  // Exact 3 Core Courses default data with thumbnails
+  const defaultCourses = [
+    {
+      id: 'offline',
+      title: 'Offline Mode SSB',
+      subtitle: '10-Day Intensive SSB Preparation Programme on Ground',
+      duration: '10-Day Intensive',
+      category: 'Offline Mode SSB',
+      mode: 'Offline Ground & Classroom',
+      location: 'Krishna Nagar, Lucknow',
+      badge: '10-Day Intensive',
+      image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80',
+      description: 'Train under experienced DIPR qualified Ex-Assessors through a result oriented, intensive training programme designed for maximum learning in minimum time.',
+      points: [
+        'PPDT & Stage I Preparation – Story writing, narration, and many live group discussion practices.',
+        'PIQ Analysis – Personalised interview questions based on your profile, background, and experiences.',
+        'Mock Interviews – Realistic one-to-one interview sessions with expert feedback.',
+        'Psychology Tests – Practice for TAT, WAT, SRT and SDT.',
+        'GTO Guidance – Practice of GD, GPE, Lecturette and live practical GTO tasks.',
+        'Defence Awareness – Updates on current affairs, military affairs and national issues.',
+        'Performance Analysis – Detailed feedback to identify your strengths and areas for improvement.',
+        'Personal Mentorship – Individual guidance, doubt-solving and progress tracking throughout the programme.'
+      ],
+      slogan: 'BE WITH US MIRACLES WILL HAPPEN.'
+    },
+    {
+      id: 'online',
+      title: 'Online Mode SSB',
+      subtitle: '20-Day Intensive SSB Preparation Online Programme',
+      duration: '20-Day Intensive',
+      category: 'Online Mode SSB',
+      mode: 'Live Virtual Classroom',
+      location: 'Online Interactive',
+      badge: '20-Day Intensive',
+      image: 'https://images.unsplash.com/photo-1579208575657-c595a05383b7?auto=format&fit=crop&w=800&q=80',
+      description: 'Comprehensive 20-day online interactive training designed for aspirants preparing from anywhere in India.',
+      points: [
+        'PPDT/STAGE I Preparation – Story writing, narration and group discussion practice.',
+        'PIQ Analysis – Personalised interview questions based on your profile and experiences.',
+        'Mock Interviews – Realistic one-to-one interview simulations with expert feedback.',
+        'Psychology Tests – Practice for TAT, WAT, SRT and SDT.',
+        'GTO Guidance – GD, GPE, Lecturette and GTO task strategies.',
+        'Defence Awareness – Regular updates on current affairs, military affairs and national security.',
+        'Performance Analysis – Detailed feedback to identify strengths and areas for improvement.',
+        'Personal Mentorship – Individual guidance, doubt-solving and progress tracking.'
+      ],
+      slogan: 'BE WITH US MIRACLE WILL HAPPEN.'
+    },
+    {
+      id: 'written',
+      title: 'NDA & CDS Written',
+      subtitle: 'Comprehensive Mathematics, English & General Knowledge Programme',
+      duration: 'Target Batch 2026',
+      category: 'NDA & CDS Written',
+      mode: 'Classroom & Test Series',
+      location: 'Krishna Nagar, Lucknow',
+      badge: 'Target 2026',
+      image: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80',
+      description: 'Master the UPSC NDA & CDS written exam with shortcut mathematical formulas, intensive GAT coverage and full-length OMR mocks.',
+      points: [
+        'Complete UPSC Syllabus Coverage for Mathematics & GAT.',
+        'Daily 200+ Practice MCQs & Short-cut Tricks for Mathematics.',
+        'Weekly 900-Marks OMR-based Full Length Mock Exams.',
+        'Daily updates on current affairs, military affairs and national security.',
+        'Free SSB Screening, OIR drills and personality orientation included.',
+        'Personal mentorship and performance analysis.'
+      ],
+      slogan: 'BE WITH US MIRACLES WILL HAPPEN.'
+    }
   ];
 
   useEffect(() => {
     fetchCourses()
       .then((data) => {
-        setCourses(data || []);
-        setLoading(false);
+        if (Array.isArray(data) && data.length > 0) {
+          // Map backend course objects
+          const formatted = data.map((item, idx) => {
+            const cat = item.category || 'Offline Mode SSB';
+            const isOnline = cat.toLowerCase().includes('online');
+            const isWritten = cat.toLowerCase().includes('written') || cat.toLowerCase().includes('nda');
+            
+            // Standardize category key
+            let standardCat = 'Offline Mode SSB';
+            if (isOnline) standardCat = 'Online Mode SSB';
+            else if (isWritten) standardCat = 'NDA & CDS Written';
+
+            // Fallback image if item has no image
+            const defaultImg = isOnline 
+              ? 'https://images.unsplash.com/photo-1579208575657-c595a05383b7?auto=format&fit=crop&w=800&q=80'
+              : isWritten 
+                ? 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80'
+                : 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80';
+
+            return {
+              id: item._id || String(idx),
+              title: item.title,
+              subtitle: item.subtitle || item.description?.slice(0, 80) + '...',
+              duration: item.duration || 'Flexible',
+              category: standardCat,
+              mode: isOnline ? 'Live Virtual Classroom' : 'Offline Ground & Classroom',
+              location: isOnline ? 'Online Interactive' : 'Krishna Nagar, Lucknow',
+              badge: item.badge || item.duration || 'Featured',
+              image: item.image || defaultImg,
+              description: item.description,
+              points: Array.isArray(item.highlights) && item.highlights.length > 0
+                ? item.highlights
+                : [
+                    'Personal mentorship and performance tracking.',
+                    'DIPR qualified Ex-Assessors guidance.',
+                    'Realistic interview and test simulations.',
+                    'Defence awareness & current affairs.'
+                  ],
+              slogan: 'BE WITH US MIRACLES WILL HAPPEN.'
+            };
+          });
+          setBackendCourses(formatted);
+        }
       })
-      .catch((err) => {
-        console.error('Error fetching courses:', err);
-        setLoading(false);
-      });
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
-  // Prevent background scroll when modal is open
-  useEffect(() => {
-    if (selectedCourse) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [selectedCourse]);
+  const displayedList = backendCourses.length > 0 ? backendCourses : defaultCourses;
 
-  const filteredCourses = selectedCategory === 'All'
-    ? courses
-    : courses.filter(c => c.category === selectedCategory);
-
-  const highlights = [
-    { title: 'Complete Syllabus Coverage', desc: 'In-depth mastery of both Paper-1 Mathematics and Paper-2 GAT.' },
-    { title: 'Expert Defense Faculty', desc: 'Classes conducted by experienced retired defense officers and subject specialists.' },
-    { title: 'Regular Mock Test Series', desc: 'Weekly OMR-based 900-marks full length mock tests on actual UPSC pattern.' },
-    { title: 'Study Material & Notes', desc: 'Chapter-wise formula books, 10-year question banks, and daily current affairs.' }
-  ];
-
-  const subjects = [
-    {
-      title: 'Mathematics (Paper 1 - 300 Marks)',
-      icon: '√x',
-      desc: 'Complete syllabus with shortcut tricks, calculus visualization, probability, matrices, determinants, and coordinate geometry.'
-    },
-    {
-      title: 'GAT (General Ability Test - 600 Marks)',
-      icon: '📖',
-      desc: 'English grammar and vocabulary, Physics, Chemistry, Biology, History, Geography, and National Defense Affairs.'
-    },
-    {
-      title: 'SSB Guidance Included',
-      icon: '🎖️',
-      desc: 'Free Stage-1 Screening, OIR drills, and physical fitness conditioning included alongside written coaching.'
-    }
-  ];
+  const filtered = selectedCategory === 'All'
+    ? displayedList
+    : displayedList.filter(c => c.category === selectedCategory);
 
   return (
     <>
-      {/* Banner */}
       <section className="page-header-banner">
         <div className="container">
           <div className="breadcrumbs">
             <Link href="/">Home</Link> &gt; <span>Courses</span>
           </div>
-          <h1>All Defense <span>Training Courses</span></h1>
+          <h1>ASTRA SSB <span>Training Programmes</span></h1>
           <p>
-            Real-time catalog of our NDA written preparation batches, SSB 14-days interview bootcamps, and foundation courses.
+            Offline Mode SSB &bull; Online Mode SSB &bull; NDA &amp; CDS Written
           </p>
         </div>
       </section>
 
-      {/* Main Courses Section */}
-      <section className="section-padding" style={{ backgroundColor: '#f8fafc' }}>
+      <section className="section-padding" style={{ backgroundColor: '#ffffff' }}>
         <div className="container">
-          <div className="section-header" style={{ marginBottom: '32px' }}>
-            <span className="badge-military">OFFICIAL COURSE CATALOG</span>
-            <h2>Choose Your Path to Commission</h2>
-            <p>
-              Click on any course card to inspect full training syllabus, batch dates, fees, and seat availability.
-            </p>
-          </div>
-
-          {/* Category Filter Pills */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '10px',
-            flexWrap: 'wrap',
-            marginBottom: '40px'
-          }}>
-            {categories.map((cat) => (
+          {/* Category filter */}
+          <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginBottom: '36px', flexWrap: 'wrap' }}>
+            {['All', 'Offline Mode SSB', 'Online Mode SSB', 'NDA & CDS Written'].map((cat) => (
               <button
                 key={cat}
+                type="button"
                 onClick={() => setSelectedCategory(cat)}
                 style={{
-                  padding: '8px 18px',
-                  borderRadius: '9999px',
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  cursor: 'pointer',
-                  border: '1px solid',
-                  transition: 'all 0.2s',
-                  backgroundColor: selectedCategory === cat ? '#109CD9' : '#ffffff',
+                  padding: '8px 20px',
+                  borderRadius: '20px',
+                  border: selectedCategory === cat ? '2px solid #109cd9' : '1px solid #e2e8f0',
+                  backgroundColor: selectedCategory === cat ? '#109cd9' : '#ffffff',
                   color: selectedCategory === cat ? '#ffffff' : '#475569',
-                  borderColor: selectedCategory === cat ? '#109CD9' : '#cbd5e1',
-                  boxShadow: selectedCategory === cat ? '0 2px 8px rgba(22, 78, 36, 0.25)' : 'none'
+                  fontWeight: '700',
+                  fontSize: '13px',
+                  cursor: 'pointer'
                 }}
               >
-                {cat === 'All' ? 'All Programs' : cat}
+                {cat}
               </button>
             ))}
           </div>
 
-          {/* Dynamic Courses Grid */}
-          {loading ? (
-            <div style={{ textAlign: 'center', padding: '60px 0', color: '#64748b' }}>
-              <div style={{ fontSize: '18px', fontWeight: '600', marginBottom: '8px' }}>Loading courses from academy database...</div>
-              <p style={{ fontSize: '13px' }}>Connecting to API...</p>
-            </div>
-          ) : filteredCourses.length === 0 ? (
-            <div style={{
-              textAlign: 'center',
-              padding: '60px 20px',
-              backgroundColor: '#ffffff',
-              borderRadius: '12px',
-              border: '1px dashed #cbd5e1'
-            }}>
-              <GraduationCap size={44} color="#94a3b8" style={{ margin: '0 auto 12px' }} />
-              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1e293b', marginBottom: '6px' }}>
-                No courses currently found in this category
-              </h3>
-              <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '16px' }}>
-                Select "All Programs" to view other available defense coaching batches.
-              </p>
-              <button
-                className="btn btn-primary"
-                onClick={() => setSelectedCategory('All')}
+          {/* Grid */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '30px'
+          }}>
+            {filtered.map((c) => (
+              <div
+                key={c.id}
+                style={{
+                  background: '#ffffff',
+                  border: '1px solid #e2e8f0',
+                  borderRadius: '16px',
+                  padding: '32px 24px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  boxShadow: '0 4px 14px rgba(0,0,0,0.04)'
+                }}
               >
-                View All Courses
-              </button>
-            </div>
-          ) : (
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-              gap: '28px',
-              alignItems: 'stretch'
-            }}>
-              {filteredCourses.map((course) => (
-                <div
-                  key={course._id}
-                  onClick={() => setSelectedCourse(course)}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: '100%',
-                    backgroundColor: '#ffffff',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '14px',
-                    overflow: 'hidden',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
-                    transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-                    cursor: 'pointer',
-                    position: 'relative'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-5px)';
-                    e.currentTarget.style.boxShadow = '0 16px 32px -8px rgba(22, 78, 36, 0.14)';
-                    e.currentTarget.style.borderColor = '#109CD9';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
-                    e.currentTarget.style.borderColor = '#e2e8f0';
-                  }}
-                >
-                  {/* Card Image */}
-                  <div style={{ position: 'relative', height: '190px', width: '100%', backgroundColor: '#0f172a', overflow: 'hidden' }}>
-                    <img
-                      src={course.image || 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80'}
-                      alt={course.title}
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        transition: 'transform 0.3s ease'
-                      }}
-                      onError={(e) => {
-                        e.target.src = 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80';
-                      }}
-                    />
-                    
-                    {/* Gradient overlay for text contrast */}
+                <div>
+                  {/* Course Thumbnail Image (Clean without overlay badges) */}
+                  {c.image && (
                     <div style={{
-                      position: 'absolute',
-                      inset: 0,
-                      background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 40%, rgba(0,0,0,0.5) 100%)',
-                      pointerEvents: 'none'
-                    }} />
+                      position: 'relative',
+                      height: '180px',
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      marginBottom: '16px'
+                    }}>
+                      <img
+                        src={c.image}
+                        alt={c.title}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                      />
+                    </div>
+                  )}
 
-                    {/* Category Tag */}
+                  {/* Badges neatly placed below thumbnail */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '14px' }}>
                     <div style={{
-                      position: 'absolute',
-                      top: '12px',
-                      left: '12px',
-                      backgroundColor: 'rgba(22, 78, 36, 0.95)',
-                      backdropFilter: 'blur(6px)',
-                      color: '#ffffff',
+                      display: 'inline-flex',
                       padding: '4px 10px',
                       borderRadius: '6px',
+                      backgroundColor: '#e6f6fd',
+                      color: '#109cd9',
                       fontSize: '11px',
-                      fontWeight: '700',
-                      letterSpacing: '0.02em',
-                      boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
+                      fontWeight: '800',
+                      textTransform: 'uppercase'
                     }}>
-                      {course.category}
+                      {c.mode}
                     </div>
 
-                    {/* Badge */}
-                    {course.badge && (
+                    {c.badge && (
                       <div style={{
-                        position: 'absolute',
-                        top: '12px',
-                        right: '12px',
-                        maxWidth: '52%',
-                        backgroundColor: 'rgba(217, 119, 6, 0.95)',
-                        backdropFilter: 'blur(6px)',
-                        color: '#ffffff',
+                        display: 'inline-flex',
                         padding: '4px 10px',
                         borderRadius: '6px',
+                        backgroundColor: '#fef3c7',
+                        color: '#b45309',
                         fontSize: '11px',
-                        fontWeight: '700',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
+                        fontWeight: '800',
+                        textTransform: 'uppercase'
                       }}>
-                        ★ {course.badge}
-                      </div>
-                    )}
-
-                    {course.code && (
-                      <div style={{
-                        position: 'absolute',
-                        bottom: '10px',
-                        right: '12px',
-                        backgroundColor: 'rgba(15, 23, 42, 0.85)',
-                        backdropFilter: 'blur(4px)',
-                        color: '#e2e8f0',
-                        padding: '2px 8px',
-                        borderRadius: '4px',
-                        fontSize: '10px',
-                        fontFamily: 'monospace',
-                        letterSpacing: '0.05em'
-                      }}>
-                        {course.code}
+                        {c.badge}
                       </div>
                     )}
                   </div>
 
-                  {/* Card Body */}
-                  <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                    <h3 style={{
-                      fontSize: '18px',
-                      fontWeight: '800',
-                      color: '#0f172a',
-                      marginBottom: '8px',
-                      lineHeight: '1.35',
-                      minHeight: '48px',
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden'
-                    }}>
-                      {course.title}
-                    </h3>
+                  <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#0f172a', marginBottom: '8px' }}>
+                    {c.title}
+                  </h2>
 
-                    <p style={{
-                      fontSize: '13px',
-                      color: '#64748b',
-                      lineHeight: '1.55',
-                      marginBottom: '16px',
-                      minHeight: '40px',
-                      display: '-webkit-box',
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden'
-                    }}>
-                      {course.description}
-                    </p>
+                  <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '18px', lineHeight: '1.5' }}>
+                    {c.subtitle}
+                  </p>
 
-                    {/* Quick Specs - Full Width Clean Rows (No Truncation!) */}
-                    <div style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '8px',
-                      backgroundColor: '#f8fafc',
-                      border: '1px solid #f1f5f9',
-                      borderRadius: '10px',
-                      padding: '12px 14px',
-                      marginBottom: '18px',
-                      fontSize: '12px'
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
-                        <span style={{ color: '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <Clock size={14} color="#109CD9" />
-                          <span>Duration:</span>
-                        </span>
-                        <span style={{ fontWeight: '700', color: '#1e293b', textAlign: 'right' }}>
-                          {course.duration || 'Flexible'}
-                        </span>
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
-                        <span style={{ color: '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <Calendar size={14} color="#d97706" />
-                          <span>Next Batch:</span>
-                        </span>
-                        <span style={{ fontWeight: '700', color: '#d97706', textAlign: 'right' }}>
-                          {course.batchStartDate || 'Every Monday'}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Footer / Fee & Primary Button */}
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      borderTop: '1px solid #f1f5f9',
-                      paddingTop: '16px',
-                      marginTop: 'auto'
-                    }}>
-                      <div>
-                        <div style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                          Total Course Fee
-                        </div>
-                        <div style={{ fontSize: '22px', fontWeight: '900', color: '#109CD9', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
-                          {course.fees ? `₹${Number(course.fees).toLocaleString('en-IN')}` : 'Enquire'}
-                        </div>
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setSelectedCourse(course);
-                        }}
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                          padding: '9px 16px',
-                          borderRadius: '8px',
-                          fontSize: '13px',
-                          fontWeight: '700',
-                          backgroundColor: '#109CD9',
-                          color: '#ffffff',
-                          border: 'none',
-                          cursor: 'pointer',
-                          boxShadow: '0 2px 6px rgba(22, 78, 36, 0.25)',
-                          transition: 'all 0.2s'
-                        }}
-                        onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0b86bc'; }}
-                        onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#109CD9'; }}
-                      >
-                        <span>View Details</span>
-                        <ArrowRight size={14} />
-                      </button>
-                    </div>
+                  <div style={{
+                    padding: '10px 14px',
+                    backgroundColor: '#f8fafc',
+                    borderRadius: '8px',
+                    fontSize: '12px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    marginBottom: '20px',
+                    color: '#475569'
+                  }}>
+                    <span>Duration: <strong style={{ color: '#0f172a' }}>{c.duration}</strong></span>
+                    <span>Location: <strong style={{ color: '#0f172a' }}>{c.location}</strong></span>
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
 
-      {/* Course Detail Modal */}
-      {selectedCourse && (
-        <div
-          onClick={() => setSelectedCourse(null)}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(15, 23, 42, 0.75)',
-            backdropFilter: 'blur(6px)',
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '16px'
-          }}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              backgroundColor: '#ffffff',
-              borderRadius: '16px',
-              maxWidth: '680px',
-              width: '100%',
-              maxHeight: '90vh',
-              display: 'flex',
-              flexDirection: 'column',
-              overflow: 'hidden',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.3)',
-              position: 'relative'
-            }}
-          >
-            {/* Modal Header */}
-            <div style={{
-              padding: '18px 24px',
-              borderBottom: '1px solid #e2e8f0',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              backgroundColor: '#ffffff'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="badge-military" style={{ fontSize: '11px' }}>
-                  {selectedCourse.category}
-                </span>
-                {selectedCourse.badge && (
-                  <span className="badge-gold" style={{ fontSize: '11px' }}>
-                    {selectedCourse.badge}
-                  </span>
-                )}
-                {selectedCourse.code && (
-                  <span style={{ fontSize: '11px', color: '#64748b', fontFamily: 'monospace' }}>
-                    #{selectedCourse.code}
-                  </span>
-                )}
-              </div>
-              <button
-                type="button"
-                onClick={() => setSelectedCourse(null)}
-                style={{
-                  background: '#f1f5f9',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  color: '#64748b',
-                  transition: 'all 0.2s'
-                }}
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            {/* Modal Scrollable Body */}
-            <div style={{
-              padding: '24px',
-              overflowY: 'auto',
-              flex: 1
-            }}>
-              {/* Course Title */}
-              <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#1e293b', marginBottom: '8px' }}>
-                {selectedCourse.title}
-              </h2>
-
-              {selectedCourse.subtitle && (
-                <div style={{ fontSize: '14px', fontWeight: '600', color: '#109CD9', marginBottom: '16px' }}>
-                  {selectedCourse.subtitle}
-                </div>
-              )}
-
-              {/* Cover Image */}
-              {selectedCourse.image && (
-                <div style={{
-                  height: '220px',
-                  borderRadius: '12px',
-                  overflow: 'hidden',
-                  marginBottom: '20px',
-                  backgroundColor: '#0f172a'
-                }}>
-                  <img
-                    src={selectedCourse.image}
-                    alt={selectedCourse.title}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    onError={(e) => { e.target.style.display = 'none'; }}
-                  />
-                </div>
-              )}
-
-              {/* Description */}
-              <div style={{ marginBottom: '20px' }}>
-                <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                  Course Overview
-                </h4>
-                <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.7' }}>
-                  {selectedCourse.description}
-                </p>
-              </div>
-
-              {/* Specs Grid */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: '12px',
-                backgroundColor: '#f8fafc',
-                border: '1px solid #e2e8f0',
-                borderRadius: '10px',
-                padding: '16px',
-                marginBottom: '22px'
-              }}>
-                <div>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>⏳ Course Duration</span>
-                  <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginTop: '2px' }}>
-                    {selectedCourse.duration || '6 Months Intensive'}
-                  </div>
-                </div>
-
-                <div>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>📅 Next Batch Commencement</span>
-                  <div style={{ fontSize: '14px', fontWeight: '700', color: '#d97706', marginTop: '2px' }}>
-                    {selectedCourse.batchStartDate || 'Batches every Monday'}
-                  </div>
-                </div>
-
-                <div>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>⏰ Daily Schedule &amp; Timings</span>
-                  <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginTop: '2px' }}>
-                    {selectedCourse.timings || '08:30 AM - 02:30 PM'}
-                  </div>
-                </div>
-
-                <div>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>👥 Batch Capacity</span>
-                  <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginTop: '2px' }}>
-                    {selectedCourse.batchSize || 'Limited to 35 Cadets'}
-                  </div>
-                </div>
-              </div>
-
-              {/* Highlights */}
-              {selectedCourse.highlights && selectedCourse.highlights.length > 0 && (
-                <div style={{ marginBottom: '22px' }}>
-                  <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                    Training Highlights &amp; Features
-                  </h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {(Array.isArray(selectedCourse.highlights) ? selectedCourse.highlights : [selectedCourse.highlights]).map((h, i) => (
-                      <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13px', color: '#334155' }}>
-                        <CheckCircle size={16} color="#109CD9" style={{ flexShrink: 0, marginTop: '2px' }} />
-                        <span>{h}</span>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
+                    {c.points.map((p, idx) => (
+                      <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '13px', color: '#334155', lineHeight: '1.5' }}>
+                        <CheckCircle size={15} color="#109cd9" style={{ flexShrink: 0, marginTop: '2px' }} />
+                        <span>{p}</span>
                       </div>
                     ))}
                   </div>
                 </div>
-              )}
 
-              {/* Syllabus breakdown if available */}
-              {selectedCourse.syllabus && selectedCourse.syllabus.length > 0 && (
-                <div style={{ marginBottom: '20px' }}>
-                  <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                    Syllabus &amp; Training Modules
-                  </h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    {selectedCourse.syllabus.map((s, idx) => (
-                      <div key={idx} style={{
-                        padding: '12px 14px',
-                        backgroundColor: '#f8fafc',
-                        borderRadius: '8px',
-                        border: '1px solid #e2e8f0'
-                      }}>
-                        <div style={{ fontSize: '13px', fontWeight: '700', color: '#109CD9', marginBottom: '4px' }}>
-                          {s.moduleName}
-                        </div>
-                        <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.5' }}>
-                          {s.topics}
-                        </div>
-                      </div>
-                    ))}
+                <div>
+                  <div style={{
+                    fontSize: '12px',
+                    fontWeight: '800',
+                    color: '#d97706',
+                    textAlign: 'center',
+                    marginBottom: '14px'
+                  }}>
+                    ★ {c.slogan}
                   </div>
+
+                  <Link
+                    href={`/enquiry?course=${encodeURIComponent(c.title)}`}
+                    className="btn btn-primary"
+                    style={{ width: '100%', justifyContent: 'center', padding: '11px 20px', fontSize: '14px' }}
+                  >
+                    <span>Register For This Course</span>
+                    <ArrowRight size={15} />
+                  </Link>
                 </div>
-              )}
-            </div>
-
-            {/* Modal Footer */}
-            <div style={{
-              padding: '16px 24px',
-              borderTop: '1px solid #e2e8f0',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              backgroundColor: '#f8fafc',
-              flexWrap: 'wrap',
-              gap: '12px'
-            }}>
-              <div>
-                <div style={{ fontSize: '11px', color: '#64748b', textTransform: 'uppercase' }}>All-Inclusive Course Fee</div>
-                <div style={{ fontSize: '24px', fontWeight: '900', color: '#109CD9' }}>
-                  {selectedCourse.fees ? `₹${Number(selectedCourse.fees).toLocaleString('en-IN')}` : 'Contact for Fees'}
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <button
-                  type="button"
-                  className="btn btn-outline"
-                  onClick={() => setSelectedCourse(null)}
-                >
-                  Close
-                </button>
-                <Link
-                  href={`/enquiry?course=${encodeURIComponent(selectedCourse.title)}`}
-                  className="btn btn-primary"
-                  onClick={() => setSelectedCourse(null)}
-                  style={{ padding: '10px 22px' }}
-                >
-                  <span>Enroll / Book Seat</span>
-                  <ArrowRight size={16} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Academic Highlights */}
-      <section className="section-padding" style={{ backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="badge-gold">ACADEMIC EXCELLENCE</span>
-            <h2>Why Train With Shaurya Academy?</h2>
-            <p>Proven training methodology that has produced top all-India ranks in NDA written exams and SSB recommendations.</p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
-            {highlights.map((h, i) => (
-              <div key={i} className="defense-card" style={{ textAlign: 'center', padding: '26px 20px' }}>
-                <div style={{
-                  width: '50px',
-                  height: '50px',
-                  borderRadius: '50%',
-                  background: '#e6f6fd',
-                  color: '#109CD9',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '14px'
-                }}>
-                  <CheckCircle size={24} />
-                </div>
-                <h4 style={{ fontSize: '17px', fontWeight: '700', color: '#1e293b', marginBottom: '8px' }}>{h.title}</h4>
-                <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{h.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Subjects Covered */}
-      <section className="section-padding" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="badge-military">SYLLABUS MODULES</span>
-            <h2>Syllabus &amp; Exam Breakdown</h2>
-            <p>Thorough preparation across the entire UPSC NDA syllabus &amp; Stage-1 SSB screening.</p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
-            {subjects.map((sub, i) => (
-              <div key={i} className="defense-card" style={{ padding: '28px' }}>
-                <div style={{
-                  fontSize: '28px',
-                  fontWeight: '900',
-                  color: '#109CD9',
-                  marginBottom: '14px',
-                  height: '48px',
-                  display: 'flex',
-                  alignItems: 'center'
-                }}>
-                  {sub.icon}
-                </div>
-                <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#1e293b', marginBottom: '8px' }}>
-                  {sub.title}
-                </h3>
-                <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6' }}>
-                  {sub.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Autoplaying Practical Ground Video Section */}
+      <VideoSection 
+        badge="COURSE PRACTICAL OVERVIEW"
+        title="See How We Train Future Officers"
+        subtitle="Watch actual candidates navigate the obstacle course and receive personal feedback from Ex-Assessors."
+      />
     </>
   );
 }

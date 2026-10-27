@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { BookOpen, User, Clock, ArrowRight, Search, Calendar, Tag, ShieldCheck, X } from 'lucide-react';
+import { BookOpen, User, Clock, ArrowRight, Search, Calendar, Tag, ShieldCheck, X, Eye, Share2 } from 'lucide-react';
 import { fetchBlogs } from '../../lib/api';
 
 export default function BlogsPage() {
@@ -240,7 +240,7 @@ export default function BlogsPage() {
                       </div>
                     )}
 
-                    {/* Author & Read Time Meta */}
+                    {/* Author, Read Time, Views & Shares */}
                     <div style={{
                       display: 'flex',
                       alignItems: 'center',
@@ -249,15 +249,23 @@ export default function BlogsPage() {
                       color: '#64748b',
                       borderTop: '1px solid #f1f5f9',
                       paddingTop: '12px',
-                      marginTop: 'auto'
+                      marginTop: 'auto',
+                      flexWrap: 'wrap',
+                      gap: '8px'
                     }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                         <ShieldCheck size={14} color="#109CD9" />
                         <span style={{ fontWeight: '600', color: '#334155' }}>{blog.author?.name || 'Academy Mentor'}</span>
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: '#94a3b8' }}>
-                        <Clock size={12} />
-                        <span>{blog.readTime || '5 min read'}</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#64748b' }}>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }} title="Views">
+                          <Eye size={12} color="#109CD9" />
+                          <span>{blog.views || 0}</span>
+                        </span>
+                        <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }} title="Shares">
+                          <Share2 size={12} color="#109CD9" />
+                          <span>{blog.shares || 0}</span>
+                        </span>
                       </div>
                     </div>
 

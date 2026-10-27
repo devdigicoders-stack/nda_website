@@ -91,11 +91,13 @@ export default function GalleryPage() {
                   style={{
                     backgroundColor: '#ffffff',
                     border: '1px solid #e2e8f0',
-                    borderRadius: '10px',
+                    borderRadius: '12px',
                     overflow: 'hidden',
                     cursor: 'pointer',
                     boxShadow: 'var(--shadow-sm)',
-                    transition: 'transform 0.2s, box-shadow 0.2s'
+                    transition: 'transform 0.2s, box-shadow 0.2s',
+                    display: 'flex',
+                    flexDirection: 'column'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-3px)';
@@ -106,20 +108,27 @@ export default function GalleryPage() {
                     e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
                   }}
                 >
-                  <div style={{ height: '210px', overflow: 'hidden' }}>
+                  {/* Full Image Container (No cropping) */}
+                  <div style={{ height: '220px', overflow: 'hidden', backgroundColor: '#0f172a', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <img
                       src={item.imageUrl}
                       alt={item.title}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
                     />
                   </div>
-                  <div style={{ padding: '14px' }}>
-                    <span className="badge-military" style={{ fontSize: '10px', marginBottom: '4px' }}>
-                      {item.category}
-                    </span>
-                    <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginTop: '4px' }}>
-                      {item.title}
-                    </h4>
+                  <div style={{ padding: '16px', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div>
+                      <span className="badge-military" style={{ fontSize: '11px', marginBottom: '6px' }}>
+                        {item.category}
+                      </span>
+                      <h4 style={{ fontSize: '15px', fontWeight: '800', color: '#1e293b', marginTop: '4px' }}>
+                        {item.title}
+                      </h4>
+                    </div>
+                    <div style={{ fontSize: '12px', color: '#109CD9', fontWeight: '700', marginTop: '10px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                      <ZoomIn size={14} />
+                      <span>Click to View Full Photo</span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -128,7 +137,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal (Full Uncut Photo View) */}
       {activePhoto && (
         <div
           onClick={() => setActivePhoto(null)}
@@ -138,24 +147,24 @@ export default function GalleryPage() {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.85)',
-            backdropFilter: 'blur(6px)',
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            backdropFilter: 'blur(8px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            zIndex: 300,
+            zIndex: 9999,
             padding: '20px'
           }}
         >
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              maxWidth: '800px',
+              maxWidth: '900px',
               width: '100%',
               backgroundColor: '#ffffff',
-              borderRadius: '14px',
+              borderRadius: '16px',
               overflow: 'hidden',
-              boxShadow: '0 25px 50px rgba(0,0,0,0.5)',
+              boxShadow: '0 25px 60px rgba(0,0,0,0.6)',
               position: 'relative'
             }}
           >
@@ -163,41 +172,44 @@ export default function GalleryPage() {
               onClick={() => setActivePhoto(null)}
               style={{
                 position: 'absolute',
-                top: '12px',
-                right: '12px',
-                backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                top: '14px',
+                right: '14px',
+                backgroundColor: 'rgba(0, 0, 0, 0.65)',
                 border: 'none',
                 borderRadius: '50%',
-                width: '32px',
-                height: '32px',
+                width: '36px',
+                height: '36px',
                 color: '#fff',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                zIndex: 10
+                zIndex: 10,
+                transition: 'background 0.2s'
               }}
+              title="Close Full Photo"
             >
-              <X size={18} />
+              <X size={20} />
             </button>
 
-            <div style={{ maxHeight: '480px', backgroundColor: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {/* FULL PHOTO CONTAINER (NO CLIPPING, NO CROPPING) */}
+            <div style={{ maxHeight: '560px', backgroundColor: '#020617', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '10px' }}>
               <img
                 src={activePhoto.imageUrl}
                 alt={activePhoto.title}
-                style={{ width: '100%', maxHeight: '480px', objectFit: 'contain' }}
+                style={{ width: '100%', maxHeight: '540px', objectFit: 'contain', display: 'block' }}
               />
             </div>
 
-            <div style={{ padding: '20px' }}>
-              <span className="badge-military" style={{ fontSize: '11px', marginBottom: '6px' }}>
+            <div style={{ padding: '20px 24px' }}>
+              <span className="badge-military" style={{ fontSize: '11px', marginBottom: '8px' }}>
                 {activePhoto.category}
               </span>
-              <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#1e293b', marginTop: '4px' }}>
+              <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#1e293b', marginTop: '4px' }}>
                 {activePhoto.title}
               </h3>
               {activePhoto.caption && (
-                <p style={{ fontSize: '13px', color: '#64748b', marginTop: '6px' }}>
+                <p style={{ fontSize: '14px', color: '#64748b', marginTop: '8px', lineHeight: '1.5' }}>
                   {activePhoto.caption}
                 </p>
               )}

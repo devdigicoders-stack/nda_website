@@ -11,43 +11,63 @@ export async function fetchCourses() {
     return [
       {
         _id: 'c_1',
-        title: 'NDA Written Super-50 Target Batch',
-        code: 'NDA-WRITTEN-2026',
-        subtitle: 'Comprehensive Preparation for UPSC NDA / NA Examination',
-        category: 'NDA Written',
-        duration: '6 Months Intensive',
+        title: 'Offline Mode SSB (10-Day Intensive)',
+        code: 'SSB-OFFLINE-10D',
+        subtitle: '10-Day Intensive SSB Preparation Programme on Real Ground',
+        category: 'Offline Mode SSB',
+        duration: '10-Day Intensive',
+        fees: 25000,
+        batchStartDate: 'Starts 1st & 15th Every Month',
+        timings: '08:30 AM - 05:30 PM',
+        badge: '10-Day Intensive',
+        description: 'Train under experienced DIPR qualified Ex-Assessors through a result oriented, intensive training programme designed for maximum learning in minimum time on our authentic GTO ground.',
+        highlights: [
+          'PPDT & Stage I Preparation – Story writing, narration, and group discussions',
+          'PIQ Analysis & 1-on-1 Mock Interviews with Ex-Interviewing Officers',
+          'Psychology Tests – Practice for TAT, WAT, SRT and SDT',
+          'GTO Ground – Practice of GD, GPE, Lecturette & live obstacle tasks'
+        ],
+        image: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        _id: 'c_2',
+        title: 'Online Mode SSB (20-Day Interactive)',
+        code: 'SSB-ONLINE-20D',
+        subtitle: '20-Day Intensive SSB Preparation Online Interactive Programme',
+        category: 'Online Mode SSB',
+        duration: '20-Day Intensive',
+        fees: 18000,
+        batchStartDate: 'Starts 1st & 15th Every Month',
+        timings: '06:00 PM - 09:00 PM',
+        badge: '20-Day Intensive',
+        description: 'Comprehensive 20-day online interactive training designed for aspirants preparing from anywhere in India with live sessions, dossier checks, and 1-on-1 mock interviews.',
+        highlights: [
+          'Live Interactive Sessions for Stage-1 Screening & PPDT',
+          'Personalized Psych Dossier Check & Individual Feedback',
+          '1-on-1 Video Mock Interview with Ex-Assessor',
+          'Daily Defence Current Affairs & Military Geopolitics'
+        ],
+        image: 'https://images.unsplash.com/photo-1579208575657-c595a05383b7?auto=format&fit=crop&w=800&q=80'
+      },
+      {
+        _id: 'c_3',
+        title: 'NDA & CDS Written Target Batch',
+        code: 'NDA-CDS-WRITTEN-2026',
+        subtitle: 'Comprehensive Mathematics, English & General Knowledge Programme',
+        category: 'NDA & CDS Written',
+        duration: 'Target Batch 2026',
         fees: 38500,
         batchStartDate: 'Starts 1st & 15th Every Month',
         timings: '08:30 AM - 02:30 PM',
-        badge: 'High Selection Rate',
-        description: 'Rigorous 6-hour daily training on Mathematics shortcuts, English comprehension, and General Knowledge by retired defense faculty.',
+        badge: 'Target 2026 Batch',
+        description: 'Master the UPSC NDA & CDS written exam with shortcut mathematical formulas, intensive GAT coverage and full-length OMR mocks by defense experts.',
         highlights: [
-          'Complete UPSC NDA Syllabus coverage (Maths + GAT)',
+          'Complete UPSC NDA & CDS Syllabus coverage (Maths + GAT)',
           'Daily 200+ Practice MCQs & Short-cut Tricks for Mathematics',
           'Weekly 900-Marks OMR-based Full Length Mock Exams',
           'Free SSB Screening & Physical Conditioning orientation included'
         ],
         image: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80'
-      },
-      {
-        _id: 'c_2',
-        title: 'SSB 14-Days Comprehensive Interview Bootcamp',
-        code: 'SSB-14DAYS-MASTERCLASS',
-        subtitle: 'Rigorous 14-Day Simulation by Ex-SSB Assessors (IO, GTO, Psych)',
-        category: 'SSB 14 Days Training',
-        duration: '14 Days Residential',
-        fees: 24500,
-        batchStartDate: 'Batches begin every Monday',
-        timings: '06:00 AM - 07:30 PM',
-        badge: 'Assessed by Ex-Col / Brigadiers',
-        description: 'Complete Stage-1 Screening, Psychological Battery, 100% Outdoor GTO Ground Obstacles, and 1-on-1 Personal Mock Interview.',
-        highlights: [
-          'Day-1 Screening Mastery: OIR Tests & PPDT Narration / Discussion',
-          'Complete Psychological Battery: TAT, WAT, SRT, Self Description (SD)',
-          '100% Outdoor GTO Ground: PGT, HGT, Snake Race, Command Task',
-          'Personal Mock Interview with individual feedback & PIQ Form optimization'
-        ],
-        image: 'https://images.unsplash.com/photo-1579208575657-c595a05383b7?auto=format&fit=crop&w=800&q=80'
       }
     ];
   }

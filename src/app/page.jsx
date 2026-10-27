@@ -17,49 +17,101 @@ import {
   Building,
   HeartHandshake,
   X,
-  Eye
+  Star,
+  MapPin,
+  Send,
+  Laptop,
+  Check
 } from 'lucide-react';
 import { fetchCourses, fetchGallery, fetchBlogs, fetchNotices } from '../lib/api';
+import EnquiryModal from '../components/EnquiryModal';
+import VideoSection from '../components/VideoSection';
 
 export default function HomePage() {
   const [courses, setCourses] = useState([]);
-  const [gallery, setGallery] = useState([]);
-  const [blogs, setBlogs] = useState([]);
-  const [notices, setNotices] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [activeCourseTab, setActiveCourseTab] = useState('offline');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchCourses().then(setCourses).catch(() => { });
-    fetchGallery().then(setGallery).catch(() => { });
-    fetchBlogs().then(setBlogs).catch(() => { });
-    fetchNotices().then(setNotices).catch(() => { });
+
+    // Open enquiry modal on page load / refresh
+    const timer = setTimeout(() => {
+      setIsModalOpen(true);
+    }, 600); // Opens smoothly after 600ms
+    return () => clearTimeout(timer);
   }, []);
 
-
-
-  useEffect(() => {
-    const slides = document.querySelectorAll(
-      '.hero-section .hero-bg-slide'
-    )
-
-    let current = 0
-
-    const interval = setInterval(() => {
-      slides[current].classList.remove('active')
-      current = (current + 1) % slides.length
-      slides[current].classList.add('active')
-    }, 4000)
-
-    return () => clearInterval(interval)
-  }, [])
-
+  // Exact 3 Core Courses as requested with thumbnails
+  const coreCourses = [
+    {
+      id: 'offline',
+      title: 'Offline Mode SSB (10-Day Intensive)',
+      subtitle: '10-Day Intensive SSB Preparation Programme on Real Ground',
+      duration: '10 Days Intensive',
+      mode: 'Offline Classroom & Ground',
+      location: 'Krishna Nagar, Lucknow',
+      badge: 'High Recommended Rate',
+      image: courses.find(c => (c.category || '').toLowerCase().includes('offline'))?.image || 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80',
+      points: [
+        'PPDT & Stage I Preparation – Story writing, narration, and many live group discussion practices.',
+        'PIQ Analysis – Personalised interview questions based on your profile, background, and experiences.',
+        'Mock Interviews – Realistic one-to-one interview sessions with expert feedback.',
+        'Psychology Tests – Practice for TAT, WAT, SRT and SDT.',
+        'GTO Guidance – Practice of GD, GPE, Lecturette and live practical GTO tasks on ground.',
+        'Defence Awareness – Updates on current affairs, military affairs and national issues.',
+        'Performance Analysis – Detailed feedback to identify your strengths and areas for improvement.',
+        'Personal Mentorship – Individual guidance, doubt-solving and progress tracking throughout the programme.'
+      ],
+      slogan: 'BE WITH US MIRACLES WILL HAPPEN.'
+    },
+    {
+      id: 'online',
+      title: 'Online Mode SSB (20-Day Programme)',
+      subtitle: '20-Day Intensive SSB Preparation Online Interactive Programme',
+      duration: '20 Days Online Interactive',
+      mode: 'Live Online Interactive',
+      location: 'Live Virtual Classrooms',
+      badge: 'Flexible & Comprehensive',
+      image: courses.find(c => (c.category || '').toLowerCase().includes('online'))?.image || 'https://images.unsplash.com/photo-1579208575657-c595a05383b7?auto=format&fit=crop&w=800&q=80',
+      points: [
+        'PPDT/STAGE I Preparation – Story writing, narration and group discussion practice.',
+        'PIQ Analysis – Personalised interview questions based on your profile and experiences.',
+        'Mock Interviews – Realistic one-to-one interview simulations with expert feedback.',
+        'Psychology Tests – Practice for TAT, WAT, SRT and SDT.',
+        'GTO Guidance – GD, GPE, Lecturette and GTO task strategies.',
+        'Defence Awareness – Regular updates on current affairs, military affairs and national security.',
+        'Performance Analysis – Detailed feedback to identify strengths and areas for improvement.',
+        'Personal Mentorship – Individual guidance, doubt-solving and progress tracking.'
+      ],
+      slogan: 'BE WITH US MIRACLE WILL HAPPEN.'
+    },
+    {
+      id: 'written',
+      title: 'NDA & CDS Written Batch',
+      subtitle: 'Comprehensive Mathematics, English & General Knowledge Programme',
+      duration: 'Target Batches (NDA & CDS)',
+      mode: 'Offline / Hybrid Classroom',
+      location: 'Krishna Nagar, Lucknow',
+      badge: 'Target 2026 Batch',
+      image: courses.find(c => (c.category || '').toLowerCase().includes('written') || (c.category || '').toLowerCase().includes('nda'))?.image || 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80',
+      points: [
+        'Complete UPSC Syllabus – Exhaustive coverage of Mathematics & General Ability Test (GAT).',
+        'Subject Specialists – Classes conducted by experienced faculty and defense mentors.',
+        'Short-Cut Tricks – Daily practice MCQs and shortcut methods for Mathematics.',
+        'Weekly Mock Tests – OMR-based full length mock tests on actual UPSC pattern.',
+        'Current Affairs & GK – Daily defense current affairs, military geopolitics and history.',
+        'SSB Orientation Included – Free Stage-1 Screening and personality development orientation.'
+      ],
+      slogan: 'BE WITH US MIRACLES WILL HAPPEN.'
+    }
+  ];
 
   return (
     <>
-      {/* Hero Section: "Turn Your Dream Into a Uniform" */}
-
-
-      <section className="hero-section">
+      {/* 1. Hero Section (Clean, Bold, Focused) */}
+      <section className="hero-section" style={{ minHeight: '440px', padding: '80px 0 70px' }}>
         <div className="hero-bg-slide active">
           <img
             src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1879&h=818&q=80"
@@ -67,45 +119,43 @@ export default function HomePage() {
           />
         </div>
 
-        <div className="hero-bg-slide">
-          <img
-            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1879&h=818&q=80"
-            alt="Team collaboration"
-          />
-        </div>
-
-        <div className="hero-bg-slide">
-          <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1879&h=818&q=80"
-            alt="Team working together"
-          />
-        </div>
-
         <div className="container hero-content">
-          <div style={{ maxWidth: '640px' }}>
+          <div style={{ maxWidth: '780px' }}>
             <div
               className="badge-gold"
               style={{
-                marginBottom: '14px',
+                marginBottom: '16px',
                 background: 'rgba(217, 119, 6, 0.25)',
                 color: '#fde047',
                 borderColor: '#eab308'
               }}
             >
-              <Sparkles size={13} />
-              <span>PREMIER DEFENCE ACADEMY &bull; ADMISSIONS 2026</span>
+              <Sparkles size={14} />
+              <span>ASTRA SSB &bull; KRISHNA NAGAR, LUCKNOW 🇮🇳</span>
             </div>
 
-            <h1 className="hero-title">
-              Turn Your Dream <br />
-              <span>Into a Uniform</span>
+            <h1 className="hero-title" style={{ fontSize: '40px', lineHeight: '1.2', marginBottom: '18px' }}>
+              ASTRA SSB – <span>YOUR JOURNEY TO THE OFFICER’S LIFE</span> STARTS HERE!
             </h1>
 
-            <p className="hero-subtitle">
-              Expert Guidance for NDA Written Exam &amp; SSB 14 Days
-              Training Program by Ex-SSB Assessors, Senior GTOs,
-              and Chief Psychologists.
+            <p className="hero-subtitle" style={{ fontSize: '16px', lineHeight: '1.7', marginBottom: '24px', color: '#e2e8f0' }}>
+              At ASTRA SSB, we go beyond conventional mentoring to help you develop the confidence, leadership, decision making ability and officer like qualities required to excel in the SSB interview. Train under experienced DIPR qualified Ex-Assessors through a result oriented, intensive training programme designed for maximum learning in minimum time.
             </p>
+
+            <div style={{
+              display: 'inline-block',
+              padding: '8px 18px',
+              backgroundColor: 'rgba(16, 156, 217, 0.25)',
+              border: '1px solid #109cd9',
+              borderRadius: '8px',
+              color: '#ffffff',
+              fontWeight: '800',
+              fontSize: '15px',
+              letterSpacing: '0.04em',
+              marginBottom: '26px'
+            }}>
+              BE WITH US MIRACLE WILL HAPPEN.
+            </div>
 
             <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
               <Link
@@ -113,43 +163,42 @@ export default function HomePage() {
                 className="btn btn-primary"
                 style={{ padding: '12px 28px', fontSize: '15px' }}
               >
-                <span>Join Now</span>
+                <span>Join Next Batch</span>
                 <ArrowRight size={16} />
               </Link>
 
-              <Link
-                href="/about"
+              <a
+                href="#courses-section"
                 className="btn btn-outline-white"
                 style={{ padding: '12px 28px', fontSize: '15px' }}
               >
-                <span>Know More</span>
-              </Link>
+                <span>View 3 Core Courses</span>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-
-      {/* Floating Statistics Strip (5000+ Students, 100+ Selections, etc.) */}
+      {/* 2. Three Quick Stats */}
       <div className="container">
         <div className="stats-strip">
           <div className="stat-strip-item">
             <div className="stat-strip-icon">
-              <GraduationCap size={24} />
+              <ShieldCheck size={24} />
             </div>
             <div className="stat-strip-info">
-              <h3>5000+</h3>
-              <p>Students Trained</p>
+              <h3>DIPR Qualified</h3>
+              <p>Ex-Assessors Mentorship</p>
             </div>
           </div>
 
           <div className="stat-strip-item">
             <div className="stat-strip-icon">
-              <Award size={24} />
+              <Target size={24} />
             </div>
             <div className="stat-strip-info">
-              <h3>1500+</h3>
-              <p>Officers Recommended</p>
+              <h3>Scientific Ground</h3>
+              <p>Authentic GTO Obstacles</p>
             </div>
           </div>
 
@@ -158,461 +207,358 @@ export default function HomePage() {
               <Users size={24} />
             </div>
             <div className="stat-strip-info">
-              <h3>15+</h3>
-              <p>Expert Ex-Assessors</p>
+              <h3>Limited Batch</h3>
+              <p>Personal 1-on-1 Guidance</p>
             </div>
           </div>
 
           <div className="stat-strip-item">
             <div className="stat-strip-icon">
-              <TrendingUp size={24} />
+              <MapPin size={24} />
             </div>
             <div className="stat-strip-info">
-              <h3>95%</h3>
-              <p>Screening Success Rate</p>
+              <h3>Krishna Nagar</h3>
+              <p>Lucknow, Uttar Pradesh</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Section: Our Courses (Latest 3 Courses) */}
-      <section className="section-padding" style={{ backgroundColor: '#f8fafc' }}>
+      {/* 3. CORE COURSES SECTION (Exact 3 items: Offline, Online, NDA & CDS Written) */}
+      <section id="courses-section" className="section-padding" style={{ backgroundColor: '#ffffff' }}>
         <div className="container">
-          <div className="section-header">
-            <span className="badge-military">FEATURED PROGRAMS</span>
-            <h2>Our Core Training Courses</h2>
-            <p>
-              Specialized coaching programs designed under military standards to master NDA written papers and the 14-day SSB interview battery.
+          <div className="section-title-line">
+            <span style={{ fontSize: '12px', fontWeight: '800', color: '#109cd9', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>
+              PROGRAMMES &amp; TRAINING CAPSULES
+            </span>
+            <h2><strong>Our Three </strong>Core Courses</h2>
+            <div className="line-divider"></div>
+            <p style={{ maxWidth: '640px', color: '#64748b', fontSize: '15px' }}>
+              Focused, result-oriented programmes designed for maximum learning in minimum time under DIPR qualified Ex-Assessors.
             </p>
           </div>
 
+          {/* Three Courses Grid */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
             gap: '28px',
             alignItems: 'stretch'
           }}>
-            {courses.slice(0, 3).map((course) => (
+            {coreCourses.map((c, i) => (
               <div
-                key={course._id}
-                onClick={() => setSelectedCourse(course)}
+                key={c.id}
                 style={{
+                  background: '#ffffff',
+                  border: i === 0 ? '2px solid #109cd9' : '1px solid #e2e8f0',
+                  borderRadius: '16px',
+                  padding: '30px 24px',
                   display: 'flex',
                   flexDirection: 'column',
-                  height: '100%',
-                  backgroundColor: '#ffffff',
-                  border: '1px solid #e2e8f0',
-                  borderRadius: '14px',
-                  overflow: 'hidden',
-                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
-                  transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-                  cursor: 'pointer',
-                  position: 'relative'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-5px)';
-                  e.currentTarget.style.boxShadow = '0 16px 32px -8px rgba(22, 78, 36, 0.14)';
-                  e.currentTarget.style.borderColor = '#109CD9';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.04)';
-                  e.currentTarget.style.borderColor = '#e2e8f0';
+                  justifyContent: 'space-between',
+                  boxShadow: i === 0 ? '0 12px 30px rgba(16, 156, 217, 0.12)' : '0 4px 14px rgba(0,0,0,0.03)',
+                  position: 'relative',
+                  transition: 'transform 0.25s ease'
                 }}
               >
-                {/* Card Image */}
-                <div style={{ position: 'relative', height: '190px', width: '100%', backgroundColor: '#0f172a', overflow: 'hidden' }}>
-                  <img
-                    src={course.image || 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80'}
-                    alt={course.title}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      transition: 'transform 0.3s ease'
-                    }}
-                    onError={(e) => {
-                      e.target.src = 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80';
-                    }}
-                  />
-
-                  {/* Gradient overlay */}
+                {i === 0 && (
                   <div style={{
                     position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 40%, rgba(0,0,0,0.5) 100%)',
-                    pointerEvents: 'none'
-                  }} />
-
-                  {/* Category Tag */}
-                  <div style={{
-                    position: 'absolute',
-                    top: '12px',
-                    left: '12px',
-                    backgroundColor: 'rgba(22, 78, 36, 0.95)',
-                    backdropFilter: 'blur(6px)',
+                    top: '-12px',
+                    right: '24px',
+                    background: '#109cd9',
                     color: '#ffffff',
-                    padding: '4px 10px',
-                    borderRadius: '6px',
                     fontSize: '11px',
-                    fontWeight: '700',
-                    letterSpacing: '0.02em',
-                    boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
+                    fontWeight: '800',
+                    padding: '3px 12px',
+                    borderRadius: '12px',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.04em'
                   }}>
-                    {course.category}
+                    Most Popular
                   </div>
+                )}
 
-                  {/* Badge */}
-                  {course.badge && (
+                <div>
+                  {/* Course Thumbnail Image (Clean without overlay badges) */}
+                  {c.image && (
                     <div style={{
-                      position: 'absolute',
-                      top: '12px',
-                      right: '12px',
-                      maxWidth: '52%',
-                      backgroundColor: 'rgba(217, 119, 6, 0.95)',
-                      backdropFilter: 'blur(6px)',
-                      color: '#ffffff',
+                      position: 'relative',
+                      height: '170px',
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      marginBottom: '16px'
+                    }}>
+                      <img
+                        src={c.image}
+                        alt={c.title}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover'
+                        }}
+                      />
+                    </div>
+                  )}
+
+                  {/* Badges neatly placed below thumbnail */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '14px' }}>
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
                       padding: '4px 10px',
                       borderRadius: '6px',
+                      backgroundColor: '#e6f6fd',
+                      color: '#109cd9',
                       fontSize: '11px',
-                      fontWeight: '700',
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      boxShadow: '0 2px 6px rgba(0,0,0,0.2)'
+                      fontWeight: '800',
+                      textTransform: 'uppercase'
                     }}>
-                      ★ {course.badge}
-                    </div>
-                  )}
-
-                  {course.code && (
-                    <div style={{
-                      position: 'absolute',
-                      bottom: '10px',
-                      right: '12px',
-                      backgroundColor: 'rgba(15, 23, 42, 0.85)',
-                      backdropFilter: 'blur(4px)',
-                      color: '#e2e8f0',
-                      padding: '2px 8px',
-                      borderRadius: '4px',
-                      fontSize: '10px',
-                      fontFamily: 'monospace'
-                    }}>
-                      {course.code}
-                    </div>
-                  )}
-                </div>
-
-                {/* Card Body */}
-                <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                  <h3 style={{
-                    fontSize: '18px',
-                    fontWeight: '800',
-                    color: '#0f172a',
-                    marginBottom: '8px',
-                    lineHeight: '1.35',
-                    minHeight: '48px',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden'
-                  }}>
-                    {course.title}
-                  </h3>
-
-                  <p style={{
-                    fontSize: '13px',
-                    color: '#64748b',
-                    lineHeight: '1.55',
-                    marginBottom: '16px',
-                    minHeight: '40px',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden'
-                  }}>
-                    {course.description}
-                  </p>
-
-                  {/* Quick Specs - Full Width Clean Rows (No Truncation!) */}
-                  <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '8px',
-                    backgroundColor: '#f8fafc',
-                    border: '1px solid #f1f5f9',
-                    borderRadius: '10px',
-                    padding: '12px 14px',
-                    marginBottom: '18px',
-                    fontSize: '12px'
-                  }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
-                      <span style={{ color: '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Clock size={14} color="#109CD9" />
-                        <span>Duration:</span>
-                      </span>
-                      <span style={{ fontWeight: '700', color: '#1e293b', textAlign: 'right' }}>
-                        {course.duration || 'Flexible'}
-                      </span>
+                      {c.mode}
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
-                      <span style={{ color: '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Calendar size={14} color="#d97706" />
-                        <span>Next Batch:</span>
-                      </span>
-                      <span style={{ fontWeight: '700', color: '#d97706', textAlign: 'right' }}>
-                        {course.batchStartDate || 'Every Monday'}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Footer / Fee & CTA */}
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    borderTop: '1px solid #f1f5f9',
-                    paddingTop: '16px',
-                    marginTop: 'auto'
-                  }}>
-                    <div>
-                      <div style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                        Total Course Fee
-                      </div>
-                      <div style={{ fontSize: '22px', fontWeight: '900', color: '#109CD9', letterSpacing: '-0.02em', lineHeight: '1.2' }}>
-                        {course.fees ? `₹${Number(course.fees).toLocaleString('en-IN')}` : 'Enquire'}
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedCourse(course);
-                      }}
-                      style={{
+                    {c.badge && (
+                      <div style={{
                         display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        padding: '9px 16px',
-                        borderRadius: '8px',
-                        fontSize: '13px',
-                        fontWeight: '700',
-                        backgroundColor: '#109CD9',
-                        color: '#ffffff',
-                        border: 'none',
-                        cursor: 'pointer',
-                        boxShadow: '0 2px 6px rgba(22, 78, 36, 0.25)',
-                        transition: 'all 0.2s'
-                      }}
-                      onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#0b86bc'; }}
-                      onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = '#109CD9'; }}
-                    >
-                      <span>View Details</span>
-                      <ArrowRight size={14} />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* View All Courses Button */}
-          <div style={{ textAlign: 'center', marginTop: '36px' }}>
-            <Link
-              href="/courses"
-              className="btn btn-primary"
-              style={{ padding: '12px 28px', fontSize: '15px', gap: '8px' }}
-            >
-              <span>View All Courses &amp; Batches ({courses.length})</span>
-              <ArrowRight size={16} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Section: Why Choose Us (4 Cards as per reference) */}
-      <section className="section-padding" style={{ backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="badge-gold">ACADEMY ADVANTAGE</span>
-            <h2>Why Choose Shaurya NDA &amp; SSB?</h2>
-            <p>
-              We provide an uncompromising military ecosystem designed to awaken the commissioned officer within each cadet.
-            </p>
-          </div>
-
-          <div className="features-grid">
-            <div className="feature-box">
-              <div className="feature-box-icon">
-                <Users size={26} />
-              </div>
-              <h4>Experienced Faculty</h4>
-              <p>Mentorship by retired Brigadiers, Wing Commanders, Senior GTOs, and DIPR psychologists.</p>
-            </div>
-
-            <div className="feature-box">
-              <div className="feature-box-icon">
-                <HeartHandshake size={26} />
-              </div>
-              <h4>Personalized Approach</h4>
-              <p>Individual PIQ audit, 1-on-1 mock interviews, and tailored psychological feedback dossiers.</p>
-            </div>
-
-            <div className="feature-box">
-              <div className="feature-box-icon">
-                <Building size={26} />
-              </div>
-              <h4>Modern Infrastructure</h4>
-              <p>100% full-scale replica GTO obstacle ground, smart classrooms, library, and AC hostels.</p>
-            </div>
-
-            <div className="feature-box">
-              <div className="feature-box-icon">
-                <Target size={26} />
-              </div>
-              <h4>Focused Training</h4>
-              <p>End-to-end military routine from 06:00 AM conditioning drills to evening geopolitical GDs.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Section: Dynamic Gallery Preview */}
-      <section className="section-padding" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="badge-military">CAMPUS LIFE &amp; OBSTACLES</span>
-            <h2>Academy Training &amp; Recommended Cadets</h2>
-            <p>
-              Glimpses of obstacle training, mock interviews, classroom problem solving, and celebrations.
-            </p>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
-            {gallery.slice(0, 4).map((item) => (
-              <div key={item._id} className="defense-card" style={{ padding: '10px' }}>
-                <div style={{ height: '200px', borderRadius: '8px', overflow: 'hidden', marginBottom: '10px' }}>
-                  <img src={item.imageUrl} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                </div>
-                <div style={{ fontSize: '11px', color: '#109CD9', fontWeight: '700', textTransform: 'uppercase' }}>
-                  {item.category}
-                </div>
-                <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginTop: '2px' }}>
-                  {item.title}
-                </h4>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ textAlign: 'center', marginTop: '30px' }}>
-            <Link href="/gallery" className="btn btn-outline">
-              <span>View Full Gallery ({gallery.length}+ Photos) &rarr;</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Notice Board Preview */}
-      <section className="section-padding" style={{ backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0' }}>
-        <div className="container" style={{ maxWidth: '960px' }}>
-          <div className="section-header">
-            <span className="badge-gold">CIRCULARS &amp; ALERTS</span>
-            <h2>Official Notices &amp; Announcements</h2>
-            <p>
-              Stay up to date with UPSC NDA notifications, SSB call letters, and new batch commencement dates.
-            </p>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-            {notices.slice(0, 5).map((n) => {
-              const isPdf = n.linkUrl && n.linkUrl.toLowerCase().includes('.pdf');
-              const isImage = n.linkUrl && n.linkUrl.match(/\.(jpeg|jpg|png|webp|gif)/i);
-              const hasLink = Boolean(n.linkUrl && n.linkUrl.trim() !== '');
-
-              return (
-                <div key={n._id} className="notice-card-item">
-                  <div className="notice-card-main">
-                    <div className="notice-date-box">
-                      <span className="day">
-                        {n.date ? n.date.split(' ')[0] : '20'}
-                      </span>
-                      <span className="month">
-                        {n.date && n.date.split(' ')[1] ? n.date.split(' ')[1] : 'OCT'}
-                      </span>
-                    </div>
-
-                    <div className="notice-card-content">
-                      <div className="notice-meta-tags">
-                        <span className="badge-military" style={{ fontSize: '10px', padding: '2px 8px' }}>
-                          {n.category}
-                        </span>
-                        {n.isUrgent && (
-                          <span className="badge-urgent">
-                            URGENT ALERT
-                          </span>
-                        )}
+                        padding: '4px 10px',
+                        borderRadius: '6px',
+                        backgroundColor: '#fef3c7',
+                        color: '#b45309',
+                        fontSize: '11px',
+                        fontWeight: '800',
+                        textTransform: 'uppercase'
+                      }}>
+                        {c.badge}
                       </div>
-                      <h4 className="notice-card-title">
-                        {n.title}
-                      </h4>
-                      {n.description && (
-                        <p className="notice-card-desc">
-                          {n.description}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="notice-card-action">
-                    {hasLink ? (
-                      <a
-                        href={n.linkUrl}
-                        target={n.linkUrl.startsWith('http') ? '_blank' : '_self'}
-                        rel="noreferrer"
-                        className={`notice-action-btn ${isPdf ? 'pdf' : isImage ? 'image' : 'link'
-                          }`}
-                      >
-                        <span>
-                          {isPdf
-                            ? '📄 Download PDF'
-                            : isImage
-                              ? '🖼️ View Circular'
-                              : 'Official Link →'}
-                        </span>
-                      </a>
-                    ) : (
-                      <Link href="/notices" className="notice-action-btn view">
-                        <span>View Details →</span>
-                      </Link>
                     )}
                   </div>
-                </div>
-              );
-            })}
-          </div>
 
-          <div style={{ textAlign: 'center', marginTop: '28px' }}>
-            <Link
-              href="/notices"
-              className="btn btn-outline"
-              style={{ padding: '10px 22px', fontSize: '14px', maxWidth: '100%' }}
-            >
-              <span>All Official Circulars &amp; Alerts ({notices.length}) &rarr;</span>
-            </Link>
+                  <h3 style={{ fontSize: '22px', fontWeight: '800', color: '#0f172a', marginBottom: '8px', lineHeight: '1.3' }}>
+                    {c.title}
+                  </h3>
+
+                  <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.5', marginBottom: '18px' }}>
+                    {c.subtitle}
+                  </p>
+
+                  <div style={{
+                    padding: '10px 14px',
+                    backgroundColor: '#f8fafc',
+                    borderRadius: '8px',
+                    fontSize: '12px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    marginBottom: '20px',
+                    color: '#475569'
+                  }}>
+                    <span>Duration: <strong style={{ color: '#0f172a' }}>{c.duration}</strong></span>
+                    <span>Location: <strong style={{ color: '#0f172a' }}>{c.location}</strong></span>
+                  </div>
+
+                  {/* Bullet points */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '24px' }}>
+                    {c.points.map((p, idx) => (
+                      <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '13px', color: '#334155', lineHeight: '1.5' }}>
+                        <CheckCircle size={15} color="#109cd9" style={{ flexShrink: 0, marginTop: '2px' }} />
+                        <span>{p}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <div style={{
+                    fontSize: '12px',
+                    fontWeight: '800',
+                    color: '#d97706',
+                    textAlign: 'center',
+                    marginBottom: '14px',
+                    letterSpacing: '0.02em'
+                  }}>
+                    ★ {c.slogan}
+                  </div>
+
+                  <Link
+                    href={`/enquiry?course=${encodeURIComponent(c.title)}`}
+                    className="btn btn-primary"
+                    style={{ width: '100%', justifyContent: 'center', padding: '11px 20px', fontSize: '14px' }}
+                  >
+                    <span>Register For This Course</span>
+                    <ArrowRight size={15} />
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Call to Action Banner */}
-      <section style={{ backgroundColor: '#109CD9', color: '#ffffff', padding: '56px 0', textAlign: 'center' }}>
-        <div className="container">
-          <h2 style={{ fontSize: '34px', fontWeight: '800', color: '#ffffff', marginBottom: '12px' }}>
-            Ready to Earn Your Stars in 2026?
+      {/* Autoplaying YouTube Video Training Section */}
+      <VideoSection 
+        badge="SSB & DEFENCE PREPARATION"
+        title="Experience Astra SSB Ground & Tactics"
+        subtitle="Watch our live obstacle tasks, screening psychology, and guidance from DIPR qualified assessors."
+      />
+
+      {/* 4. Section: "STILL CONFUSED? JOIN US. WE ARE THE SOLUTION" */}
+      <section className="section-padding" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
+        <div className="container" style={{ maxWidth: '960px', textAlign: 'center' }}>
+          <span style={{ fontSize: '13px', fontWeight: '800', color: '#d97706', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+            BE WITH US MIRACLE WILL HAPPEN
+          </span>
+          <h2 style={{ fontSize: '32px', fontWeight: '900', color: '#0f172a', margin: '12px 0 16px', lineHeight: '1.25' }}>
+            Still Confused? Join Us. <strong style={{ color: '#109cd9' }}>We Are The Solution.</strong>
           </h2>
-          <p style={{ fontSize: '16px', color: '#dcfce7', maxWidth: '640px', margin: '0 auto 24px auto', lineHeight: '1.6' }}>
-            Seats in upcoming NDA Written and SSB 14-Days batches are limited to 20 cadets per sub-group to maintain personalized training standards.
+          <p style={{ fontSize: '16px', color: '#475569', lineHeight: '1.7', marginBottom: '32px' }}>
+            Experience realistic GTO tasks on our scientifically designed GTO ground, receive personalized guidance and master every stage of the SSB selection process in a focused, limited batch environment. With affordable training programmes and budget friendly accommodation for outstation candidates, ASTRA SSB brings professional guidance within your reach.
+          </p>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            gap: '20px',
+            textAlign: 'left',
+            marginBottom: '36px'
+          }}>
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '22px' }}>
+              <div style={{ fontSize: '20px', fontWeight: '800', color: '#109cd9', marginBottom: '6px' }}>
+                10-Day Offline SSB
+              </div>
+              <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.5' }}>
+                Stage I, live group discussions, psychological tests, mock interviews &amp; physical ground obstacles in Lucknow.
+              </p>
+            </div>
+
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '22px' }}>
+              <div style={{ fontSize: '20px', fontWeight: '800', color: '#109cd9', marginBottom: '6px' }}>
+                20-Day Online SSB
+              </div>
+              <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.5' }}>
+                Complete live online preparation with PIQ analysis, 1-on-1 mock interviews, psych dossier audit &amp; mentorship.
+              </p>
+            </div>
+
+            <div style={{ background: '#ffffff', border: '1px solid #e2e8f0', borderRadius: '12px', padding: '22px' }}>
+              <div style={{ fontSize: '20px', fontWeight: '800', color: '#109cd9', marginBottom: '6px' }}>
+                NDA &amp; CDS Written
+              </div>
+              <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.5' }}>
+                Master Mathematics &amp; GAT with shortcut tricks, chapter-wise test series, and dedicated defense faculties.
+              </p>
+            </div>
+          </div>
+
+          <Link href="/enquiry" className="btn btn-primary" style={{ padding: '12px 32px', fontSize: '15px' }}>
+            <span>Connect with Admissions Team</span>
+            <ArrowRight size={16} />
+          </Link>
+        </div>
+      </section>
+
+      {/* 5. Address & Social Channels Bar (Krishna Nagar, Lucknow + Telegram + YouTube + Instagram) */}
+      <section style={{ backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0', padding: '45px 0' }}>
+        <div className="container">
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '24px'
+          }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#109cd9', fontWeight: '800', fontSize: '13px', textTransform: 'uppercase', marginBottom: '4px' }}>
+                <MapPin size={16} />
+                <span>Academy Location</span>
+              </div>
+              <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#0f172a' }}>
+                Krishna Nagar, Lucknow, Uttar Pradesh
+              </h3>
+              <p style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>
+                Helpline: +91 9464256374 &bull; astraforssb@gmail.com
+              </p>
+            </div>
+
+            {/* Social channels */}
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+              <a
+                href="https://t.me/astrassb"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  backgroundColor: '#0088cc',
+                  color: '#ffffff',
+                  padding: '10px 18px',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  fontWeight: '700'
+                }}
+              >
+                <Send size={16} />
+                <span>Geopolitics &amp; CA Telegram</span>
+              </a>
+
+              <a
+                href="https://youtube.com/@astratraining?si=RZnPaUUevZ-BOd5F"
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  backgroundColor: '#ff0000',
+                  color: '#ffffff',
+                  padding: '10px 18px',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  fontWeight: '700'
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+                <span>YouTube Channel</span>
+              </a>
+
+              <a
+                href="https://www.instagram.com/trainingwithastra?utm_source=qr&stkn=MXFlaXBpOWUzbDNleg=="
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                  color: '#ffffff',
+                  padding: '10px 18px',
+                  borderRadius: '8px',
+                  fontSize: '13px',
+                  fontWeight: '700'
+                }}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                </svg>
+                <span>Instagram Profile</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Call to Action Banner */}
+      <section style={{ backgroundColor: '#109CD9', color: '#ffffff', padding: '50px 0', textAlign: 'center' }}>
+        <div className="container">
+          <h2 style={{ fontSize: '30px', fontWeight: '800', color: '#ffffff', marginBottom: '10px' }}>
+            BE WITH US MIRACLES WILL HAPPEN.
+          </h2>
+          <p style={{ fontSize: '15px', color: '#dcfce7', maxWidth: '640px', margin: '0 auto 22px auto', lineHeight: '1.6' }}>
+            Offline Mode SSB &bull; Online Mode SSB &bull; NDA &amp; CDS Written. Secure your seat in the upcoming batch today.
           </p>
           <div style={{ display: 'flex', gap: '14px', justifyContent: 'center', flexWrap: 'wrap' }}>
             <Link
@@ -620,7 +566,7 @@ export default function HomePage() {
               className="btn btn-gold"
               style={{ padding: '12px 28px', fontSize: '15px' }}
             >
-              <span>Book Free Counseling Session</span>
+              <span>Enquire / Register Now</span>
               <ArrowRight size={16} />
             </Link>
             <Link
@@ -628,227 +574,17 @@ export default function HomePage() {
               className="btn btn-outline-white"
               style={{ padding: '12px 28px', fontSize: '15px' }}
             >
-              <span>Visit Campus Tour</span>
+              <span>Contact Us</span>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Course Detail Modal */}
-      {selectedCourse && (
-        <div
-          onClick={() => setSelectedCourse(null)}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            backgroundColor: 'rgba(15, 23, 42, 0.75)',
-            backdropFilter: 'blur(6px)',
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '16px'
-          }}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              backgroundColor: '#ffffff',
-              borderRadius: '16px',
-              maxWidth: '680px',
-              width: '100%',
-              maxHeight: '90vh',
-              display: 'flex',
-              flexDirection: 'column',
-              overflow: 'hidden',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.3)',
-              position: 'relative'
-            }}
-          >
-            {/* Modal Header */}
-            <div style={{
-              padding: '18px 24px',
-              borderBottom: '1px solid #e2e8f0',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              backgroundColor: '#ffffff'
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span className="badge-military" style={{ fontSize: '11px' }}>
-                  {selectedCourse.category}
-                </span>
-                {selectedCourse.badge && (
-                  <span className="badge-gold" style={{ fontSize: '11px' }}>
-                    {selectedCourse.badge}
-                  </span>
-                )}
-                {selectedCourse.code && (
-                  <span style={{ fontSize: '11px', color: '#64748b', fontFamily: 'monospace' }}>
-                    #{selectedCourse.code}
-                  </span>
-                )}
-              </div>
-              <button
-                type="button"
-                onClick={() => setSelectedCourse(null)}
-                style={{
-                  background: '#f1f5f9',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '32px',
-                  height: '32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  color: '#64748b'
-                }}
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            {/* Modal Scrollable Body */}
-            <div style={{
-              padding: '24px',
-              overflowY: 'auto',
-              flex: 1
-            }}>
-              <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#1e293b', marginBottom: '8px' }}>
-                {selectedCourse.title}
-              </h2>
-
-              {selectedCourse.subtitle && (
-                <div style={{ fontSize: '14px', fontWeight: '600', color: '#109CD9', marginBottom: '16px' }}>
-                  {selectedCourse.subtitle}
-                </div>
-              )}
-
-              {selectedCourse.image && (
-                <div style={{
-                  height: '220px',
-                  borderRadius: '12px',
-                  overflow: 'hidden',
-                  marginBottom: '20px',
-                  backgroundColor: '#0f172a'
-                }}>
-                  <img
-                    src={selectedCourse.image}
-                    alt={selectedCourse.title}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    onError={(e) => { e.target.style.display = 'none'; }}
-                  />
-                </div>
-              )}
-
-              <div style={{ marginBottom: '20px' }}>
-                <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '6px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                  Course Overview
-                </h4>
-                <p style={{ fontSize: '14px', color: '#475569', lineHeight: '1.7' }}>
-                  {selectedCourse.description}
-                </p>
-              </div>
-
-              {/* Specs Grid */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: '12px',
-                backgroundColor: '#f8fafc',
-                border: '1px solid #e2e8f0',
-                borderRadius: '10px',
-                padding: '16px',
-                marginBottom: '22px'
-              }}>
-                <div>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>⏳ Course Duration</span>
-                  <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginTop: '2px' }}>
-                    {selectedCourse.duration || '6 Months Intensive'}
-                  </div>
-                </div>
-
-                <div>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>📅 Next Batch Commencement</span>
-                  <div style={{ fontSize: '14px', fontWeight: '700', color: '#d97706', marginTop: '2px' }}>
-                    {selectedCourse.batchStartDate || 'Batches every Monday'}
-                  </div>
-                </div>
-
-                <div>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>⏰ Daily Schedule</span>
-                  <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginTop: '2px' }}>
-                    {selectedCourse.timings || '08:30 AM - 02:30 PM'}
-                  </div>
-                </div>
-
-                <div>
-                  <span style={{ fontSize: '12px', color: '#64748b' }}>👥 Batch Capacity</span>
-                  <div style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginTop: '2px' }}>
-                    {selectedCourse.batchSize || 'Limited to 35 Cadets'}
-                  </div>
-                </div>
-              </div>
-
-              {/* Highlights */}
-              {selectedCourse.highlights && selectedCourse.highlights.length > 0 && (
-                <div style={{ marginBottom: '22px' }}>
-                  <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1e293b', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                    Training Highlights &amp; Features
-                  </h4>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                    {(Array.isArray(selectedCourse.highlights) ? selectedCourse.highlights : [selectedCourse.highlights]).map((h, i) => (
-                      <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '13px', color: '#334155' }}>
-                        <CheckCircle size={16} color="#109CD9" style={{ flexShrink: 0, marginTop: '2px' }} />
-                        <span>{h}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Modal Footer */}
-            <div style={{
-              padding: '16px 24px',
-              borderTop: '1px solid #e2e8f0',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              backgroundColor: '#f8fafc',
-              flexWrap: 'wrap',
-              gap: '12px'
-            }}>
-              <div>
-                <div style={{ fontSize: '11px', color: '#64748b', textTransform: 'uppercase' }}>All-Inclusive Course Fee</div>
-                <div style={{ fontSize: '24px', fontWeight: '900', color: '#109CD9' }}>
-                  {selectedCourse.fees ? `₹${Number(selectedCourse.fees).toLocaleString('en-IN')}` : 'Contact for Fees'}
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <button
-                  type="button"
-                  className="btn btn-outline"
-                  onClick={() => setSelectedCourse(null)}
-                >
-                  Close
-                </button>
-                <Link
-                  href={`/enquiry?course=${encodeURIComponent(selectedCourse.title)}`}
-                  className="btn btn-primary"
-                  onClick={() => setSelectedCourse(null)}
-                  style={{ padding: '10px 22px' }}
-                >
-                  <span>Enroll / Book Seat</span>
-                  <ArrowRight size={16} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Auto-Open Interactive Defence Popup Modal */}
+      <EnquiryModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 }

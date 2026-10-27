@@ -6,8 +6,9 @@ import {
   ShieldCheck, 
   Award, 
   CheckCircle, 
-  Flag,
+  Flag
 } from 'lucide-react';
+import VideoSection from '../../components/VideoSection';
 
 export default function AboutPage() {
   const values = [
@@ -140,7 +141,13 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-     
+
+      {/* Autoplaying Training Videos Section */}
+      <VideoSection 
+        badge="CAMPUS & TRAINING DRILLS"
+        title="Inside Astra SSB: Real Training Footage"
+        subtitle="Watch actual candidates practice group tasks, progressive obstacles, and psychological dossier evaluation."
+      />
     </>
   );
 }
