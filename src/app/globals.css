@@ -2804,9 +2804,24 @@ img {
     display: none !important;
   }
 
+  /* Mobile me inner white circle remove ho kar pure colored circle with white icon banega */
   .hero-social-link .social-badge-icon {
-    width: 30px;
-    height: 30px;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+  }
+
+  .hero-social-link .social-badge-icon svg {
+    width: 22px !important;
+    height: 22px !important;
+    fill: currentColor;
+  }
+
+  .hero-social-link .social-badge-icon svg[stroke] {
+    stroke: #ffffff !important;
+    fill: none !important;
   }
 }
 
