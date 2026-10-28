@@ -57,12 +57,7 @@ export default function VideoSection({
         </div>
 
         {/* 2 Video Grid with Autoplay & Loop */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '28px',
-          alignItems: 'stretch'
-        }}>
+        <div className="video-section-grid">
           {videos.map((vid, idx) => (
             <div
               key={idx}

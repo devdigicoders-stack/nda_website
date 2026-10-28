@@ -39,11 +39,9 @@ export default function Navbar() {
     { name: 'Home', href: '/' },
     { name: 'About Us', href: '/about' },
     { name: 'Courses', href: '/courses' },
-    { name: 'SSB 14 Days', href: '/ssb-training' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Blogs', href: '/blogs' },
-    { name: 'Notice', href: '/notices' },
-    { name: 'FAQ', href: '/faq' },
+    { name: 'Notices', href: '/notices' },
     { name: 'Contact', href: '/contact' }
   ];
 
@@ -120,8 +118,8 @@ export default function Navbar() {
                 <div style={{ fontSize: '11px', color: '#64748b', fontWeight: '600', textTransform: 'uppercase' }}>
                   Admissions Helpline
                 </div>
-                <a href="tel:+919876543210" style={{ fontSize: '14px', fontWeight: '800', color: '#0f172a', textDecoration: 'none' }}>
-                  +91 98765 43210
+                <a href="tel:+919464256374" style={{ fontSize: '14px', fontWeight: '800', color: '#0f172a', textDecoration: 'none' }}>
+                  +91 9464256374
                 </a>
               </div>
             </div>

@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { 
-  CheckCircle, 
-  ArrowRight, 
-  Calendar, 
-  Clock, 
+import {
+  CheckCircle,
+  ArrowRight,
+  Calendar,
+  Clock,
   MapPin,
   Sparkles,
   ShieldCheck
@@ -99,16 +99,16 @@ export default function CoursesPage() {
             const cat = item.category || 'Offline Mode SSB';
             const isOnline = cat.toLowerCase().includes('online');
             const isWritten = cat.toLowerCase().includes('written') || cat.toLowerCase().includes('nda');
-            
+
             // Standardize category key
             let standardCat = 'Offline Mode SSB';
             if (isOnline) standardCat = 'Online Mode SSB';
             else if (isWritten) standardCat = 'NDA & CDS Written';
 
             // Fallback image if item has no image
-            const defaultImg = isOnline 
+            const defaultImg = isOnline
               ? 'https://images.unsplash.com/photo-1579208575657-c595a05383b7?auto=format&fit=crop&w=800&q=80'
-              : isWritten 
+              : isWritten
                 ? 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=800&q=80'
                 : 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=800&q=80';
 
@@ -126,18 +126,18 @@ export default function CoursesPage() {
               points: Array.isArray(item.highlights) && item.highlights.length > 0
                 ? item.highlights
                 : [
-                    'Personal mentorship and performance tracking.',
-                    'DIPR qualified Ex-Assessors guidance.',
-                    'Realistic interview and test simulations.',
-                    'Defence awareness & current affairs.'
-                  ],
+                  'Personal mentorship and performance tracking.',
+                  'DIPR qualified Ex-Assessors guidance.',
+                  'Realistic interview and test simulations.',
+                  'Defence awareness & current affairs.'
+                ],
               slogan: 'BE WITH US MIRACLES WILL HAPPEN.'
             };
           });
           setBackendCourses(formatted);
         }
       })
-      .catch(() => {})
+      .catch(() => { })
       .finally(() => setLoading(false));
   }, []);
 
@@ -187,11 +187,7 @@ export default function CoursesPage() {
           </div>
 
           {/* Grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '30px'
-          }}>
+          <div className="courses-page-grid">
             {filtered.map((c) => (
               <div
                 key={c.id}
@@ -318,9 +314,9 @@ export default function CoursesPage() {
       </section>
 
       {/* Autoplaying Practical Ground Video Section */}
-      <VideoSection 
-        badge="COURSE PRACTICAL OVERVIEW"
-        title="See How We Train Future Officers"
+      <VideoSection
+        badge="OUR GUIDANCE"
+        title="INSIDE OUR CLASSROOM"
         subtitle="Watch actual candidates navigate the obstacle course and receive personal feedback from Ex-Assessors."
       />
     </>

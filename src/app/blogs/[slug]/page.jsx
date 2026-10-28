@@ -301,13 +301,13 @@ export default function SingleBlogPage({ params }) {
               Want to practice these techniques with Ex-Assessors?
             </h3>
             <p style={{ fontSize: '14px', color: '#64748b', maxWidth: '540px', margin: '0 auto 20px auto' }}>
-              Join our upcoming 14-days intensive residential bootcamp conducted on a full-scale outdoor obstacle ground.
+              Join our upcoming 10-days intensive residential bootcamp conducted on a full-scale outdoor obstacle ground.
             </p>
             <Link
-              href="/enquiry?course=SSB%2014%20Days%20Training"
+              href="/enquiry?course=SSB%2010%20Days%20Training"
               className="btn btn-primary"
             >
-              <span>Enroll in Upcoming SSB 14-Day Batch</span>
+              <span>Enroll in Upcoming SSB 10-Day Batch</span>
               <ArrowRight size={16} />
             </Link>
           </div>

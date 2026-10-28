@@ -24,23 +24,15 @@ import {
   Check
 } from 'lucide-react';
 import { fetchCourses, fetchGallery, fetchBlogs, fetchNotices } from '../lib/api';
-import EnquiryModal from '../components/EnquiryModal';
 import VideoSection from '../components/VideoSection';
 
 export default function HomePage() {
   const [courses, setCourses] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [activeCourseTab, setActiveCourseTab] = useState('offline');
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchCourses().then(setCourses).catch(() => { });
-
-    // Open enquiry modal on page load / refresh
-    const timer = setTimeout(() => {
-      setIsModalOpen(true);
-    }, 600); // Opens smoothly after 600ms
-    return () => clearTimeout(timer);
   }, []);
 
   // Exact 3 Core Courses as requested with thumbnails
@@ -121,47 +113,29 @@ export default function HomePage() {
 
         <div className="container hero-content">
           <div style={{ maxWidth: '780px' }}>
-            <div
-              className="badge-gold"
-              style={{
-                marginBottom: '16px',
-                background: 'rgba(217, 119, 6, 0.25)',
-                color: '#fde047',
-                borderColor: '#eab308'
-              }}
-            >
-              <Sparkles size={14} />
-              <span>ASTRA SSB &bull; KRISHNA NAGAR, LUCKNOW 🇮🇳</span>
+            {/* Top Motto Banner (Replaced the Lucknow badge as requested) */}
+            <div className="hero-top-motto">
+              <span>BE WITH US MIRACLE WILL HAPPEN.</span>
             </div>
 
-            <h1 className="hero-title" style={{ fontSize: '40px', lineHeight: '1.2', marginBottom: '18px' }}>
+            <h1 className="hero-title">
               ASTRA SSB – <span>YOUR JOURNEY TO THE OFFICER’S LIFE</span> STARTS HERE!
             </h1>
 
-            <p className="hero-subtitle" style={{ fontSize: '16px', lineHeight: '1.7', marginBottom: '24px', color: '#e2e8f0' }}>
+            {/* Desktop Full Subtitle */}
+            <p className="hero-subtitle hero-subtitle-desktop">
               At ASTRA SSB, we go beyond conventional mentoring to help you develop the confidence, leadership, decision making ability and officer like qualities required to excel in the SSB interview. Train under experienced DIPR qualified Ex-Assessors through a result oriented, intensive training programme designed for maximum learning in minimum time.
             </p>
 
-            <div style={{
-              display: 'inline-block',
-              padding: '8px 18px',
-              backgroundColor: 'rgba(16, 156, 217, 0.25)',
-              border: '1px solid #109cd9',
-              borderRadius: '8px',
-              color: '#ffffff',
-              fontWeight: '800',
-              fontSize: '15px',
-              letterSpacing: '0.04em',
-              marginBottom: '26px'
-            }}>
-              BE WITH US MIRACLE WILL HAPPEN.
-            </div>
+            {/* Mobile View Short & Crisp Subtitle (Less text, full impact) */}
+            <p className="hero-subtitle hero-subtitle-mobile">
+              Master the SSB interview under DIPR qualified Ex-Assessors with live GTO obstacle ground and personalized 1-on-1 mentoring.
+            </p>
 
-            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+            <div className="hero-cta-group">
               <Link
                 href="/enquiry"
-                className="btn btn-primary"
-                style={{ padding: '12px 28px', fontSize: '15px' }}
+                className="btn btn-primary hero-btn"
               >
                 <span>Join Next Batch</span>
                 <ArrowRight size={16} />
@@ -169,8 +143,7 @@ export default function HomePage() {
 
               <a
                 href="#courses-section"
-                className="btn btn-outline-white"
-                style={{ padding: '12px 28px', fontSize: '15px' }}
+                className="btn btn-outline-white hero-btn"
               >
                 <span>View 3 Core Courses</span>
               </a>
@@ -239,12 +212,7 @@ export default function HomePage() {
           </div>
 
           {/* Three Courses Grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '28px',
-            alignItems: 'stretch'
-          }}>
+          <div className="core-courses-grid">
             {coreCourses.map((c, i) => (
               <div
                 key={c.id}
@@ -395,10 +363,10 @@ export default function HomePage() {
       </section>
 
       {/* Autoplaying YouTube Video Training Section */}
-      <VideoSection 
-        badge="SSB & DEFENCE PREPARATION"
-        title="Experience Astra SSB Ground & Tactics"
-        subtitle="Watch our live obstacle tasks, screening psychology, and guidance from DIPR qualified assessors."
+      <VideoSection
+        badge="OUR GUIDANCE"
+        title="Inside Our Classroom"
+        subtitle="Watch our live classroom lectures, screening psychology, and guidance from DIPR qualified assessors."
       />
 
       {/* 4. Section: "STILL CONFUSED? JOIN US. WE ARE THE SOLUTION" */}
@@ -469,7 +437,7 @@ export default function HomePage() {
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#109cd9', fontWeight: '800', fontSize: '13px', textTransform: 'uppercase', marginBottom: '4px' }}>
                 <MapPin size={16} />
-                <span>Academy Location</span>
+                <span>Our Location</span>
               </div>
               <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#0f172a' }}>
                 Krishna Nagar, Lucknow, Uttar Pradesh
@@ -479,8 +447,9 @@ export default function HomePage() {
               </p>
             </div>
 
-            {/* Social channels */}
-            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+            {/* Social channels with Authentic White Badge Logos */}
+            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
+              {/* Telegram Button */}
               <a
                 href="https://t.me/astrassb"
                 target="_blank"
@@ -488,19 +457,37 @@ export default function HomePage() {
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '10px',
                   backgroundColor: '#0088cc',
                   color: '#ffffff',
-                  padding: '10px 18px',
-                  borderRadius: '8px',
-                  fontSize: '13px',
-                  fontWeight: '700'
+                  padding: '7px 18px 7px 8px',
+                  borderRadius: '10px',
+                  fontSize: '13.5px',
+                  fontWeight: '700',
+                  boxShadow: '0 4px 14px rgba(0, 136, 204, 0.3)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease'
                 }}
               >
-                <Send size={16} />
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  backgroundColor: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#0088cc',
+                  flexShrink: 0,
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.15)'
+                }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                  </svg>
+                </div>
                 <span>Geopolitics &amp; CA Telegram</span>
               </a>
 
+              {/* YouTube Button */}
               <a
                 href="https://youtube.com/@astratraining?si=RZnPaUUevZ-BOd5F"
                 target="_blank"
@@ -508,21 +495,37 @@ export default function HomePage() {
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '10px',
                   backgroundColor: '#ff0000',
                   color: '#ffffff',
-                  padding: '10px 18px',
-                  borderRadius: '8px',
-                  fontSize: '13px',
-                  fontWeight: '700'
+                  padding: '7px 18px 7px 8px',
+                  borderRadius: '10px',
+                  fontSize: '13.5px',
+                  fontWeight: '700',
+                  boxShadow: '0 4px 14px rgba(255, 0, 0, 0.3)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease'
                 }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  backgroundColor: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#ff0000',
+                  flexShrink: 0,
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.15)'
+                }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                </div>
                 <span>YouTube Channel</span>
               </a>
 
+              {/* Instagram Button */}
               <a
                 href="https://www.instagram.com/trainingwithastra?utm_source=qr&stkn=MXFlaXBpOWUzbDNleg=="
                 target="_blank"
@@ -530,20 +533,35 @@ export default function HomePage() {
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '8px',
+                  gap: '10px',
                   background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
                   color: '#ffffff',
-                  padding: '10px 18px',
-                  borderRadius: '8px',
-                  fontSize: '13px',
-                  fontWeight: '700'
+                  padding: '7px 18px 7px 8px',
+                  borderRadius: '10px',
+                  fontSize: '13.5px',
+                  fontWeight: '700',
+                  boxShadow: '0 4px 14px rgba(220, 39, 67, 0.35)',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease'
                 }}
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                </svg>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  backgroundColor: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#e1306c',
+                  flexShrink: 0,
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.15)'
+                }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                  </svg>
+                </div>
                 <span>Instagram Profile</span>
               </a>
             </div>
@@ -579,12 +597,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Auto-Open Interactive Defence Popup Modal */}
-      <EnquiryModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </>
   );
 }

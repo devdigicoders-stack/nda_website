@@ -115,7 +115,9 @@ export default function EnquiryPage() {
                   </div>
                   <div>
                     <div style={{ fontSize: '12px', color: '#64748b' }}>Helpline &amp; WhatsApp</div>
-                    <strong>+91 9464256374</strong>
+                    <a href="tel:+919464256374" style={{ color: '#0f172a', textDecoration: 'none', fontWeight: '700' }}>
+                      +91 9464256374
+                    </a>
                   </div>
                 </div>
 
@@ -125,7 +127,9 @@ export default function EnquiryPage() {
                   </div>
                   <div>
                     <div style={{ fontSize: '12px', color: '#64748b' }}>Official Email</div>
-                    <strong>astraforssb@gmail.com</strong>
+                    <a href="mailto:astraforssb@gmail.com" style={{ color: '#0f172a', textDecoration: 'none', fontWeight: '700' }}>
+                      astraforssb@gmail.com
+                    </a>
                   </div>
                 </div>
               </div>

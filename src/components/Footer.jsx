@@ -28,10 +28,7 @@ export default function Footer() {
                 />
               </div>
               <div>
-                <h3 style={{ fontSize: '18px', fontWeight: '800', color: '#fff' }}>ASTRA SSB</h3>
-                <span style={{ fontSize: '11px', color: '#eab308', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: '700' }}>
-                  Defence &amp; SSB Academy
-                </span>
+                <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#fff', margin: 0 }}>ASTRA SSB</h3>
               </div>
             </div>
             <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: '1.6', marginBottom: '16px' }}>
@@ -184,7 +181,6 @@ export default function Footer() {
               <li><Link href="/courses" style={{ color: '#cbd5e1' }}>Offline Mode SSB (10 Days)</Link></li>
               <li><Link href="/courses" style={{ color: '#cbd5e1' }}>Online Mode SSB (20 Days)</Link></li>
               <li><Link href="/courses" style={{ color: '#cbd5e1' }}>NDA &amp; CDS Written</Link></li>
-              <li><Link href="/ssb-training" style={{ color: '#cbd5e1' }}>GTO Obstacle Ground</Link></li>
             </ul>
           </div>
 
@@ -215,11 +211,15 @@ export default function Footer() {
               </div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                 <Phone size={16} color="#eab308" style={{ flexShrink: 0 }} />
-                <span>+91 9464256374</span>
+                <a href="tel:+919464256374" style={{ color: '#cbd5e1', textDecoration: 'none' }}>
+                  +91 9464256374
+                </a>
               </div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                 <Mail size={16} color="#eab308" style={{ flexShrink: 0 }} />
-                <span>astraforssb@gmail.com</span>
+                <a href="mailto:astraforssb@gmail.com" style={{ color: '#cbd5e1', textDecoration: 'none' }}>
+                  astraforssb@gmail.com
+                </a>
               </div>
               <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                 <Clock size={16} color="#eab308" style={{ flexShrink: 0 }} />

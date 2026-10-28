@@ -2,10 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { 
-  ShieldCheck, 
-  Award, 
-  CheckCircle, 
+import {
+  ShieldCheck,
+  Award,
+  CheckCircle,
   Flag
 } from 'lucide-react';
 import VideoSection from '../../components/VideoSection';
@@ -143,9 +143,9 @@ export default function AboutPage() {
       </section>
 
       {/* Autoplaying Training Videos Section */}
-      <VideoSection 
-        badge="CAMPUS & TRAINING DRILLS"
-        title="Inside Astra SSB: Real Training Footage"
+      <VideoSection
+        badge="OUR GUIDANCE"
+        title="INSIDE OUR CLASSROOM"
         subtitle="Watch actual candidates practice group tasks, progressive obstacles, and psychological dossier evaluation."
       />
     </>

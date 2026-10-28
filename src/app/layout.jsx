@@ -3,12 +3,12 @@ import './globals.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import NoticeTicker from '../components/NoticeTicker';
-import WhatsAppButton from '../components/WhatsAppButton';
+import FloatingActions from '../components/FloatingActions';
 import ScrollToTop from '../components/ScrollToTop';
 
 export const metadata = {
   title: 'Shaurya NDA & SSB Academy | Best Defence Coaching & SSB Interview Training',
-  description: "Join India's premier Defence preparatory academy for NDA Written Examination and SSB 14-Days Comprehensive Interview Bootcamp with live GTO Obstacle Ground and Ex-Assessors.",
+  description: "Join India's premier Defence preparatory academy for NDA Written Examination and SSB 10-Days Comprehensive Interview Bootcamp with live GTO Obstacle Ground and Ex-Assessors.",
   icons: {
     icon: '/assets/logos/image-removebg-preview (1).png',
     shortcut: '/assets/logos/image-removebg-preview (1).png',
@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main>{children}</main>
         <Footer />
-        <WhatsAppButton />
+        <FloatingActions />
       </body>
     </html>
   );

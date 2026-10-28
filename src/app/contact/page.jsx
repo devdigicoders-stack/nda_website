@@ -20,7 +20,7 @@ export default function ContactPage() {
     name: '',
     phone: '',
     email: '',
-    course: 'NDA Written Exam Preparation Course',
+    course: '',
     message: ''
   });
 
@@ -113,8 +113,10 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>Call Us</h4>
-                    <p style={{ fontSize: '13px', color: '#109CD9', fontWeight: '700', marginTop: '2px' }}>
-                      +91 9464256374
+                    <p style={{ fontSize: '13px', marginTop: '2px' }}>
+                      <a href="tel:+919464256374" style={{ color: '#109CD9', fontWeight: '700', textDecoration: 'none' }}>
+                        +91 9464256374
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -136,8 +138,10 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>Email Us</h4>
-                    <p style={{ fontSize: '13px', color: '#64748b', marginTop: '2px' }}>
-                      astraforssb@gmail.com
+                    <p style={{ fontSize: '13px', marginTop: '2px' }}>
+                      <a href="mailto:astraforssb@gmail.com" style={{ color: '#64748b', textDecoration: 'none' }}>
+                        astraforssb@gmail.com
+                      </a>
                     </p>
                   </div>
                 </div>
@@ -167,143 +171,151 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Right: Send us a Message Card */}
+            {/* Right: Send us a Message Card with 25% Watermark Logo */}
             <div className="contact-form-card" style={{
               backgroundColor: '#ffffff',
               border: '1px solid #e2e8f0',
               borderRadius: '14px',
               padding: '32px',
-              boxShadow: 'var(--shadow-sm)'
+              boxShadow: 'var(--shadow-sm)',
+              position: 'relative',
+              overflow: 'hidden'
             }}>
-              <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
-                Send us a Message
-              </h3>
-              <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '22px' }}>
-                Fill out the form below to receive syllabus brochures, fee details, and batch timings.
-              </p>
+              {/* Background Watermark Logo with 25% Opacity */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '280px',
+                  height: '280px',
+                  opacity: 0.25,
+                  pointerEvents: 'none',
+                  zIndex: 0,
+                  backgroundImage: "url('/assets/logos/image-removebg-preview (1).png')",
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
+                  backgroundSize: 'contain'
+                }}
+                aria-hidden="true"
+              />
 
-              {submitted ? (
-                <div style={{ padding: '36px 16px', textAlign: 'center' }}>
-                  <div style={{
-                    width: '64px',
-                    height: '64px',
-                    borderRadius: '50%',
-                    backgroundColor: '#e6f6fd',
-                    color: '#109CD9',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '16px'
-                  }}>
-                    <CheckCircle size={36} />
-                  </div>
-                  <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
-                    Message Sent Successfully!
-                  </h3>
-                  <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '20px' }}>
-                    Thank you, <strong>{formData.name}</strong>. Our Senior Defence Counselor will call you at <strong>{formData.phone}</strong> shortly.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setSubmitted(false);
-                      setFormData({
-                        name: '',
-                        phone: '',
-                        email: '',
-                        course: 'NDA Written Exam Preparation Course',
-                        message: ''
-                      });
-                    }}
-                    className="btn btn-primary"
-                  >
-                    Send Another Message
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit}>
-                  {error && (
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
+                  Send us a Message
+                </h3>
+                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '22px' }}>
+                  Fill out the form below to receive syllabus brochures, fee details, and batch timings.
+                </p>
+
+                {submitted ? (
+                  <div style={{ padding: '36px 16px', textAlign: 'center' }}>
                     <div style={{
-                      backgroundColor: '#fee2e2',
-                      border: '1px solid #fca5a5',
-                      color: '#dc2626',
-                      padding: '10px 14px',
-                      borderRadius: '8px',
-                      fontSize: '13px',
+                      width: '64px',
+                      height: '64px',
+                      borderRadius: '50%',
+                      backgroundColor: '#e6f6fd',
+                      color: '#109CD9',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       marginBottom: '16px'
                     }}>
-                      {error}
+                      <CheckCircle size={36} />
                     </div>
-                  )}
-
-                  <div className="form-group">
-                    <label>Your Name *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Abhimanyu Chauhan"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label>Your Email *</label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="cadet@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label>Phone Number *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="+91 98765 43210"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label>Select Course *</label>
-                    <select
-                      value={formData.course || formData.courseInterested}
-                      onChange={(e) => setFormData({ ...formData, course: e.target.value, courseInterested: e.target.value })}
+                    <h3 style={{ fontSize: '20px', fontWeight: '800', color: '#1e293b', marginBottom: '6px' }}>
+                      Message Sent Successfully!
+                    </h3>
+                    <p style={{ fontSize: '14px', color: '#64748b', lineHeight: '1.6', marginBottom: '20px' }}>
+                      Thank you, <strong>{formData.name}</strong>. Our Senior Defence Counselor will call you at <strong>{formData.phone}</strong> shortly.
+                    </p>
+                    <button
+                      onClick={() => {
+                        setSubmitted(false);
+                        setFormData({
+                          name: '',
+                          phone: '',
+                          email: '',
+                          message: ''
+                        });
+                      }}
+                      className="btn btn-primary"
                     >
-                      <option value="NDA Written Exam Preparation Course">NDA Written Exam Preparation Course</option>
-                      <option value="SSB 14 Days Training Course">SSB 14 Days Training Course</option>
-                      <option value="NDA Foundation 2-Year Program">NDA Foundation (11th &amp; 12th + NDA)</option>
-                      <option value="CDS / AFCAT Written + SSB">CDS / AFCAT Written + SSB</option>
-                    </select>
+                      Send Another Message
+                    </button>
                   </div>
+                ) : (
+                  <form onSubmit={handleSubmit}>
+                    {error && (
+                      <div style={{
+                        backgroundColor: '#fee2e2',
+                        border: '1px solid #fca5a5',
+                        color: '#dc2626',
+                        padding: '10px 14px',
+                        borderRadius: '8px',
+                        fontSize: '13px',
+                        marginBottom: '16px'
+                      }}>
+                        {error}
+                      </div>
+                    )}
 
-                  <div className="form-group">
-                    <label>Message (Optional)</label>
-                    <textarea
-                      rows={3}
-                      placeholder="Ask about batch start date, hostel fees, syllabus..."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    />
-                  </div>
+                    <div className="form-group">
+                      <label>Your Name *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Abhimanyu Chauhan"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      />
+                    </div>
 
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="btn btn-primary"
-                    style={{ width: '100%', padding: '13px', marginTop: '6px' }}
-                  >
-                    <Send size={16} />
-                    <span>{loading ? 'Submitting...' : 'Submit Enquiry'}</span>
-                  </button>
-                </form>
-              )}
+                    <div className="form-group">
+                      <label>Mobile Number *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="+91 98765 43210"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Your Email *</label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="cadet@example.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label>Remarks / Message (Optional)</label>
+                      <textarea
+                        rows={3}
+                        placeholder="Ask about batch start date, course, hostel fees, syllabus..."
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="btn btn-primary"
+                      style={{ width: '100%', marginTop: '8px' }}
+                    >
+                      {loading ? 'Sending Message...' : 'Submit Message'}
+                    </button>
+                  </form>
+                )}
+              </div>
             </div>
-
           </div>
         </div>
       </section>
