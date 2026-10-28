@@ -531,6 +531,13 @@ img {
   animation: fadeIn 0.2s ease-out;
 }
 
+@media (min-width: 993px) {
+  .mobile-drawer,
+  .mobile-menu-backdrop {
+    display: none !important;
+  }
+}
+
 /* Mobile Navigation Drawer */
 .mobile-drawer {
   position: absolute;

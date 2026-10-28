@@ -64,9 +64,9 @@ export default function EnquiryPage() {
       <section className="page-header-banner">
         <div className="container">
           <div className="breadcrumbs">
-            <Link href="/">Home</Link> &gt; <span>Enquiry</span>
+            <Link href="/">Home</Link> &gt; <span>Register / Enquire Now</span>
           </div>
-          <h1>Quick <span>Admission Enquiry</span></h1>
+          <h1>Register / <span>Enquire Now</span></h1>
           <p>
             ASTRA SSB &bull; Fill in your details below. Our senior counselor will connect with you.
           </p>

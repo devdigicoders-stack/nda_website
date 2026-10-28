@@ -26,13 +26,22 @@ export default function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  // Close on ESC key
+  // Close on ESC key or window resize to desktop
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') setMobileMenuOpen(false);
     };
+    const handleResize = () => {
+      if (window.innerWidth > 992) {
+        setMobileMenuOpen(false);
+      }
+    };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const navLinks = [
@@ -52,7 +61,7 @@ export default function Navbar() {
         <Link href="/" className="navbar-brand">
           <img
             src="/assets/logos/image-removebg-preview (1).png"
-            alt="Shaurya NDA & SSB Academy"
+            alt="ASTRA SSB"
             className="navbar-brand-logo"
           />
         </Link>

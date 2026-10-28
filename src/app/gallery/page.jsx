@@ -42,11 +42,11 @@ export default function GalleryPage() {
       <section className="page-header-banner">
         <div className="container">
           <div className="breadcrumbs">
-            <Link href="/">Home</Link> &gt; <span>Gallery</span>
+            <Link href="/">Home</Link> &gt; <span>Ground &amp; Training Gallery</span>
           </div>
-          <h1>Academy Photo <span>Gallery</span></h1>
+          <h1>Ground &amp; <span>Training Gallery</span></h1>
           <p>
-            Experience life at Shaurya Defence Academy: full-scale obstacle grounds, mock interviews, and celebrations.
+            Experience life at ASTRA SSB: full-scale obstacle grounds, mock interviews, and celebrations.
           </p>
         </div>
       </section>

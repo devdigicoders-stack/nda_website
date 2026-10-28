@@ -48,9 +48,9 @@ export default function AboutPage() {
       <section className="page-header-banner">
         <div className="container">
           <div className="breadcrumbs">
-            <Link href="/">Home</Link> &gt; <span>About Us</span>
+            <Link href="/">Home</Link> &gt; <span>About ASTRA SSB</span>
           </div>
-          <h1>About <span>Our Academy</span></h1>
+          <h1>About <span>ASTRA SSB</span></h1>
           <p>
             India's most trusted and result-oriented NDA &amp; SSB coaching institution, shaping future commissioned defenders of the nation.
           </p>

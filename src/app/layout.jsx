@@ -7,7 +7,7 @@ import FloatingActions from '../components/FloatingActions';
 import ScrollToTop from '../components/ScrollToTop';
 
 export const metadata = {
-  title: 'Shaurya NDA & SSB Academy | Best Defence Coaching & SSB Interview Training',
+  title: 'ASTRA SSB | Best Defence Coaching & SSB Interview Training',
   description: "Join India's premier Defence preparatory academy for NDA Written Examination and SSB 10-Days Comprehensive Interview Bootcamp with live GTO Obstacle Ground and Ex-Assessors.",
   icons: {
     icon: '/assets/logos/image-removebg-preview (1).png',

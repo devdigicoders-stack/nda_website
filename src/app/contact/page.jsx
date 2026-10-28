@@ -49,9 +49,9 @@ export default function ContactPage() {
       <section className="page-header-banner">
         <div className="container">
           <div className="breadcrumbs">
-            <Link href="/">Home</Link> &gt; <span>Contact</span>
+            <Link href="/">Home</Link> &gt; <span>Contact &amp; Location</span>
           </div>
-          <h1>Contact <span>Us</span></h1>
+          <h1>Contact &amp; <span>Location</span></h1>
           <p>
             Have any questions? Feel free to contact us. We are here to help you in your NDA &amp; SSB journey.
           </p>
@@ -91,7 +91,7 @@ export default function ContactPage() {
                   <div>
                     <h4 style={{ fontSize: '15px', fontWeight: '700', color: '#1e293b' }}>Our Address</h4>
                     <p style={{ fontSize: '13px', color: '#64748b', marginTop: '2px', lineHeight: '1.5' }}>
-                      Shaurya Defence Academy Campus, Military Ground Road, Near Cantt Area, New Delhi - 110010
+                      ASTRA SSB Campus, Military Ground Road, Near Cantt Area, New Delhi - 110010
                     </p>
                   </div>
                 </div>

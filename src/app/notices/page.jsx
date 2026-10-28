@@ -33,9 +33,9 @@ export default function NoticesPage() {
       <section className="page-header-banner">
         <div className="container">
           <div className="breadcrumbs">
-            <Link href="/">Home</Link> &gt; <span>Notice</span>
+            <Link href="/">Home</Link> &gt; <span>Notices &amp; Batches</span>
           </div>
-          <h1>Notice &amp; <span>Announcements</span></h1>
+          <h1>Notices &amp; <span>Batches</span></h1>
           <p>
             Stay updated with official UPSC notifications, SSB call letter updates, and upcoming batch dates.
           </p>

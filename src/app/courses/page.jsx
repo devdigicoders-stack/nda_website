@@ -152,9 +152,9 @@ export default function CoursesPage() {
       <section className="page-header-banner">
         <div className="container">
           <div className="breadcrumbs">
-            <Link href="/">Home</Link> &gt; <span>Courses</span>
+            <Link href="/">Home</Link> &gt; <span>All Courses</span>
           </div>
-          <h1>ASTRA SSB <span>Training Programmes</span></h1>
+          <h1>All <span>Courses</span></h1>
           <p>
             Offline Mode SSB &bull; Online Mode SSB &bull; NDA &amp; CDS Written
           </p>
