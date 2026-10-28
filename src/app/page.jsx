@@ -448,43 +448,25 @@ export default function HomePage() {
             </div>
 
             {/* Social channels with Authentic White Badge Logos */}
-            <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', alignItems: 'center' }}>
               {/* Telegram Button */}
               <a
                 href="https://t.me/astrassb"
                 target="_blank"
                 rel="noreferrer"
+                title="Geopolitics & CA Telegram"
+                className="hero-social-link"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '10px',
                   backgroundColor: '#0088cc',
-                  color: '#ffffff',
-                  padding: '7px 18px 7px 8px',
-                  borderRadius: '10px',
-                  fontSize: '13.5px',
-                  fontWeight: '700',
-                  boxShadow: '0 4px 14px rgba(0, 136, 204, 0.3)',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                  boxShadow: '0 4px 14px rgba(0, 136, 204, 0.28)'
                 }}
               >
-                <div style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  backgroundColor: '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#0088cc',
-                  flexShrink: 0,
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.15)'
-                }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <div className="social-badge-icon" style={{ color: '#0088cc' }}>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
                   </svg>
                 </div>
-                <span>Geopolitics &amp; CA Telegram</span>
+                <span className="social-text">Geopolitics &amp; CA Telegram</span>
               </a>
 
               {/* YouTube Button */}
@@ -492,37 +474,19 @@ export default function HomePage() {
                 href="https://youtube.com/@astratraining?si=RZnPaUUevZ-BOd5F"
                 target="_blank"
                 rel="noreferrer"
+                title="YouTube Channel"
+                className="hero-social-link"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '10px',
                   backgroundColor: '#ff0000',
-                  color: '#ffffff',
-                  padding: '7px 18px 7px 8px',
-                  borderRadius: '10px',
-                  fontSize: '13.5px',
-                  fontWeight: '700',
-                  boxShadow: '0 4px 14px rgba(255, 0, 0, 0.3)',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                  boxShadow: '0 4px 14px rgba(255, 0, 0, 0.28)'
                 }}
               >
-                <div style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  backgroundColor: '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ff0000',
-                  flexShrink: 0,
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.15)'
-                }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <div className="social-badge-icon" style={{ color: '#ff0000' }}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                   </svg>
                 </div>
-                <span>YouTube Channel</span>
+                <span className="social-text">YouTube Channel</span>
               </a>
 
               {/* Instagram Button */}
@@ -530,39 +494,21 @@ export default function HomePage() {
                 href="https://www.instagram.com/trainingwithastra?utm_source=qr&stkn=MXFlaXBpOWUzbDNleg=="
                 target="_blank"
                 rel="noreferrer"
+                title="Instagram Profile"
+                className="hero-social-link"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '10px',
                   background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
-                  color: '#ffffff',
-                  padding: '7px 18px 7px 8px',
-                  borderRadius: '10px',
-                  fontSize: '13.5px',
-                  fontWeight: '700',
-                  boxShadow: '0 4px 14px rgba(220, 39, 67, 0.35)',
-                  transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                  boxShadow: '0 4px 14px rgba(220, 39, 67, 0.32)'
                 }}
               >
-                <div style={{
-                  width: '32px',
-                  height: '32px',
-                  borderRadius: '50%',
-                  backgroundColor: '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#e1306c',
-                  flexShrink: 0,
-                  boxShadow: '0 2px 6px rgba(0,0,0,0.15)'
-                }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <div className="social-badge-icon" style={{ color: '#e1306c' }}>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                     <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
                   </svg>
                 </div>
-                <span>Instagram Profile</span>
+                <span className="social-text">Instagram Profile</span>
               </a>
             </div>
           </div>

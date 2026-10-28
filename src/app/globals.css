@@ -2756,5 +2756,59 @@ img {
   }
 }
 
+/* Responsive Social Buttons (Pills on desktop, pure circles on mobile) */
+.hero-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  padding: 5px 16px 5px 5px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-social-link:hover {
+  transform: translateY(-2px);
+}
+
+.hero-social-link .social-badge-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease;
+}
+
+.hero-social-link .social-text {
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .hero-social-link {
+    width: 44px;
+    height: 44px;
+    padding: 0 !important;
+    justify-content: center;
+    border-radius: 50% !important;
+  }
+
+  .hero-social-link .social-text {
+    display: none !important;
+  }
+
+  .hero-social-link .social-badge-icon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
 
 
