@@ -37,6 +37,27 @@ export default function HomePage() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const sliderTrackRef = React.useRef(null);
 
+  // Auto-scroll effect for Our Selections slider (with pause on hover)
+  useEffect(() => {
+    if (isSliderPaused) return;
+
+    const interval = setInterval(() => {
+      if (sliderTrackRef.current) {
+        const track = sliderTrackRef.current;
+        const maxScroll = track.scrollWidth - track.clientWidth;
+        // Step forward by one card (240px approx)
+        if (track.scrollLeft >= maxScroll - 10) {
+          track.scrollTo({ left: 0, behavior: 'smooth' });
+          setActiveSlideIndex(0);
+        } else {
+          track.scrollBy({ left: 240, behavior: 'smooth' });
+        }
+      }
+    }, 2800);
+
+    return () => clearInterval(interval);
+  }, [isSliderPaused, candidateItems]);
+
   useEffect(() => {
     fetchCourses().then(setCourses).catch(() => { });
     fetchGallery().then(setGalleryItems).catch(() => { });
@@ -529,10 +550,14 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Slider Track with manual horizontal scroll & touch support */}
+              {/* Slider Track with auto-scroll + manual horizontal scroll + pause on hover */}
               <div
                 ref={sliderTrackRef}
                 onScroll={handleTrackScroll}
+                onMouseEnter={() => setIsSliderPaused(true)}
+                onMouseLeave={() => setIsSliderPaused(false)}
+                onTouchStart={() => setIsSliderPaused(true)}
+                onTouchEnd={() => setIsSliderPaused(false)}
                 style={{
                   display: 'flex',
                   gap: '20px',
