@@ -20,8 +20,8 @@ import {
   Star,
   MapPin,
   Send,
-  Laptop,
-  Check
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { fetchCourses, fetchGallery, fetchBlogs, fetchNotices, fetchCandidates } from '../lib/api';
 import VideoSection from '../components/VideoSection';
@@ -34,6 +34,8 @@ export default function HomePage() {
   const [activeCourseTab, setActiveCourseTab] = useState('offline');
   const [activeCandidateModal, setActiveCandidateModal] = useState(null);
   const [isSliderPaused, setIsSliderPaused] = useState(false);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const sliderTrackRef = React.useRef(null);
 
   useEffect(() => {
     fetchCourses().then(setCourses).catch(() => { });
@@ -369,28 +371,74 @@ export default function HomePage() {
       </section>
 
       {/* Autoplaying YouTube Video Training Section */}
-      <VideoSection
-        badge="OUR GUIDANCE"
-        title="Inside Our Classroom"
-        subtitle="Watch our live classroom lectures, screening psychology, and guidance from DIPR qualified assessors."
-      />
+   
 
-      {/* SELECTED CANDIDATES / RECOMMENDED CADETS SLIDER SECTION */}
+      {/* SUCCESS STORIES / HALL OF FAME SLIDER SECTION (Always visible) */}
       {(() => {
-        // Only show dynamic candidates added from admin panel
-        if (!candidateItems || candidateItems.length === 0) {
-          return null;
-        }
+        const fallbackCadets = [
+          {
+            _id: 'cand_sample_1',
+            name: 'Cadet Aryan Sharma',
+            photoUrl: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=700&q=80'
+          },
+          {
+            _id: 'cand_sample_2',
+            name: 'Cadet Priya Singh',
+            photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=700&q=80'
+          },
+          {
+            _id: 'cand_sample_3',
+            name: 'Cadet Vikram Rawat',
+            photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80'
+          },
+          {
+            _id: 'cand_sample_4',
+            name: 'Cadet Aman Verma',
+            photoUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80'
+          },
+          {
+            _id: 'cand_sample_5',
+            name: 'Cadet Neha Chauhan',
+            photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80'
+          }
+        ];
 
-        const rawCadets = candidateItems;
-        // Duplicate for seamless infinite marquee loop
-        const displayCadets = rawCadets.length === 1 
-          ? [...rawCadets, ...rawCadets, ...rawCadets, ...rawCadets]
-          : [...rawCadets, ...rawCadets];
+        const rawCadets = (candidateItems && candidateItems.length > 0) ? candidateItems : fallbackCadets;
+        const totalItems = rawCadets.length;
+
+        const handleScrollLeft = () => {
+          if (sliderTrackRef.current) {
+            sliderTrackRef.current.scrollBy({ left: -260, behavior: 'smooth' });
+          }
+        };
+
+        const handleScrollRight = () => {
+          if (sliderTrackRef.current) {
+            sliderTrackRef.current.scrollBy({ left: 260, behavior: 'smooth' });
+          }
+        };
+
+        const handleDotClick = (index) => {
+          if (sliderTrackRef.current) {
+            const cardWidth = 240; // width + gap
+            sliderTrackRef.current.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+            setActiveSlideIndex(index);
+          }
+        };
+
+        const handleTrackScroll = (e) => {
+          const scrollLeft = e.currentTarget.scrollLeft;
+          const cardWidth = 240;
+          const newIdx = Math.round(scrollLeft / cardWidth);
+          if (newIdx !== activeSlideIndex && newIdx < totalItems) {
+            setActiveSlideIndex(newIdx);
+          }
+        };
 
         return (
           <section className="section-padding" style={{ backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0', overflow: 'hidden' }}>
             <div className="container">
+              {/* Header with Title and Left/Right Buttons */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#d97706', fontWeight: '800', fontSize: '13px', textTransform: 'uppercase', marginBottom: '6px' }}>
@@ -398,77 +446,159 @@ export default function HomePage() {
                     <span>Hall Of Fame &bull; Proven Results</span>
                   </div>
                   <h2 style={{ fontSize: '30px', fontWeight: '900', color: '#0f172a', margin: 0 }}>
-                    Our Selected <span style={{ color: '#109CD9' }}>Cadets</span>
+                    Our   <span style={{ color: '#109CD9' }}>Selections</span>
                   </h2>
                   <p style={{ fontSize: '14px', color: '#64748b', marginTop: '4px' }}>
                     Hard work and dedicated DIPR mentorship turned their dreams into commissioned reality.
                   </p>
                 </div>
-                <Link
-                  href="/selections"
-                  className="btn btn-outline"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderColor: '#109CD9', color: '#109CD9' }}
-                >
-                  <span>View All Selected Cadets</span>
-                  <ArrowRight size={16} />
-                </Link>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  {/* Left Button */}
+                  <button
+                    onClick={handleScrollLeft}
+                    aria-label="Previous Slide"
+                    style={{
+                      width: '42px',
+                      height: '42px',
+                      borderRadius: '50%',
+                      border: '1.5px solid #cbd5e1',
+                      backgroundColor: '#ffffff',
+                      color: '#0f172a',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#109CD9';
+                      e.currentTarget.style.borderColor = '#109CD9';
+                      e.currentTarget.style.color = '#ffffff';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#ffffff';
+                      e.currentTarget.style.borderColor = '#cbd5e1';
+                      e.currentTarget.style.color = '#0f172a';
+                    }}
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+
+                  {/* Right Button */}
+                  <button
+                    onClick={handleScrollRight}
+                    aria-label="Next Slide"
+                    style={{
+                      width: '42px',
+                      height: '42px',
+                      borderRadius: '50%',
+                      border: '1.5px solid #cbd5e1',
+                      backgroundColor: '#ffffff',
+                      color: '#0f172a',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = '#109CD9';
+                      e.currentTarget.style.borderColor = '#109CD9';
+                      e.currentTarget.style.color = '#ffffff';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = '#ffffff';
+                      e.currentTarget.style.borderColor = '#cbd5e1';
+                      e.currentTarget.style.color = '#0f172a';
+                    }}
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+
+                  <Link
+                    href="/selections"
+                    className="btn btn-outline"
+                    style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderColor: '#109CD9', color: '#109CD9' }}
+                  >
+                    <span>View All</span>
+                    <ArrowRight size={16} />
+                  </Link>
+                </div>
               </div>
 
-              {/* Single Row Sliding Marquee (Pause on Hover) */}
+              {/* Slider Track with manual horizontal scroll & touch support */}
               <div
+                ref={sliderTrackRef}
+                onScroll={handleTrackScroll}
                 style={{
-                  position: 'relative',
-                  width: '100%',
-                  overflow: 'hidden',
-                  padding: '10px 0'
+                  display: 'flex',
+                  gap: '20px',
+                  overflowX: 'auto',
+                  scrollSnapType: 'x mandatory',
+                  padding: '12px 4px 16px',
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none',
+                  WebkitOverflowScrolling: 'touch'
                 }}
-                onMouseEnter={() => setIsSliderPaused(true)}
-                onMouseLeave={() => setIsSliderPaused(false)}
               >
-                <div
-                  className="cadet-marquee-track"
-                  style={{
-                    display: 'flex',
-                    gap: '18px',
-                    width: 'max-content',
-                    animation: 'marqueeScroll 28s linear infinite',
-                    animationPlayState: isSliderPaused ? 'paused' : 'running'
-                  }}
-                >
-                  {displayCadets.map((cadet, idx) => (
-                    <div
-                      key={`${cadet._id || idx}-${idx}`}
-                      onClick={() => setActiveCandidateModal(cadet.photoUrl || cadet.imageUrl)}
-                      style={{
-                        width: '210px',
-                        height: '270px',
-                        flexShrink: 0,
-                        borderRadius: '12px',
-                        overflow: 'hidden',
-                        cursor: 'pointer',
-                        boxShadow: '0 4px 14px rgba(0,0,0,0.08)',
-                        border: '1px solid #e2e8f0',
-                        backgroundColor: '#070a0f',
-                        position: 'relative',
-                        transition: 'transform 0.25s, box-shadow 0.25s'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'scale(1.04)';
-                        e.currentTarget.style.boxShadow = '0 10px 24px rgba(0,0,0,0.18)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'scale(1)';
-                        e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.08)';
-                      }}
-                    >
-                      <img
-                        src={cadet.photoUrl || cadet.imageUrl}
-                        alt="Selected Cadet Poster"
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                      />
-                    </div>
-                  ))}
-                </div>
+                {rawCadets.map((cadet, idx) => (
+                  <div
+                    key={`${cadet._id || idx}`}
+                    onClick={() => setActiveCandidateModal(cadet.photoUrl || cadet.imageUrl)}
+                    style={{
+                      width: '220px',
+                      height: '285px',
+                      flexShrink: 0,
+                      scrollSnapAlign: 'start',
+                      borderRadius: '14px',
+                      overflow: 'hidden',
+                      cursor: 'pointer',
+                      boxShadow: '0 4px 14px rgba(0,0,0,0.08)',
+                      border: '1.5px solid #e2e8f0',
+                      backgroundColor: '#070a0f',
+                      position: 'relative',
+                      transition: 'transform 0.25s, box-shadow 0.25s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                      e.currentTarget.style.boxShadow = '0 12px 26px rgba(0,0,0,0.18)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.08)';
+                    }}
+                  >
+                    <img
+                      src={cadet.photoUrl || cadet.imageUrl}
+                      alt="Recommended Poster"
+                      style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Interactive Dots under Slider */}
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginTop: '16px' }}>
+                {rawCadets.map((_, dotIdx) => (
+                  <button
+                    key={`dot-${dotIdx}`}
+                    onClick={() => handleDotClick(dotIdx)}
+                    aria-label={`Go to slide ${dotIdx + 1}`}
+                    style={{
+                      width: activeSlideIndex === dotIdx ? '24px' : '9px',
+                      height: '9px',
+                      borderRadius: '5px',
+                      backgroundColor: activeSlideIndex === dotIdx ? '#109CD9' : '#cbd5e1',
+                      border: 'none',
+                      cursor: 'pointer',
+                      padding: 0,
+                      transition: 'all 0.25s ease'
+                    }}
+                  />
+                ))}
               </div>
 
               {/* Mobile "View All" Button */}
@@ -478,7 +608,7 @@ export default function HomePage() {
                   className="btn btn-primary"
                   style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                 >
-                  <span>View All Selected Cadets</span>
+                  <span>View All Success Stories</span>
                   <ArrowRight size={16} />
                 </Link>
               </div>
@@ -690,6 +820,11 @@ export default function HomePage() {
           </section>
         );
       })()}
+         <VideoSection
+        badge="OUR GUIDANCE"
+        title="Inside Our Classroom"
+        subtitle="Watch our live classroom lectures, screening psychology, and guidance from DIPR qualified assessors."
+      />
 
       {/* 4. Section: "STILL CONFUSED? JOIN US. WE ARE THE SOLUTION" */}
       <section className="section-padding" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>

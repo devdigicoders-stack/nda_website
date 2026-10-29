@@ -25,9 +25,9 @@ export default function SelectionsPage() {
       <section className="page-header-banner">
         <div className="container">
           <div className="breadcrumbs">
-            <Link href="/">Home</Link> &gt; <span>Our Selected Cadets</span>
+            <Link href="/">Home</Link> &gt; <span>Success Stories</span>
           </div>
-          <h1>Our Selected <span>Cadets</span></h1>
+          <h1>Our Proud <span>Success Stories</span></h1>
           <p>
             Proud warriors of ASTRA SSB who recommended from various SSB boards and earned the prestigious uniform.
           </p>

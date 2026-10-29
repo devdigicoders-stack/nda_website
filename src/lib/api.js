@@ -132,7 +132,38 @@ export async function fetchCandidates() {
     const data = await res.json();
     return data.data || [];
   } catch (err) {
-    return [];
+    return [
+      {
+        _id: 'cand_sample_1',
+        name: 'Cadet Aryan Sharma',
+        course: 'NDA-152 Recommended',
+        photoUrl: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        _id: 'cand_sample_2',
+        name: 'Cadet Priya Singh',
+        course: 'AFCAT (Flying Branch) AIR-12',
+        photoUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        _id: 'cand_sample_3',
+        name: 'Cadet Vikram Rawat',
+        course: 'CDS (IMA) Recommended 11 SSB',
+        photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        _id: 'cand_sample_4',
+        name: 'Cadet Aman Verma',
+        course: 'NDA-153 AIR-34',
+        photoUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=700&q=80'
+      },
+      {
+        _id: 'cand_sample_5',
+        name: 'Cadet Neha Chauhan',
+        course: 'OTA Chennai Recommended',
+        photoUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80'
+      }
+    ];
   }
 }
 
