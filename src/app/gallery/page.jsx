@@ -11,12 +11,10 @@ export default function GalleryPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [activePhoto, setActivePhoto] = useState(null);
 
-  const categories = [
+  // Dynamic categories extracted from live uploaded photos
+  const dynamicCategories = [
     'All',
-    'Training Sessions',
-    'Events',
-    'Classroom',
-    'SSB Activities'
+    ...Array.from(new Set(items.map(i => i.category).filter(Boolean)))
   ];
 
   useEffect(() => {
@@ -28,13 +26,7 @@ export default function GalleryPage() {
 
   const filtered = selectedCategory === 'All'
     ? items
-    : items.filter(i => {
-        if (selectedCategory === 'Training Sessions') return i.category?.includes('Ground') || i.category?.includes('Physical');
-        if (selectedCategory === 'Events') return i.category?.includes('Recommended') || i.category?.includes('Cadet');
-        if (selectedCategory === 'Classroom') return i.category?.includes('Classroom');
-        if (selectedCategory === 'SSB Activities') return i.category?.includes('SSB') || i.category?.includes('Mock');
-        return true;
-      });
+    : items.filter(i => (i.category || '').toLowerCase() === selectedCategory.toLowerCase());
 
   return (
     <>
@@ -56,7 +48,7 @@ export default function GalleryPage() {
         <div className="container">
           {/* Category Tabs */}
           <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '36px', flexWrap: 'wrap' }}>
-            {categories.map((cat) => (
+            {dynamicCategories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}

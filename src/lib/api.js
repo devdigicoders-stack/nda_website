@@ -125,6 +125,17 @@ export async function fetchBlogs() {
   }
 }
 
+export async function fetchCandidates() {
+  try {
+    const res = await fetch(`${API_BASE}/candidates`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Failed to fetch candidates');
+    const data = await res.json();
+    return data.data || [];
+  } catch (err) {
+    return [];
+  }
+}
+
 export async function fetchGallery(category = 'All') {
   try {
     const res = await fetch(`${API_BASE}/gallery?category=${encodeURIComponent(category)}`, { cache: 'no-store' });

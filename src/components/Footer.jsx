@@ -196,6 +196,7 @@ export default function Footer() {
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '14px', color: '#94a3b8' }}>
               <li><Link href="/about" style={{ color: '#cbd5e1' }}>About ASTRA SSB</Link></li>
               <li><Link href="/courses" style={{ color: '#cbd5e1' }}>All Courses</Link></li>
+              <li><Link href="/selections" style={{ color: '#cbd5e1' }}>Our Selected Cadets</Link></li>
               <li><Link href="/gallery" style={{ color: '#cbd5e1' }}>Ground &amp; Training Gallery</Link></li>
               <li><Link href="/notices" style={{ color: '#cbd5e1' }}>Notices &amp; Batches</Link></li>
               <li><Link href="/contact" style={{ color: '#cbd5e1' }}>Contact &amp; Location</Link></li>

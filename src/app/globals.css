@@ -44,6 +44,19 @@
   padding: 0;
 }
 
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.cadet-marquee-track:hover {
+  animation-play-state: paused !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -2576,11 +2589,12 @@ img {
 .simple-input-wrap select,
 .simple-input-wrap textarea {
   width: 100%;
-  padding: 10px 14px 10px 38px;
-  background: #f8fafc;
+  padding: 11px 14px 11px 38px;
+  background: rgba(248, 250, 252, 0.45);
+  backdrop-filter: blur(1.5px);
   border: 1.5px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 13px;
+  border-radius: 12px;
+  font-size: 13.5px;
   color: #0f172a;
   outline: none;
   transition: all 0.2s ease;
@@ -2590,9 +2604,15 @@ img {
 .simple-input-wrap input:focus,
 .simple-input-wrap select:focus,
 .simple-input-wrap textarea:focus {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.9);
   border-color: #0284c7;
   box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+}
+
+.simple-input-wrap input::placeholder,
+.simple-input-wrap textarea::placeholder {
+  color: #94a3b8;
+  font-size: 13.5px;
 }
 
 .simple-submit-btn {

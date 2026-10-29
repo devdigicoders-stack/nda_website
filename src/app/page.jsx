@@ -23,16 +23,22 @@ import {
   Laptop,
   Check
 } from 'lucide-react';
-import { fetchCourses, fetchGallery, fetchBlogs, fetchNotices } from '../lib/api';
+import { fetchCourses, fetchGallery, fetchBlogs, fetchNotices, fetchCandidates } from '../lib/api';
 import VideoSection from '../components/VideoSection';
 
 export default function HomePage() {
   const [courses, setCourses] = useState([]);
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [candidateItems, setCandidateItems] = useState([]);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [activeCourseTab, setActiveCourseTab] = useState('offline');
+  const [activeCandidateModal, setActiveCandidateModal] = useState(null);
+  const [isSliderPaused, setIsSliderPaused] = useState(false);
 
   useEffect(() => {
     fetchCourses().then(setCourses).catch(() => { });
+    fetchGallery().then(setGalleryItems).catch(() => { });
+    fetchCandidates().then(setCandidateItems).catch(() => { });
   }, []);
 
   // Exact 3 Core Courses as requested with thumbnails
@@ -368,6 +374,322 @@ export default function HomePage() {
         title="Inside Our Classroom"
         subtitle="Watch our live classroom lectures, screening psychology, and guidance from DIPR qualified assessors."
       />
+
+      {/* SELECTED CANDIDATES / RECOMMENDED CADETS SLIDER SECTION */}
+      {(() => {
+        // Only show dynamic candidates added from admin panel
+        if (!candidateItems || candidateItems.length === 0) {
+          return null;
+        }
+
+        const rawCadets = candidateItems;
+        // Duplicate for seamless infinite marquee loop
+        const displayCadets = rawCadets.length === 1 
+          ? [...rawCadets, ...rawCadets, ...rawCadets, ...rawCadets]
+          : [...rawCadets, ...rawCadets];
+
+        return (
+          <section className="section-padding" style={{ backgroundColor: '#ffffff', borderTop: '1px solid #e2e8f0', overflow: 'hidden' }}>
+            <div className="container">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '24px', flexWrap: 'wrap', gap: '16px' }}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#d97706', fontWeight: '800', fontSize: '13px', textTransform: 'uppercase', marginBottom: '6px' }}>
+                    <Award size={18} />
+                    <span>Hall Of Fame &bull; Proven Results</span>
+                  </div>
+                  <h2 style={{ fontSize: '30px', fontWeight: '900', color: '#0f172a', margin: 0 }}>
+                    Our Selected <span style={{ color: '#109CD9' }}>Cadets</span>
+                  </h2>
+                  <p style={{ fontSize: '14px', color: '#64748b', marginTop: '4px' }}>
+                    Hard work and dedicated DIPR mentorship turned their dreams into commissioned reality.
+                  </p>
+                </div>
+                <Link
+                  href="/selections"
+                  className="btn btn-outline"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderColor: '#109CD9', color: '#109CD9' }}
+                >
+                  <span>View All Selected Cadets</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+
+              {/* Single Row Sliding Marquee (Pause on Hover) */}
+              <div
+                style={{
+                  position: 'relative',
+                  width: '100%',
+                  overflow: 'hidden',
+                  padding: '10px 0'
+                }}
+                onMouseEnter={() => setIsSliderPaused(true)}
+                onMouseLeave={() => setIsSliderPaused(false)}
+              >
+                <div
+                  className="cadet-marquee-track"
+                  style={{
+                    display: 'flex',
+                    gap: '18px',
+                    width: 'max-content',
+                    animation: 'marqueeScroll 28s linear infinite',
+                    animationPlayState: isSliderPaused ? 'paused' : 'running'
+                  }}
+                >
+                  {displayCadets.map((cadet, idx) => (
+                    <div
+                      key={`${cadet._id || idx}-${idx}`}
+                      onClick={() => setActiveCandidateModal(cadet.photoUrl || cadet.imageUrl)}
+                      style={{
+                        width: '210px',
+                        height: '270px',
+                        flexShrink: 0,
+                        borderRadius: '12px',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 14px rgba(0,0,0,0.08)',
+                        border: '1px solid #e2e8f0',
+                        backgroundColor: '#070a0f',
+                        position: 'relative',
+                        transition: 'transform 0.25s, box-shadow 0.25s'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.transform = 'scale(1.04)';
+                        e.currentTarget.style.boxShadow = '0 10px 24px rgba(0,0,0,0.18)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.transform = 'scale(1)';
+                        e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.08)';
+                      }}
+                    >
+                      <img
+                        src={cadet.photoUrl || cadet.imageUrl}
+                        alt="Selected Cadet Poster"
+                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile "View All" Button */}
+              <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                <Link
+                  href="/selections"
+                  className="btn btn-primary"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                >
+                  <span>View All Selected Cadets</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
+
+      {/* Selected Candidate Image Popup Modal */}
+      {activeCandidateModal && (
+        <div
+          onClick={() => setActiveCandidateModal(null)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.92)',
+            backdropFilter: 'blur(8px)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            padding: '20px'
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: 'relative',
+              maxWidth: '850px',
+              width: '100%',
+              backgroundColor: '#070a0f',
+              borderRadius: '14px',
+              overflow: 'hidden',
+              boxShadow: '0 25px 50px rgba(0,0,0,0.7)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '16px'
+            }}
+          >
+            <button
+              onClick={() => setActiveCandidateModal(null)}
+              style={{
+                position: 'absolute',
+                top: '12px',
+                right: '12px',
+                backgroundColor: 'rgba(0, 0, 0, 0.65)',
+                border: 'none',
+                borderRadius: '50%',
+                width: '36px',
+                height: '36px',
+                color: '#fff',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 10
+              }}
+            >
+              <X size={20} />
+            </button>
+            <img
+              src={activeCandidateModal}
+              alt="Selected Cadet Poster"
+              style={{
+                maxWidth: '100%',
+                maxHeight: '82vh',
+                objectFit: 'contain',
+                borderRadius: '8px'
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* DYNAMIC ACADEMY TRAINING & GROUND PHOTOS (Classes / Outdoor Ground / Activities) */}
+      {(() => {
+        const trainingPhotos = galleryItems.filter(
+          item => !(item.category || '').toLowerCase().includes('recommended') &&
+                  !(item.category || '').toLowerCase().includes('cadet')
+        );
+        // Show up to 4 on homepage (1-2 rows)
+        const displayPhotos = trainingPhotos.length > 0
+          ? trainingPhotos.slice(0, 4)
+          : [
+              {
+                _id: 'tp_1',
+                title: 'Progressive Group Task (PGT) on Live Ground',
+                category: 'GTO Obstacle Ground',
+                imageUrl: 'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=700&q=80'
+              },
+              {
+                _id: 'tp_2',
+                title: 'DIPR Interactive Smart Classroom Session',
+                category: 'Smart Classrooms',
+                imageUrl: 'https://images.unsplash.com/photo-1579208575657-c595a05383b7?auto=format&fit=crop&w=700&q=80'
+              },
+              {
+                _id: 'tp_3',
+                title: 'Physical Drill & Obstacle Course Training',
+                category: 'Physical Training & Drill',
+                imageUrl: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=700&q=80'
+              },
+              {
+                _id: 'tp_4',
+                title: 'One-on-One SSB Mock Interview Simulation',
+                category: 'SSB Mock Interview',
+                imageUrl: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=700&q=80'
+              }
+            ];
+
+        return (
+          <section className="section-padding" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
+            <div className="container">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '32px', flexWrap: 'wrap', gap: '16px' }}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#109CD9', fontWeight: '800', fontSize: '13px', textTransform: 'uppercase', marginBottom: '6px' }}>
+                    <Building size={18} />
+                    <span>Campus Life &bull; Ground Training</span>
+                  </div>
+                  <h2 style={{ fontSize: '32px', fontWeight: '900', color: '#0f172a', margin: 0 }}>
+                    Inside ASTRA SSB <span style={{ color: '#109CD9' }}>Training</span>
+                  </h2>
+                  <p style={{ fontSize: '15px', color: '#64748b', marginTop: '6px' }}>
+                    Authentic GTO obstacle grounds, mock interview chambers &amp; hi-tech classrooms in Lucknow.
+                  </p>
+                </div>
+                <Link
+                  href="/gallery"
+                  className="btn btn-outline"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderColor: '#109CD9', color: '#109CD9' }}
+                >
+                  <span>View Full Photo Gallery</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+
+              {/* 1-2 Rows of Gallery Photos */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gap: '20px'
+              }}>
+                {displayPhotos.map((photo) => (
+                  <Link
+                    key={photo._id}
+                    href="/gallery"
+                    style={{
+                      background: '#ffffff',
+                      border: '1px solid #e2e8f0',
+                      borderRadius: '12px',
+                      overflow: 'hidden',
+                      boxShadow: 'var(--shadow-sm)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      textDecoration: 'none',
+                      transition: 'transform 0.2s, box-shadow 0.2s'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-4px)';
+                      e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'none';
+                      e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+                    }}
+                  >
+                    <div style={{ height: '200px', overflow: 'hidden', backgroundColor: '#0f172a' }}>
+                      <img
+                        src={photo.imageUrl}
+                        alt={photo.title}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                    </div>
+                    <div style={{ padding: '14px' }}>
+                      <span style={{
+                        backgroundColor: 'rgba(16, 156, 217, 0.1)',
+                        color: '#109CD9',
+                        padding: '2px 8px',
+                        borderRadius: '4px',
+                        fontSize: '11px',
+                        fontWeight: '700'
+                      }}>
+                        {photo.category || 'Academy Training'}
+                      </span>
+                      <h3 style={{ fontSize: '15px', fontWeight: '800', color: '#0f172a', margin: '8px 0 0 0' }}>
+                        {photo.title}
+                      </h3>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Mobile "View All" Button */}
+              <div style={{ textAlign: 'center', marginTop: '24px' }}>
+                <Link
+                  href="/gallery"
+                  className="btn btn-outline"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', borderColor: '#109CD9', color: '#109CD9' }}
+                >
+                  <span>Explore Full Ground &amp; Classrooms Gallery</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* 4. Section: "STILL CONFUSED? JOIN US. WE ARE THE SOLUTION" */}
       <section className="section-padding" style={{ backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>

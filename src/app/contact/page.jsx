@@ -20,7 +20,7 @@ export default function ContactPage() {
     name: '',
     phone: '',
     email: '',
-    course: '',
+    course: 'General Enquiry',
     message: ''
   });
 
@@ -171,7 +171,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Right: Send us a Message Card with 25% Watermark Logo */}
+            {/* Right: Send us a Message Card with Watermark Logo */}
             <div className="contact-form-card" style={{
               backgroundColor: '#ffffff',
               border: '1px solid #e2e8f0',
@@ -181,16 +181,17 @@ export default function ContactPage() {
               position: 'relative',
               overflow: 'hidden'
             }}>
-              {/* Background Watermark Logo with 25% Opacity */}
+              {/* Background Watermark Logo - Full containment without clipping */}
               <div
                 style={{
                   position: 'absolute',
                   top: '50%',
                   left: '50%',
                   transform: 'translate(-50%, -50%)',
-                  width: '280px',
-                  height: '280px',
-                  opacity: 0.25,
+                  width: '85%',
+                  maxWidth: '340px',
+                  height: '340px',
+                  opacity: 0.12,
                   pointerEvents: 'none',
                   zIndex: 0,
                   backgroundImage: "url('/assets/logos/image-removebg-preview (1).png')",
@@ -267,6 +268,7 @@ export default function ContactPage() {
                         type="text"
                         required
                         placeholder="e.g. Abhimanyu Chauhan"
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(2px)' }}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       />
@@ -278,6 +280,7 @@ export default function ContactPage() {
                         type="text"
                         required
                         placeholder="+91 98765 43210"
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(2px)' }}
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       />
@@ -289,6 +292,7 @@ export default function ContactPage() {
                         type="email"
                         required
                         placeholder="cadet@example.com"
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(2px)' }}
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       />
@@ -299,6 +303,7 @@ export default function ContactPage() {
                       <textarea
                         rows={3}
                         placeholder="Ask about batch start date, course, hostel fees, syllabus..."
+                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.7)', backdropFilter: 'blur(2px)' }}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       />

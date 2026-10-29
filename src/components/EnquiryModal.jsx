@@ -77,16 +77,17 @@ export default function EnquiryModal({ isOpen, onClose }) {
           overflow: 'hidden'
         }}
       >
-        {/* Background Watermark Logo with 25% opacity */}
+        {/* Background Watermark Logo exactly like reference image */}
         <div
           style={{
             position: 'absolute',
-            top: '50%',
+            top: '46%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: '280px',
-            height: '280px',
-            opacity: 0.25,
+            width: '90%',
+            maxWidth: '380px',
+            height: '380px',
+            opacity: 0.18,
             pointerEvents: 'none',
             zIndex: 0,
             backgroundImage: "url('/assets/logos/image-removebg-preview (1).png')",
